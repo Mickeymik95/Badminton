@@ -2,7 +2,7 @@
 <html lang="ms">
 <head>
 <meta charset="UTF-8">
-<title>Liga Badminton – FINAL</title>
+<title>Liga Badminton – LIVE</title>
 <style>
 body{margin:0;font-family:'Segoe UI',sans-serif;background:#f0f2f5;color:#333;}
 h2,h3{margin:0 0 10px 0;color:#1e88e5;}
@@ -25,7 +25,7 @@ button:hover{background:#1565c0;}
 
 <nav>
 <img src="https://upload.wikimedia.org/wikipedia/commons/7/7a/Badminton_icon.svg">
-<h2>Liga Badminton 2026 – FINAL</h2>
+<h2>Liga Badminton 2026 – LIVE</h2>
 </nav>
 
 <section>
@@ -42,8 +42,9 @@ button:hover{background:#1565c0;}
 <section>
 <h3>🎮 Senarai Perlawanan</h3>
 <p id="infoText"></p>
-<button onclick="tambahPair()">➕ Tambah Pair</button>
-<button onclick="buangPair()">➖ Buang Pair</button>
+<button onclick="adminLogin()">🔐 Admin Login</button>
+<button onclick="tambahPair()" id="addBtn" style="display:none;">➕ Tambah Pair</button>
+<button onclick="buangPair()" id="delBtn" style="display:none;">➖ Buang Pair</button>
 <table>
 <thead>
 <tr><th>Pair A</th><th>Skor</th><th>Pair B</th><th>Skor</th></tr>
@@ -56,12 +57,7 @@ button:hover{background:#1565c0;}
 // ===== DATA =====
 let pairs=JSON.parse(localStorage.getItem("pairs"))||["Pair A","Pair B","Pair C","Pair D"];
 let games=JSON.parse(localStorage.getItem("games"))||[];
-
-// ===== ADMIN =====
 let isAdmin=false;
-const pw=prompt("Masukkan password admin:");
-if(pw==="badminton123"){isAdmin=true;document.getElementById("infoText").innerText="Admin mode aktif. Boleh edit / tambah pair.";}
-else{document.getElementById("infoText").innerText="Anda bukan admin. Hanya boleh tengok ranking."}
 
 // ===== JANA PERLAWANAN =====
 function buatPerlawanan(){
@@ -84,7 +80,6 @@ function kiraMarkah(){
     data[g.a].main++; data[g.b].main++;
     data[g.a].pointDiff += sa-sb;
     data[g.b].pointDiff += sb-sa;
-
     if(sa>sb){data[g.a].menang++;data[g.a].mata+=2;data[g.b].kalah++;}
     else if(sb>sa){data[g.b].menang++;data[g.b].mata+=2;data[g.a].kalah++;}
     else{data[g.a].seri++;data[g.b].seri++;data[g.a].mata++;data[g.b].mata++;}
@@ -98,10 +93,9 @@ function kiraMarkah(){
 // ===== PAPAR MARKAH =====
 function paparkanMarkah(data){
   let sorted=Object.entries(data).sort((a,b)=>{
-    if(b[1].mata!==a[1].mata)return b[1].mata - a[1].mata;
+    if(b[1].mata!==a[1].mata) return b[1].mata - a[1].mata;
     return b[1].pointDiff - a[1].pointDiff;
   });
-
   let tb=document.querySelector("#markahTable tbody");tb.innerHTML="";
   sorted.forEach((d,i)=>{
     let m=d[1];let cls=(i===0)?"firstPlace":"";
@@ -126,16 +120,14 @@ function paparkanPerlawanan(){
 function update(i,type,val){if(!isAdmin)return;if(type==="a")games[i].sa=val;else games[i].sb=val;kiraMarkah();}
 
 // ===== TAMBAH / BUANG PAIR =====
-function tambahPair(){
-  if(!isAdmin) return;
-  let nama=prompt("Nama Pair baru:");
-  if(nama){pairs.push(nama);buatPerlawanan();paparkanPerlawanan();kiraMarkah();}
-}
-function buangPair(){
-  if(!isAdmin) return;
-  let nama=prompt("Nama Pair untuk buang:");
-  let idx=pairs.indexOf(nama);
-  if(idx>-1){pairs.splice(idx,1);buatPerlawanan();paparkanPerlawanan();kiraMarkah();}
+function tambahPair(){if(!isAdmin)return;let nama=prompt("Nama Pair baru:");if(nama){pairs.push(nama);buatPerlawanan();paparkanPerlawanan();kiraMarkah();}}
+function buangPair(){if(!isAdmin)return;let nama=prompt("Nama Pair untuk buang:");let idx=pairs.indexOf(nama);if(idx>-1){pairs.splice(idx,1);buatPerlawanan();paparkanPerlawanan();kiraMarkah();}}
+
+// ===== ADMIN LOGIN =====
+function adminLogin(){
+  const pw=prompt("Masukkan password admin:");
+  if(pw==="badminton123"){isAdmin=true;document.getElementById("infoText").innerText="Admin aktif. Boleh edit.";document.getElementById("addBtn").style.display="inline-block";document.getElementById("delBtn").style.display="inline-block";paparkanPerlawanan();}
+  else{alert("Password salah!")}
 }
 
 // ===== CETAK =====
