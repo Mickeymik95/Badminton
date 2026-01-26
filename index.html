@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+<meta charset="UTF-8">
+<title>Liga Badminton – FINAL</title>
+<style>
+body{margin:0;font-family:'Segoe UI',sans-serif;background:#f0f2f5;color:#333;}
+h2,h3{margin:0 0 10px 0;color:#1e88e5;}
+section{margin:20px auto;padding:20px;background:#fff;border-radius:12px;box-shadow:0 4px 12px rgba(0,0,0,0.1);max-width:950px;}
+nav{display:flex;align-items:center;padding:15px;background:linear-gradient(90deg,#1e88e5,#42a5f5);color:white;}
+nav img{height:45px;margin-right:15px;filter:drop-shadow(0 0 2px #000);}
+table{width:100%;border-collapse:separate;border-spacing:0 8px;}
+th,td{text-align:center;padding:10px;}
+th{background:#e3f2fd;color:#1e88e5;border:none;border-radius:8px;}
+td{background:#f9f9f9;border:none;border-radius:8px;}
+input{width:60px;padding:6px;border-radius:6px;border:1px solid #ccc;}
+input:disabled{background:#eee;}
+button{padding:6px 12px;margin:2px;border-radius:6px;border:none;background:#1e88e5;color:white;cursor:pointer;}
+button:hover{background:#1565c0;}
+.firstPlace td:nth-child(2){font-weight:bold;color:#d32f2f;}
+@media(max-width:600px){th,td,input,button{font-size:12px;padding:5px;}}
+</style>
+</head>
+<body>
+
+<nav>
+<img src="https://upload.wikimedia.org/wikipedia/commons/7/7a/Badminton_icon.svg">
+<h2>Liga Badminton 2026 – FINAL</h2>
+</nav>
+
+<section>
+<h3>🏆 Jadual Kedudukan</h3>
+<button onclick="cetak()">🖨️ Cetak Jadual</button>
+<table id="markahTable">
+<thead>
+<tr><th>#</th><th>Pair</th><th>Main</th><th>Menang</th><th>Seri</th><th>Kalah</th><th>Mata</th><th>Point Diff</th></tr>
+</thead>
+<tbody></tbody>
+</table>
+</section>
+
+<section>
+<h3>🎮 Senarai Perlawanan</h3>
+<p id="infoText"></p>
+<button onclick="tambahPair()">➕ Tambah Pair</button>
+<button onclick="buangPair()">➖ Buang Pair</button>
+<table>
+<thead>
+<tr><th>Pair A</th><th>Skor</th><th>Pair B</th><th>Skor</th></tr>
+</thead>
+<tbody id="gameList"></tbody>
+</table>
+</section>
+
+<script>
+// ===== DATA =====
+let pairs=JSON.parse(localStorage.getItem("pairs"))||["Pair A","Pair B","Pair C","Pair D"];
+let games=JSON.parse(localStorage.getItem("games"))||[];
+
+// ===== ADMIN =====
+let isAdmin=false;
+const pw=prompt("Masukkan password admin:");
+if(pw==="badminton123"){isAdmin=true;document.getElementById("infoText").innerText="Admin mode aktif. Boleh edit / tambah pair.";}
+else{document.getElementById("infoText").innerText="Anda bukan admin. Hanya boleh tengok ranking."}
+
+// ===== JANA PERLAWANAN =====
+function buatPerlawanan(){
+  games=[];
+  for(let i=0;i<pairs.length;i++){
+    for(let j=i+1;j<pairs.length;j++){
+      games.push({a:pairs[i],b:pairs[j],sa:"",sb:""});
+    }
+  }
+}
+
+// ===== KIRA MARKAH =====
+function kiraMarkah(){
+  let data={};
+  pairs.forEach(p=>data[p]={main:0,menang:0,seri:0,kalah:0,mata:0,pointDiff:0});
+
+  games.forEach(g=>{
+    if(g.sa===""||g.sb==="") return;
+    let sa=parseInt(g.sa), sb=parseInt(g.sb);
+    data[g.a].main++; data[g.b].main++;
+    data[g.a].pointDiff += sa-sb;
+    data[g.b].pointDiff += sb-sa;
+
+    if(sa>sb){data[g.a].menang++;data[g.a].mata+=2;data[g.b].kalah++;}
+    else if(sb>sa){data[g.b].menang++;data[g.b].mata+=2;data[g.a].kalah++;}
+    else{data[g.a].seri++;data[g.b].seri++;data[g.a].mata++;data[g.b].mata++;}
+  });
+
+  paparkanMarkah(data);
+  localStorage.setItem("games",JSON.stringify(games));
+  localStorage.setItem("pairs",JSON.stringify(pairs));
+}
+
+// ===== PAPAR MARKAH =====
+function paparkanMarkah(data){
+  let sorted=Object.entries(data).sort((a,b)=>{
+    if(b[1].mata!==a[1].mata)return b[1].mata - a[1].mata;
+    return b[1].pointDiff - a[1].pointDiff;
+  });
+
+  let tb=document.querySelector("#markahTable tbody");tb.innerHTML="";
+  sorted.forEach((d,i)=>{
+    let m=d[1];let cls=(i===0)?"firstPlace":"";
+    tb.innerHTML+=`<tr class="${cls}"><td>${i+1}</td><td>${d[0]}</td><td>${m.main}</td><td>${m.menang}</td><td>${m.seri}</td><td>${m.kalah}</td><td>${m.mata}</td><td>${m.pointDiff}</td></tr>`;
+  });
+}
+
+// ===== PAPAR PERLAWANAN =====
+function paparkanPerlawanan(){
+  let list=document.getElementById("gameList");list.innerHTML="";
+  games.forEach((g,i)=>{
+    list.innerHTML+=`<tr>
+<td>${g.a}</td>
+<td><input value="${g.sa}" ${!isAdmin?"disabled":""} onchange="update(${i},'a',this.value)"></td>
+<td>${g.b}</td>
+<td><input value="${g.sb}" ${!isAdmin?"disabled":""} onchange="update(${i},'b',this.value)"></td>
+</tr>`;
+  });
+}
+
+// ===== UPDATE =====
+function update(i,type,val){if(!isAdmin)return;if(type==="a")games[i].sa=val;else games[i].sb=val;kiraMarkah();}
+
+// ===== TAMBAH / BUANG PAIR =====
+function tambahPair(){
+  if(!isAdmin) return;
+  let nama=prompt("Nama Pair baru:");
+  if(nama){pairs.push(nama);buatPerlawanan();paparkanPerlawanan();kiraMarkah();}
+}
+function buangPair(){
+  if(!isAdmin) return;
+  let nama=prompt("Nama Pair untuk buang:");
+  let idx=pairs.indexOf(nama);
+  if(idx>-1){pairs.splice(idx,1);buatPerlawanan();paparkanPerlawanan();kiraMarkah();}
+}
+
+// ===== CETAK =====
+function cetak(){window.print();}
+
+// ===== INIT =====
+if(games.length===0) buatPerlawanan();
+paparkanPerlawanan();
+kiraMarkah();
+</script>
+</body>
+</html>
