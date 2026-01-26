@@ -9,7 +9,7 @@ body{margin:0;font-family:'Segoe UI',sans-serif;background:#f0f2f5;color:#333;}
 h2 {margin:0 0 10px 0;color:#000000; font-weight:bold;}
 h3{margin:0 0 10px 0;color:#0d47a1; font-weight:bold;}
 section{margin:20px auto;padding:20px;background:#fff;border-radius:12px;box-shadow:0 4px 12px rgba(0,0,0,0.1);max-width:950px;}
-nav{display:flex;align-items:center;justify-content:center;padding:15px;background:linear-gradient(90deg,#eee8aa,#d3d3d3);color:white;position:sticky;top:0;z-index:100;}
+nav{display:flex;align-items:center;justify-content:center;padding:15px;background:linear-gradient(90deg,#FAFAD2,#FFFFFF);color:white;position:sticky;top:0;z-index:100;}
 nav img{height:45px;margin-right:15px;filter:drop-shadow(0 0 2px #000);position:absolute;left:20px;}
 table{width:100%;border-collapse:separate;border-spacing:0 8px;}
 th,td{text-align:center;padding:10px;}
@@ -22,6 +22,8 @@ button:hover{background:#1565c0;}
 #resetBtn{background:#d32f2f;}
 #adminSection{text-align:center;margin-top:10px;}
 .firstPlace td:nth-child(2){font-weight:bold;color:#d32f2f;}
+#passwordModal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);justify-content:center;align-items:center;}
+#passwordModal div{background:#fff;padding:20px;border-radius:8px;text-align:center;}
 @media(max-width:600px){th,td,input,button{font-size:12px;padding:5px;}}
 </style>
 </head>
@@ -36,7 +38,7 @@ button:hover{background:#1565c0;}
 <button onclick="cetak()">🖨️ Cetak Jadual</button>
 <table id="markahTable">
 <thead>
-<tr><th>#</th><th>Pasukan</th><th>Main</th><th>Menang</th><th>Kalah</th><th>Mata</th><th>Game Point</th></tr>
+<tr><th>#</th><th>Pasukan</th><th>Main</th><th>Menang</th><th>Kalah</th><th>Mata</th><th>Point Diff</th></tr>
 </thead>
 <tbody></tbody>
 </table>
@@ -53,12 +55,21 @@ button:hover{background:#1565c0;}
 
 <div id="adminSection">
 <p id="infoText"></p>
-<button onclick="adminLogin()">🔐 Admin Login</button>
+<button onclick="showAdminModal()">🔐 Admin Login</button>
 <button onclick="tambahPair()" id="addBtn" style="display:none;">➕ Tambah Pasukan</button>
 <button onclick="buangPair()" id="delBtn" style="display:none;">➖ Buang Pasukan</button>
 <button onclick="resetData()" id="resetBtn" style="display:none;">♻️ Reset Semua Data</button>
 </div>
 </section>
+
+<!-- PASSWORD MODAL -->
+<div id="passwordModal">
+  <div>
+    <p>Masukkan password admin:</p>
+    <input type="password" id="adminPwInput" placeholder="Password">
+    <button onclick="checkPassword()">Login</button>
+  </div>
+</div>
 
 <!-- Firebase -->
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
@@ -176,7 +187,6 @@ function buangPair(){
   if(!isAdmin) return;
   let nama = prompt("Nama Pasukan untuk buang:");
   if(nama){
-    // cari index case-insensitive
     let idx = pairs.findIndex(p => p.toLowerCase() === nama.toLowerCase());
     if(idx>-1){
       pairs.splice(idx,1);
@@ -195,21 +205,61 @@ function resetData(){
   alert("✅ Semua skor telah di-reset!");
 }
 
-// ===== ADMIN LOGIN =====
-function adminLogin(){
-  const pw=prompt("Masukkan password admin:");
+// ===== ADMIN MODAL =====
+function showAdminModal(){
+  const modal = document.getElementById("passwordModal");
+  modal.style.display="flex";
+  const pwInput = document.getElementById("adminPwInput");
+  pwInput.value="";
+  setTimeout(()=>pwInput.focus(), 100); // 🔑 auto keyboard
+}
+
+function checkPassword(){
+  const pw = document.getElementById("adminPwInput").value;
   if(pw==="mik95"){
+    document.getElementById("passwordModal").style.display="none";
     isAdmin=true;
     document.getElementById("infoText").innerText="Admin aktif. Boleh edit.";
     document.getElementById("addBtn").style.display="inline-block";
     document.getElementById("delBtn").style.display="inline-block";
     document.getElementById("resetBtn").style.display="inline-block";
     paparkanPerlawanan();
+    setTimeout(focusFirstInput,100);
   } else alert("Password salah!");
 }
 
+// ===== FOCUS INPUT PERTAMA =====
+function focusFirstInput(){
+  const firstInput = document.querySelector("#gameList input:not([disabled])");
+  if(firstInput) firstInput.focus();
+}
+
+// ===== PASTIKAN KEYBOARD MUNCUL KALAU SENTUH INPUT =====
+document.addEventListener("click", e=>{
+  if(isAdmin && e.target.tagName === "INPUT"){
+    e.target.focus();
+  }
+});
+
 // ===== CETAK =====
 function cetak(){window.print();}
+
+// ===== AUTO-PINDAH FOCUS KE INPUT BERIKUTNYA =====
+document.addEventListener("keydown", function(e){
+  if(!isAdmin) return;
+  if(e.key === "Enter"){ // bila tekan enter
+    e.preventDefault(); // jangan buat form submit
+    const inputs = Array.from(document.querySelectorAll("#gameList input:not([disabled])"));
+    const idx = inputs.indexOf(document.activeElement);
+    if(idx > -1 && idx < inputs.length - 1){
+      const next = inputs[idx + 1];
+      next.focus();
+      // scroll input ke tengah-tengah skrin (mobile friendly)
+      next.scrollIntoView({behavior:"smooth", block:"center"});
+    }
+  }
+});
+
 </script>
 </body>
 </html>
