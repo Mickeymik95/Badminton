@@ -6,13 +6,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
 body{margin:0;font-family:'Segoe UI',sans-serif;background:#f0f2f5;color:#333;}
-h2,h3{margin:0 0 10px 0;color:#1e88e5;}
+h2,h3{margin:0 0 10px 0;color:#0d47a1; font-weight:bold;} /* Warna tajuk navbar lebih jelas */
 section{margin:20px auto;padding:20px;background:#fff;border-radius:12px;box-shadow:0 4px 12px rgba(0,0,0,0.1);max-width:950px;}
 nav{display:flex;align-items:center;justify-content:center;padding:15px;background:linear-gradient(90deg,#1e88e5,#42a5f5);color:white;position:sticky;top:0;z-index:100;}
 nav img{height:45px;margin-right:15px;filter:drop-shadow(0 0 2px #000);position:absolute;left:20px;}
 table{width:100%;border-collapse:separate;border-spacing:0 8px;}
 th,td{text-align:center;padding:10px;}
-th{background:#e3f2fd;color:#1e88e5;border:none;border-radius:8px;}
+th{background:#e3f2fd;color:#0d47a1;border:none;border-radius:8px;} /* Warna header table tajam */
 td{background:#f9f9f9;border:none;border-radius:8px;}
 input{width:60px;padding:6px;border-radius:6px;border:1px solid #ccc;}
 input:disabled{background:#eee;}
@@ -52,6 +52,7 @@ button:hover{background:#1565c0;}
 </table>
 
 <div id="adminSection">
+<p id="infoText"></p> <!-- Penting untuk status admin -->
 <button onclick="adminLogin()">🔐 Admin Login</button>
 <button onclick="tambahPair()" id="addBtn" style="display:none;">➕ Tambah Pasukan</button>
 <button onclick="buangPair()" id="delBtn" style="display:none;">➖ Buang Pasukan</button>
@@ -111,7 +112,6 @@ function kiraMarkah(){
     else if(sb>sa){data[g.b].menang++;data[g.b].mata+=2;data[g.a].kalah++;}
   });
 
-  // Auto sort berdasarkan mata + point diff
   let sorted = Object.entries(data).sort((a,b)=>{
     if(b[1].mata!==a[1].mata) return b[1].mata-a[1].mata;
     return b[1].pointDiff-a[1].pointDiff;
@@ -126,7 +126,6 @@ function kiraMarkah(){
 
 // ===== PAPAR PERLAWANAN =====
 function paparkanPerlawanan(){
-  // Auto susun ikut pairs order
   let list=document.getElementById("gameList"); list.innerHTML="";
   games.forEach((g,i)=>{
     list.innerHTML+=`<tr>
