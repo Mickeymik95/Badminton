@@ -237,8 +237,12 @@ function focusFirstInput(){
 // ===== AUTO-FOCUS INPUT BILA SENTUH (SINGLE TAP MOBILE) =====
 document.addEventListener("touchstart", function(e){
   if(!isAdmin) return;
-  if(e.target.tagName === "INPUT"){
-    e.target.focus({preventScroll:false});
+  const target = e.target;
+  if(target.tagName === "INPUT" && !target.disabled){
+    // stop event supaya browser tak pilih input lain
+    e.stopPropagation();
+    // fokus input yang disentuh sahaja
+    target.focus({preventScroll:false});
   }
 }, {passive:false});
 
