@@ -16,19 +16,23 @@ th,td{text-align:center;padding:10px;}
 th{background:#e3f2fd;color:#0d47a1;border:none;border-radius:8px;}
 td{background:#f9f9f9;border:none;border-radius:8px;}
 input{width:60px;padding:6px;border-radius:6px;border:1px solid #ccc; text-align:center;}
-input:disabled{background:#eee;}
+input:disabled{background:#eee;color:#333;}
 button{padding:6px 12px;margin:2px;border-radius:6px;border:none;background:#1e88e5;color:white;cursor:pointer;}
 button:hover{background:#1565c0;}
 #resetBtn{background:#d32f2f;}
 #adminSection{text-align:center;margin-top:10px;}
-
-/* WARNA TOP 3 */
-.firstPlace td { background:#FFD700; font-weight:bold; color:#000; } /* Emas */
-.secondPlace td { background:#C0C0C0; font-weight:bold; color:#000; } /* Silver */
-.thirdPlace td { background:#CD7F32; font-weight:bold; color:#fff; } /* Bronze */
-
 #passwordModal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);justify-content:center;align-items:center;}
 #passwordModal div{background:#fff;padding:20px;border-radius:8px;text-align:center;}
+
+/* WARNA TOP 2 */
+.firstPlace td{background:#FFF8DC;font-weight:bold;} /* Emas lembut */
+.secondPlace td{background:#F0F0F0;font-weight:bold;} /* Silver lembut */
+
+/* WARNA INPUT SKOR BERDASARKAN NILAI */
+input.positive{color:green;font-weight:bold;}
+input.negative{color:red;font-weight:bold;}
+input.zero{color:black;}
+
 @media(max-width:600px){th,td,input,button{font-size:12px;padding:5px;}}
 </style>
 </head>
@@ -44,7 +48,7 @@ button:hover{background:#1565c0;}
 <table id="markahTable">
 <thead>
 <tr>
-<th>Ranking</th>
+<th>Rank</th>
 <th>Pasukan</th>
 <th>Main</th>
 <th>Menang</th>
@@ -169,8 +173,6 @@ function kiraMarkah(){
     let cls="";
     if(i===0) cls="firstPlace";
     else if(i===1) cls="secondPlace";
-    else if(i===2) cls="thirdPlace";
-
     let m=d[1];
     tb.innerHTML+=`<tr class="${cls}">
 <td>${i+1}</td>
@@ -189,11 +191,20 @@ function paparkanPerlawanan(){
   games.forEach((g,i)=>{
     list.innerHTML+=`<tr>
 <td>${g.a}</td>
-<td><input value="${g.sa}" ${!isAdmin?"disabled":""} onchange="update(${i},'a',this.value)"></td>
-<td><input value="${g.sb}" ${!isAdmin?"disabled":""} onchange="update(${i},'b',this.value)"></td>
+<td><input class="${getClass(g.sa)}" value="${g.sa}" ${!isAdmin?"disabled":""} onchange="update(${i},'a',this.value)"></td>
+<td><input class="${getClass(g.sb)}" value="${g.sb}" ${!isAdmin?"disabled":""} onchange="update(${i},'b',this.value)"></td>
 <td>${g.b}</td>
 </tr>`;
   });
+}
+
+// ===== CLASS WARNA SKOR =====
+function getClass(val){
+  if(val==="") return "zero";
+  let n = parseInt(val);
+  if(n>0) return "positive";
+  if(n<0) return "negative";
+  return "zero";
 }
 
 // ===== UPDATE =====
@@ -201,6 +212,7 @@ function update(i,type,val){
   if(!isAdmin) return;
   if(type==="a") games[i].sa = val; else games[i].sb = val;
   db.ref('games').set(games);
+  paparkanPerlawanan();
 }
 
 // ===== TAMBAH / BUANG PASUKAN =====
@@ -264,7 +276,7 @@ function focusFirstInput(){
   if(firstInput) firstInput.focus();
 }
 
-// ===== AUTO-FOCUS INPUT BILA SENTUH (SINGLE TAP MOBILE) =====
+// ===== AUTO-FOCUS INPUT BILA SENTUH =====
 document.addEventListener("touchstart", function(e){
   if(!isAdmin) return;
   const target = e.target;
@@ -274,7 +286,15 @@ document.addEventListener("touchstart", function(e){
   }
 }, {passive:false});
 
-// ===== AUTO-PINDAH FOCUS KE INPUT BERIKUTNYA DENGAN ENTER =====
+// ===== AUTO-FOCUS INPUT KOSONG =====
+document.addEventListener("click", function(e){
+  if(!isAdmin) return;
+  const inputs = Array.from(document.querySelectorAll("#gameList input:not([disabled])"));
+  const firstEmpty = inputs.find(i => i.value==="");
+  if(firstEmpty) firstEmpty.focus();
+});
+
+// ===== ENTER PINDAH KE INPUT BERIKUTNYA =====
 document.addEventListener("keydown", function(e){
   if(!isAdmin) return;
   if(e.key === "Enter"){
