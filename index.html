@@ -2,7 +2,7 @@
 <html lang="ms">
 <head>
 <meta charset="UTF-8">
-<title>Liga Badminton – LIVE</title>
+<title>Liga Badminton 2026 – LIVE</title>
 <style>
 body{margin:0;font-family:'Segoe UI',sans-serif;background:#f0f2f5;color:#333;}
 h2,h3{margin:0 0 10px 0;color:#1e88e5;}
@@ -17,6 +17,7 @@ input{width:60px;padding:6px;border-radius:6px;border:1px solid #ccc;}
 input:disabled{background:#eee;}
 button{padding:6px 12px;margin:2px;border-radius:6px;border:none;background:#1e88e5;color:white;cursor:pointer;}
 button:hover{background:#1565c0;}
+#resetBtn{background:#d32f2f;}
 .firstPlace td:nth-child(2){font-weight:bold;color:#d32f2f;}
 @media(max-width:600px){th,td,input,button{font-size:12px;padding:5px;}}
 </style>
@@ -33,7 +34,7 @@ button:hover{background:#1565c0;}
 <button onclick="cetak()">🖨️ Cetak Jadual</button>
 <table id="markahTable">
 <thead>
-<tr><th>#</th><th>Pair</th><th>Main</th><th>Menang</th><th>Seri</th><th>Kalah</th><th>Mata</th><th>Point Diff</th></tr>
+<tr><th>#</th><th>Pair</th><th>Main</th><th>Menang</th><th>Kalah</th><th>Mata</th><th>Point Diff</th></tr>
 </thead>
 <tbody></tbody>
 </table>
@@ -45,6 +46,7 @@ button:hover{background:#1565c0;}
 <button onclick="adminLogin()">🔐 Admin Login</button>
 <button onclick="tambahPair()" id="addBtn" style="display:none;">➕ Tambah Pair</button>
 <button onclick="buangPair()" id="delBtn" style="display:none;">➖ Buang Pair</button>
+<button onclick="resetData()" id="resetBtn" style="display:none;">♻️ Reset Semua Data</button>
 <table>
 <thead>
 <tr><th>Pair A</th><th>Skor</th><th>Pair B</th><th>Skor</th></tr>
@@ -53,13 +55,33 @@ button:hover{background:#1565c0;}
 </table>
 </section>
 
-<script>
-// ===== DATA =====
-let pairs=JSON.parse(localStorage.getItem("pairs"))||["Pair A","Pair B","Pair C","Pair D"];
-let games=JSON.parse(localStorage.getItem("games"))||[];
-let isAdmin=false;
+<!-- Firebase -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
 
-// ===== JANA PERLAWANAN =====
+<script>
+// ===== FIREBASE CONFIG =====
+const firebaseConfig = {
+  apiKey: "AIzaSyBRLCSzb3QahfPhLQu9WLIvBO9jovYm2y8",
+  authDomain: "liga-badminton.firebaseapp.com",
+  databaseURL: "https://liga-badminton-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "liga-badminton",
+  storageBucket: "liga-badminton.firebasestorage.app",
+  messagingSenderId: "647551116865",
+  appId: "1:647551116865:web:f01bda84467dd634ab08c0",
+  measurementId: "G-5CM12B9M42"
+};
+firebase.initializeApp(firebaseConfig);
+const db = firebase.database();
+
+// ===== DATA =====
+let pairs=[], games=[], isAdmin=false;
+
+// ===== INIT DATA DARI DATABASE =====
+db.ref('pairs').on('value', snap=>{pairs = snap.val() || ["Pair A","Pair B","Pair C","Pair D"]; paparkanPerlawanan(); kiraMarkah();});
+db.ref('games').on('value', snap=>{games = snap.val() || []; paparkanPerlawanan(); kiraMarkah();});
+
+// ===== BUAH PERLAWANAN =====
 function buatPerlawanan(){
   games=[];
   for(let i=0;i<pairs.length;i++){
@@ -67,13 +89,14 @@ function buatPerlawanan(){
       games.push({a:pairs[i],b:pairs[j],sa:"",sb:""});
     }
   }
+  db.ref('games').set(games);
+  db.ref('pairs').set(pairs);
 }
 
-// ===== KIRA MARKAH =====
+// ===== KIRA MARKAH TANPA SERI =====
 function kiraMarkah(){
   let data={};
-  pairs.forEach(p=>data[p]={main:0,menang:0,seri:0,kalah:0,mata:0,pointDiff:0});
-
+  pairs.forEach(p=>data[p]={main:0,menang:0,kalah:0,mata:0,pointDiff:0});
   games.forEach(g=>{
     if(g.sa===""||g.sb==="") return;
     let sa=parseInt(g.sa), sb=parseInt(g.sb);
@@ -82,24 +105,17 @@ function kiraMarkah(){
     data[g.b].pointDiff += sb-sa;
     if(sa>sb){data[g.a].menang++;data[g.a].mata+=2;data[g.b].kalah++;}
     else if(sb>sa){data[g.b].menang++;data[g.b].mata+=2;data[g.a].kalah++;}
-    else{data[g.a].seri++;data[g.b].seri++;data[g.a].mata++;data[g.b].mata++;}
   });
-
   paparkanMarkah(data);
-  localStorage.setItem("games",JSON.stringify(games));
-  localStorage.setItem("pairs",JSON.stringify(pairs));
 }
 
 // ===== PAPAR MARKAH =====
 function paparkanMarkah(data){
-  let sorted=Object.entries(data).sort((a,b)=>{
-    if(b[1].mata!==a[1].mata) return b[1].mata - a[1].mata;
-    return b[1].pointDiff - a[1].pointDiff;
-  });
+  let sorted=Object.entries(data).sort((a,b)=>{if(b[1].mata!==a[1].mata)return b[1].mata-a[1].mata; return b[1].pointDiff-a[1].pointDiff;});
   let tb=document.querySelector("#markahTable tbody");tb.innerHTML="";
   sorted.forEach((d,i)=>{
-    let m=d[1];let cls=(i===0)?"firstPlace":"";
-    tb.innerHTML+=`<tr class="${cls}"><td>${i+1}</td><td>${d[0]}</td><td>${m.main}</td><td>${m.menang}</td><td>${m.seri}</td><td>${m.kalah}</td><td>${m.mata}</td><td>${m.pointDiff}</td></tr>`;
+    let m=d[1]; let cls=(i===0)?"firstPlace":"";
+    tb.innerHTML+=`<tr class="${cls}"><td>${i+1}</td><td>${d[0]}</td><td>${m.main}</td><td>${m.menang}</td><td>${m.kalah}</td><td>${m.mata}</td><td>${m.pointDiff}</td></tr>`;
   });
 }
 
@@ -117,26 +133,43 @@ function paparkanPerlawanan(){
 }
 
 // ===== UPDATE =====
-function update(i,type,val){if(!isAdmin)return;if(type==="a")games[i].sa=val;else games[i].sb=val;kiraMarkah();}
+function update(i,type,val){
+  if(!isAdmin) return;
+  if(type==="a") games[i].sa = val; else games[i].sb = val;
+  db.ref('games').set(games);
+}
 
 // ===== TAMBAH / BUANG PAIR =====
-function tambahPair(){if(!isAdmin)return;let nama=prompt("Nama Pair baru:");if(nama){pairs.push(nama);buatPerlawanan();paparkanPerlawanan();kiraMarkah();}}
-function buangPair(){if(!isAdmin)return;let nama=prompt("Nama Pair untuk buang:");let idx=pairs.indexOf(nama);if(idx>-1){pairs.splice(idx,1);buatPerlawanan();paparkanPerlawanan();kiraMarkah();}}
+function tambahPair(){if(!isAdmin)return; let nama=prompt("Nama Pair baru:"); if(nama){pairs.push(nama); buatPerlawanan();}}
+function buangPair(){if(!isAdmin)return; let nama=prompt("Nama Pair untuk buang:"); let idx=pairs.indexOf(nama); if(idx>-1){pairs.splice(idx,1); buatPerlawanan();}}
+
+// ===== RESET SEMUA DATA =====
+function resetData(){
+  if(!isAdmin) return;
+  if(!confirm("⚠️ Pasti nak reset semua data?")) return;
+  games.forEach(g=>{g.sa=""; g.sb="";});
+  db.ref('games').set(games);
+  kiraMarkah();
+  alert("✅ Semua skor telah di-reset!");
+}
 
 // ===== ADMIN LOGIN =====
 function adminLogin(){
   const pw=prompt("Masukkan password admin:");
-  if(pw==="badminton123"){isAdmin=true;document.getElementById("infoText").innerText="Admin aktif. Boleh edit.";document.getElementById("addBtn").style.display="inline-block";document.getElementById("delBtn").style.display="inline-block";paparkanPerlawanan();}
-  else{alert("Password salah!")}
+  if(pw==="badminton123"){
+    isAdmin=true;
+    document.getElementById("infoText").innerText="Admin aktif. Boleh edit.";
+    document.getElementById("addBtn").style.display="inline-block";
+    document.getElementById("delBtn").style.display="inline-block";
+    document.getElementById("resetBtn").style.display="inline-block";
+    paparkanPerlawanan();
+  } else {
+    alert("Password salah!");
+  }
 }
 
 // ===== CETAK =====
 function cetak(){window.print();}
-
-// ===== INIT =====
-if(games.length===0) buatPerlawanan();
-paparkanPerlawanan();
-kiraMarkah();
 </script>
 </body>
 </html>
