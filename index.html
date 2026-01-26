@@ -2,13 +2,14 @@
 <html lang="ms">
 <head>
 <meta charset="UTF-8">
-<title>Liga Badminton 2026 – LIVE</title>
+<title>Liga Badminton – Ultimate LIVE</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
 body{margin:0;font-family:'Segoe UI',sans-serif;background:#f0f2f5;color:#333;}
 h2,h3{margin:0 0 10px 0;color:#1e88e5;}
 section{margin:20px auto;padding:20px;background:#fff;border-radius:12px;box-shadow:0 4px 12px rgba(0,0,0,0.1);max-width:950px;}
-nav{display:flex;align-items:center;padding:15px;background:linear-gradient(90deg,#1e88e5,#42a5f5);color:white;}
-nav img{height:45px;margin-right:15px;filter:drop-shadow(0 0 2px #000);}
+nav{display:flex;align-items:center;justify-content:center;padding:15px;background:linear-gradient(90deg,#1e88e5,#42a5f5);color:white;position:sticky;top:0;z-index:100;}
+nav img{height:45px;margin-right:15px;filter:drop-shadow(0 0 2px #000);position:absolute;left:20px;}
 table{width:100%;border-collapse:separate;border-spacing:0 8px;}
 th,td{text-align:center;padding:10px;}
 th{background:#e3f2fd;color:#1e88e5;border:none;border-radius:8px;}
@@ -18,6 +19,7 @@ input:disabled{background:#eee;}
 button{padding:6px 12px;margin:2px;border-radius:6px;border:none;background:#1e88e5;color:white;cursor:pointer;}
 button:hover{background:#1565c0;}
 #resetBtn{background:#d32f2f;}
+#adminSection{text-align:center;margin-top:10px;}
 .firstPlace td:nth-child(2){font-weight:bold;color:#d32f2f;}
 @media(max-width:600px){th,td,input,button{font-size:12px;padding:5px;}}
 </style>
@@ -26,7 +28,7 @@ button:hover{background:#1565c0;}
 
 <nav>
 <img src="https://upload.wikimedia.org/wikipedia/commons/7/7a/Badminton_icon.svg">
-<h2>Liga Badminton 2026 – LIVE</h2>
+<h2>Liga Badminton</h2>
 </nav>
 
 <section>
@@ -34,7 +36,7 @@ button:hover{background:#1565c0;}
 <button onclick="cetak()">🖨️ Cetak Jadual</button>
 <table id="markahTable">
 <thead>
-<tr><th>#</th><th>Pair</th><th>Main</th><th>Menang</th><th>Kalah</th><th>Mata</th><th>Point Diff</th></tr>
+<tr><th>#</th><th>Pasukan</th><th>Main</th><th>Menang</th><th>Kalah</th><th>Mata</th><th>Point Diff</th></tr>
 </thead>
 <tbody></tbody>
 </table>
@@ -42,17 +44,19 @@ button:hover{background:#1565c0;}
 
 <section>
 <h3>🎮 Senarai Perlawanan</h3>
-<p id="infoText"></p>
-<button onclick="adminLogin()">🔐 Admin Login</button>
-<button onclick="tambahPair()" id="addBtn" style="display:none;">➕ Tambah Pair</button>
-<button onclick="buangPair()" id="delBtn" style="display:none;">➖ Buang Pair</button>
-<button onclick="resetData()" id="resetBtn" style="display:none;">♻️ Reset Semua Data</button>
-<table>
+<table id="gameTable">
 <thead>
-<tr><th>Pair A</th><th>Skor</th><th>Pair B</th><th>Skor</th></tr>
+<tr><th>Pasukan</th><th>Skor</th><th>Skor</th><th>Pasukan</th></tr>
 </thead>
 <tbody id="gameList"></tbody>
 </table>
+
+<div id="adminSection">
+<button onclick="adminLogin()">🔐 Admin Login</button>
+<button onclick="tambahPair()" id="addBtn" style="display:none;">➕ Tambah Pasukan</button>
+<button onclick="buangPair()" id="delBtn" style="display:none;">➖ Buang Pasukan</button>
+<button onclick="resetData()" id="resetBtn" style="display:none;">♻️ Reset Semua Data</button>
+</div>
 </section>
 
 <!-- Firebase -->
@@ -77,8 +81,8 @@ const db = firebase.database();
 // ===== DATA =====
 let pairs=[], games=[], isAdmin=false;
 
-// ===== INIT DATA DARI DATABASE =====
-db.ref('pairs').on('value', snap=>{pairs = snap.val() || ["Pair A","Pair B","Pair C","Pair D"]; paparkanPerlawanan(); kiraMarkah();});
+// ===== INIT =====
+db.ref('pairs').on('value', snap=>{pairs = snap.val() || ["Pasukan 1","Pasukan 2","Pasukan 3","Pasukan 4"]; buatPerlawanan(); paparkanPerlawanan(); kiraMarkah();});
 db.ref('games').on('value', snap=>{games = snap.val() || []; paparkanPerlawanan(); kiraMarkah();});
 
 // ===== BUAH PERLAWANAN =====
@@ -93,7 +97,7 @@ function buatPerlawanan(){
   db.ref('pairs').set(pairs);
 }
 
-// ===== KIRA MARKAH TANPA SERI =====
+// ===== KIRA MARKAH & AUTO SORT =====
 function kiraMarkah(){
   let data={};
   pairs.forEach(p=>data[p]={main:0,menang:0,kalah:0,mata:0,pointDiff:0});
@@ -106,13 +110,14 @@ function kiraMarkah(){
     if(sa>sb){data[g.a].menang++;data[g.a].mata+=2;data[g.b].kalah++;}
     else if(sb>sa){data[g.b].menang++;data[g.b].mata+=2;data[g.a].kalah++;}
   });
-  paparkanMarkah(data);
-}
 
-// ===== PAPAR MARKAH =====
-function paparkanMarkah(data){
-  let sorted=Object.entries(data).sort((a,b)=>{if(b[1].mata!==a[1].mata)return b[1].mata-a[1].mata; return b[1].pointDiff-a[1].pointDiff;});
-  let tb=document.querySelector("#markahTable tbody");tb.innerHTML="";
+  // Auto sort berdasarkan mata + point diff
+  let sorted = Object.entries(data).sort((a,b)=>{
+    if(b[1].mata!==a[1].mata) return b[1].mata-a[1].mata;
+    return b[1].pointDiff-a[1].pointDiff;
+  });
+
+  let tb=document.querySelector("#markahTable tbody"); tb.innerHTML="";
   sorted.forEach((d,i)=>{
     let m=d[1]; let cls=(i===0)?"firstPlace":"";
     tb.innerHTML+=`<tr class="${cls}"><td>${i+1}</td><td>${d[0]}</td><td>${m.main}</td><td>${m.menang}</td><td>${m.kalah}</td><td>${m.mata}</td><td>${m.pointDiff}</td></tr>`;
@@ -121,13 +126,14 @@ function paparkanMarkah(data){
 
 // ===== PAPAR PERLAWANAN =====
 function paparkanPerlawanan(){
-  let list=document.getElementById("gameList");list.innerHTML="";
+  // Auto susun ikut pairs order
+  let list=document.getElementById("gameList"); list.innerHTML="";
   games.forEach((g,i)=>{
     list.innerHTML+=`<tr>
 <td>${g.a}</td>
 <td><input value="${g.sa}" ${!isAdmin?"disabled":""} onchange="update(${i},'a',this.value)"></td>
-<td>${g.b}</td>
 <td><input value="${g.sb}" ${!isAdmin?"disabled":""} onchange="update(${i},'b',this.value)"></td>
+<td>${g.b}</td>
 </tr>`;
   });
 }
@@ -139,14 +145,14 @@ function update(i,type,val){
   db.ref('games').set(games);
 }
 
-// ===== TAMBAH / BUANG PAIR =====
-function tambahPair(){if(!isAdmin)return; let nama=prompt("Nama Pair baru:"); if(nama){pairs.push(nama); buatPerlawanan();}}
-function buangPair(){if(!isAdmin)return; let nama=prompt("Nama Pair untuk buang:"); let idx=pairs.indexOf(nama); if(idx>-1){pairs.splice(idx,1); buatPerlawanan();}}
+// ===== TAMBAH / BUANG PASUKAN =====
+function tambahPair(){if(!isAdmin)return; let nama=prompt("Nama Pasukan baru:"); if(nama){pairs.push(nama); buatPerlawanan();}}
+function buangPair(){if(!isAdmin)return; let nama=prompt("Nama Pasukan untuk buang:"); let idx=pairs.indexOf(nama); if(idx>-1){pairs.splice(idx,1); buatPerlawanan();}}
 
-// ===== RESET SEMUA DATA =====
+// ===== RESET DATA =====
 function resetData(){
   if(!isAdmin) return;
-  if(!confirm("⚠️ Pasti nak reset semua data?")) return;
+  if(!confirm("⚠️ Pasti nak reset semua skor?")) return;
   games.forEach(g=>{g.sa=""; g.sb="";});
   db.ref('games').set(games);
   kiraMarkah();
@@ -163,9 +169,7 @@ function adminLogin(){
     document.getElementById("delBtn").style.display="inline-block";
     document.getElementById("resetBtn").style.display="inline-block";
     paparkanPerlawanan();
-  } else {
-    alert("Password salah!");
-  }
+  } else alert("Password salah!");
 }
 
 // ===== CETAK =====
