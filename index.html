@@ -127,7 +127,7 @@ function buatPerlawanan(){
   db.ref('pairs').set(pairs);
 }
 
-// ===== KIRA MARKAH & AUTO SORT =====
+// ===== KIRA MARKAH =====
 function kiraMarkah(){
   let data={};
   pairs.forEach(p=>data[p]={main:0,menang:0,kalah:0,mata:0,pointDiff:0});
@@ -211,7 +211,7 @@ function showAdminModal(){
   modal.style.display="flex";
   const pwInput = document.getElementById("adminPwInput");
   pwInput.value="";
-  setTimeout(()=>pwInput.focus(), 100); // 🔑 auto keyboard
+  setTimeout(()=>pwInput.focus(), 100);
 }
 
 function checkPassword(){
@@ -234,32 +234,31 @@ function focusFirstInput(){
   if(firstInput) firstInput.focus();
 }
 
-// ===== PASTIKAN KEYBOARD MUNCUL KALAU SENTUH INPUT =====
-document.addEventListener("click", e=>{
-  if(isAdmin && e.target.tagName === "INPUT"){
-    e.target.focus();
+// ===== AUTO-FOCUS INPUT BILA SENTUH (SINGLE TAP MOBILE) =====
+document.addEventListener("touchstart", function(e){
+  if(!isAdmin) return;
+  if(e.target.tagName === "INPUT"){
+    e.target.focus({preventScroll:false});
   }
-});
+}, {passive:false});
 
-// ===== CETAK =====
-function cetak(){window.print();}
-
-// ===== AUTO-PINDAH FOCUS KE INPUT BERIKUTNYA =====
+// ===== AUTO-PINDAH FOCUS KE INPUT BERIKUTNYA DENGAN ENTER =====
 document.addEventListener("keydown", function(e){
   if(!isAdmin) return;
-  if(e.key === "Enter"){ // bila tekan enter
-    e.preventDefault(); // jangan buat form submit
+  if(e.key === "Enter"){
+    e.preventDefault();
     const inputs = Array.from(document.querySelectorAll("#gameList input:not([disabled])"));
     const idx = inputs.indexOf(document.activeElement);
     if(idx > -1 && idx < inputs.length - 1){
       const next = inputs[idx + 1];
       next.focus();
-      // scroll input ke tengah-tengah skrin (mobile friendly)
       next.scrollIntoView({behavior:"smooth", block:"center"});
     }
   }
 });
 
+// ===== CETAK =====
+function cetak(){window.print();}
 </script>
 </body>
 </html>
