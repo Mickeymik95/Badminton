@@ -291,14 +291,6 @@ document.addEventListener("touchstart", function(e){
   }
 }, {passive:false});
 
-// ===== AUTO-FOCUS INPUT KOSONG =====
-document.addEventListener("click", function(e){
-  if(!isAdmin) return;
-  const inputs = Array.from(document.querySelectorAll("#gameList input:not([disabled])"));
-  const firstEmpty = inputs.find(i => i.value==="");
-  if(firstEmpty) firstEmpty.focus();
-});
-
 // ===== ENTER PINDAH KE INPUT BERIKUTNYA =====
 document.addEventListener("keydown", function(e){
   if(!isAdmin) return;
