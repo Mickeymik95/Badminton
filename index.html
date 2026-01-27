@@ -13,6 +13,7 @@ body{
 }
 
 /* NAVBAR CERAH + TULISAN MENYERLAH */
+/* NAVBAR HIDUP & MENYERLAH */
 nav {
   position: sticky;
   top: 10px;
@@ -21,36 +22,40 @@ nav {
   align-items: center;
   justify-content: center;
   padding: 20px 30px;
-  background: linear-gradient(135deg, #696969, #708090); /* gradient cerah & kemas */
+  background: linear-gradient(135deg, #6e7ff3, #42a5f5); /* gradient cerah */
   border-radius: 15px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1); /* lembut */
+  box-shadow: 0 6px 20px rgba(0,0,0,0.25); /* shadow lebih jelas */
   text-align: center;
+  transition: all 0.3s ease; /* smooth hover effect */
 }
 
-nav h2 {
-  margin: 0;
-  font-weight: 900;
-  font-size: 32px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #fff;
+/* Hover effect supaya lebih “hidup” */
+nav:hover {
+  box-shadow: 0 8px 30px rgba(0,0,0,0.35);
+  transform: translateY(-2px);
 }
 
+/* Teks Navbar gradient */
 .gradient-text {
   background: linear-gradient(90deg, #ffeb3b, #f44336);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  text-shadow: none; /* buang shadow supaya tidak blur */
+  text-shadow: 0 2px 4px rgba(0,0,0,0.3); /* depth supaya timbul */
   margin: 0 8px;
   letter-spacing: 1px;
-  font-weight: 900; /* pastikan tebal */
+  font-weight: 900;
+  transition: all 0.3s ease; /* smooth hover effect */
 }
 
+/* Hover effect pada teks gradient */
+nav h2:hover .gradient-text {
+  text-shadow: 0 4px 8px rgba(0,0,0,0.5);
+  transform: scale(1.05);
+}
+
+/* Emoji tetap jelas */
 nav h2 span.emoji {
-  -webkit-background-clip: unset;
-  -webkit-text-fill-color: unset;
-  text-shadow: none;
+  margin: 0 5px;
 }
 
 nav div {
@@ -58,7 +63,14 @@ nav div {
   color: #fff;
   font-weight: 600;
   margin-top: 5px;
-  text-shadow: 0 0 2px rgba(0,0,0,0.2);
+  text-shadow: 0 2px 4px rgba(0,0,0,0.3); /* shadow lebih nyata */
+  transition: all 0.3s ease; /* smooth effect bila hover */
+}
+
+/* Hover effect ikut navbar */
+nav:hover div {
+  text-shadow: 0 3px 6px rgba(0,0,0,0.5);
+  transform: scale(1.02);
 }
 
 /* SECTION & TABLES */
