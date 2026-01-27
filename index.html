@@ -159,6 +159,23 @@ input.negative{color:#ff4444;font-weight:bold;}
 input.zero{color:#333;}
 
 @media(max-width:600px){th,td,input,button{font-size:12px;padding:5px;}}
+
+@media print {
+  nav {
+    background: #42a5f5 !important; /* solid color untuk PDF */
+    -webkit-print-color-adjust: exact; /* pastikan warna dicetak */
+    color: #fff;
+    box-shadow: none;
+    backdrop-filter: none;
+  }
+
+  .gradient-text {
+    -webkit-background-clip: unset !important;
+    -webkit-text-fill-color: #fff !important;
+    text-shadow: none !important;
+  }
+}
+
 </style>
 </head>
 <body>
