@@ -12,20 +12,7 @@ body{
   color:#333;
 }
 
-/* NAVBAR CERAH */
-<nav>
-  <div>
-    <h2>
-      <span class="emoji">🏸</span>
-      <span class="gradient-text">Liga JJM BC</span>
-      <span class="emoji">🏸</span>
-    </h2>
-    <div>by Admin - Mik 😎😂</div>
-  </div>
-</nav>
-
-<style>
-/* NAVBAR CERAH + NEON SPORTY */
+/* NAVBAR CERAH + TULISAN MENYERLAH */
 nav {
   position: sticky;
   top: 10px;
@@ -34,9 +21,9 @@ nav {
   align-items: center;
   justify-content: center;
   padding: 20px 30px;
-  background: linear-gradient(90deg, #42a5f5, #00e676); /* cerah, kemas */
+  background: linear-gradient(90deg, #42a5f5, #66bb6a); /* gradient cerah & kemas */
   border-radius: 15px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1); /* lembut */
   text-align: center;
 }
 
@@ -51,14 +38,12 @@ nav h2 {
 }
 
 .gradient-text {
-  background: linear-gradient(90deg, #ffeb3b, #ff5722, #ff4081, #7c4dff); /* neon pop */
+  background: linear-gradient(90deg, #ffeb3b, #f44336); /* gradient kontras & menyerlah */
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   text-shadow: 
     0 0 5px #ffeb3b,
-    0 0 10px #ff5722,
-    0 0 15px #ff4081,
-    0 0 20px #7c4dff; /* glow ala neon */
+    0 0 10px #f44336; /* glow lembut */
   margin: 0 8px;
   letter-spacing: 1px;
 }
@@ -74,7 +59,7 @@ nav div {
   color: #fff;
   font-weight: 600;
   margin-top: 5px;
-  text-shadow: 0 0 3px rgba(0,0,0,0.2);
+  text-shadow: 0 0 2px rgba(0,0,0,0.2);
 }
 
 /* SECTION & TABLES */
@@ -179,6 +164,7 @@ input.zero{color:#333;}
 </head>
 <body>
 
+<!-- NAVBAR -->
 <nav>
   <div>
     <h2>
@@ -190,6 +176,7 @@ input.zero{color:#333;}
   </div>
 </nav>
 
+<!-- SECTION JADUAL -->
 <section>
 <h3>🏆 Jadual Kedudukan 🥇</h3>
 <button onclick="cetak()">🖨️ Cetak Jadual</button>
@@ -208,6 +195,7 @@ input.zero{color:#333;}
 </table>
 </section>
 
+<!-- SECTION PERLAWANAN -->
 <section>
 <h3>🔥 Senarai Perlawanan 🆚</h3>
 <table id="gameTable">
@@ -231,6 +219,7 @@ input.zero{color:#333;}
 </div>
 </section>
 
+<!-- MODAL ADMIN -->
 <div id="passwordModal">
   <div>
     <p>Masukkan password admin:</p>
@@ -239,11 +228,10 @@ input.zero{color:#333;}
   </div>
 </div>
 
-<!-- Firebase -->
+<!-- FIREBASE -->
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
 <script>
-// ===== FIREBASE CONFIG =====
 const firebaseConfig = {
   apiKey: "AIzaSyBRLCSzb3QahfPhLQu9WLIvBO9jovYm2y8",
   authDomain: "liga-badminton.firebaseapp.com",
@@ -257,10 +245,8 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const db = firebase.database();
 
-// ===== DATA =====
 let pairs=[], games=[], isAdmin=false;
 
-// ===== INIT =====
 db.ref('pairs').on('value', snap=>{
     pairs = snap.val() || ["Pasukan 1","Pasukan 2","Pasukan 3","Pasukan 4"];
     paparkanPerlawanan();
@@ -273,7 +259,6 @@ db.ref('games').on('value', snap=>{
     kiraMarkah();
 });
 
-// ===== BUAH PERLAWANAN =====
 function buatPerlawanan(){
   let newGames = [];
   for(let i=0;i<pairs.length;i++){
@@ -294,7 +279,6 @@ function buatPerlawanan(){
   db.ref('pairs').set(pairs);
 }
 
-// ===== KIRA MARKAH =====
 function kiraMarkah(){
   let data={};
   pairs.forEach(p=>data[p]={main:0,menang:0,kalah:0,jumlahMata:0});
@@ -331,7 +315,6 @@ function kiraMarkah(){
   });
 }
 
-// ===== PAPAR PERLAWANAN =====
 function paparkanPerlawanan(){
   let list=document.getElementById("gameList"); list.innerHTML="";
   games.forEach((g,i)=>{
@@ -344,14 +327,12 @@ function paparkanPerlawanan(){
   });
 }
 
-// ===== FOCUS INPUT 1 KLIK TANPA TUTUP KEYBOARD =====
 function focusInput(el){
   if(!isAdmin) return;
-  el.removeAttribute('readonly'); // pastikan editable
+  el.removeAttribute('readonly');
   el.focus({preventScroll:false});
 }
 
-// ===== CLASS WARNA SKOR =====
 function getClass(val){
   if(val==="") return "zero";
   let n = parseInt(val);
@@ -360,7 +341,6 @@ function getClass(val){
   return "zero";
 }
 
-// ===== UPDATE =====
 function update(i,type,val){
   if(!isAdmin) return;
   if(type==="a") games[i].sa = val; else games[i].sb = val;
@@ -368,7 +348,6 @@ function update(i,type,val){
   paparkanPerlawanan();
 }
 
-// ===== TAMBAH / BUANG PASUKAN =====
 function tambahPair(){
   if(!isAdmin) return;
   let nama = prompt("Nama Pasukan baru:");
@@ -390,7 +369,6 @@ function buangPair(){
   }
 }
 
-// ===== RESET DATA =====
 function resetData(){
   if(!isAdmin) return;
   if(!confirm("⚠️ Pasti nak reset semua skor?")) return;
@@ -400,7 +378,6 @@ function resetData(){
   alert("✅ Semua skor telah di-reset!");
 }
 
-// ===== ADMIN MODAL =====
 function showAdminModal(){
   const modal = document.getElementById("passwordModal");
   modal.style.display="flex";
@@ -422,7 +399,6 @@ function checkPassword(){
   } else alert("Password salah!");
 }
 
-// ===== CETAK =====
 function cetak(){window.print();}
 </script>
 </body>
