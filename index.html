@@ -9,8 +9,34 @@ body{margin:0;font-family:'Segoe UI',sans-serif;background:#f0f2f5;color:#333;}
 h2 {margin:0 0 10px 0;color:#000000; font-weight:bold;}
 h3{margin:0 0 10px 0;color:#0d47a1; font-weight:bold;}
 section{margin:20px auto;padding:20px;background:#fff;border-radius:12px;box-shadow:0 4px 12px rgba(0,0,0,0.1);max-width:950px;}
-nav{display:flex;align-items:center;justify-content:center;padding:15px;background:linear-gradient(90deg,#FFF8DC,#F0F0F0);color:white;position:sticky;top:0;z-index:100;}
-nav img{height:45px;margin-right:15px;filter:drop-shadow(0 0 2px #000);position:absolute;left:20px;}
+nav {
+  position: sticky;           /* tetap terapung */
+  top: 10px;                  /* terapung sedikit dari atas */
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 15px 20px;
+  background: linear-gradient(90deg, #FFD700, #FFA500); /* Emas menyerlah */
+  color: #000;                /* Tulisan jelas */
+  border: 2px solid #FFA500;  /* Border agar jelas */
+  border-radius: 12px;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.25); /* Bayang timbul */
+  backdrop-filter: blur(5px); /* Kesan floating soft */
+}
+
+nav h2 {
+  margin: 0;
+  font-weight: bold;
+  color: #000; /* Tulisan lebih jelas */
+}
+
+nav div {
+  font-size: 14px;
+  color: #000; /* Tulisan jelas */
+  font-weight: 500;
+  margin-top: 4px;
+}
 table{width:100%;border-collapse:separate;border-spacing:0 8px;}
 th,td{text-align:center;padding:10px;}
 th{background:#e3f2fd;color:#0d47a1;border:none;border-radius:8px;}
