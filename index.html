@@ -146,10 +146,11 @@ let sbClass=x.sb===""?"zero":(+x.sb>+x.sa?"positive":(+x.sb<+x.sa?"negative":"ze
 g.innerHTML+=`<tr>  
 <td>${x.a}</td>  
 <td><input ${!isAdmin?"disabled":""} class="${saClass}" value="${x.sa}" onchange="update(${i},'sa',this.value)"></td>  
-
-<td style="font-weight:bold;">🆚</td>  
-
-<td><input ${!isAdmin?"disabled":""} class="${sbClass}" value="${x.sb}" onchange="update(${i},'sb',this.value)"></td>  
+<td style="display:flex; justify-content:center; align-items:center; gap:6px;">
+  <input ${!isAdmin?"disabled":""} class="${saClass}" value="${x.sa}" onchange="update(${i},'sa',this.value)" style="width:40px;">
+  <span style="font-weight:bold;">🆚</span>
+  <input ${!isAdmin?"disabled":""} class="${sbClass}" value="${x.sb}" onchange="update(${i},'sb',this.value)" style="width:40px;">
+</td>  
 <td>${x.b}</td></tr>`;
 });
 }
