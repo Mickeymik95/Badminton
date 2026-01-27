@@ -134,7 +134,15 @@ sa>sb?(d[g.a].menang++,d[g.b].kalah++):(d[g.b].menang++,d[g.a].kalah++);
 let s=Object.entries(d).sort((a,b)=>b[1].menang-a[1].menang||b[1].jumlah-a[1].jumlah);
 let tb=document.querySelector("#markahTable tbody");tb.innerHTML="";
 s.forEach((e,i)=>{
-tb.innerHTML+=`<tr class="${i==0?"firstPlace":i==1?"secondPlace":""}"><td>${i+1}</td><td>${e[0]}</td><td>${e[1].main}</td><td>${e[1].menang}</td><td>${e[1].kalah}</td><td>${e[1].jumlah}</td></tr>`;
+  let rankDisplay = i === 0 ? "🥇" : i === 1 ? "🥈" : i + 1;
+  tb.innerHTML += `<tr class="${i==0?"firstPlace":i==1?"secondPlace":""}">
+    <td>${rankDisplay}</td>
+    <td>${e[0]}</td>
+    <td>${e[1].main}</td>
+    <td>${e[1].menang}</td>
+    <td>${e[1].kalah}</td>
+    <td>${e[1].jumlah}</td>
+  </tr>`;
 });
 }
 
