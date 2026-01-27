@@ -143,10 +143,13 @@ let g=document.getElementById("gameList");g.innerHTML="";
 games.forEach((x,i)=>{
 let saClass=x.sa===""?"zero":(+x.sa>+x.sb?"positive":(+x.sa<+x.sb?"negative":"zero"));
 let sbClass=x.sb===""?"zero":(+x.sb>+x.sa?"positive":(+x.sb<+x.sa?"negative":"zero"));
-g.innerHTML+=`<tr>
-<td>${x.a}</td>
-<td><input ${!isAdmin?"disabled":""} class="${saClass}" value="${x.sa}" onchange="update(${i},'sa',this.value)"></td>
-<td><input ${!isAdmin?"disabled":""} class="${sbClass}" value="${x.sb}" onchange="update(${i},'sb',this.value)"></td>
+g.innerHTML+=`<tr>  
+<td>${x.a}</td>  
+<td><input ${!isAdmin?"disabled":""} class="${saClass}" value="${x.sa}" onchange="update(${i},'sa',this.value)"></td>  
+
+<td style="font-weight:bold;">🆚</td>  
+
+<td><input ${!isAdmin?"disabled":""} class="${sbClass}" value="${x.sb}" onchange="update(${i},'sb',this.value)"></td>  
 <td>${x.b}</td></tr>`;
 });
 }
