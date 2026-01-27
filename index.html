@@ -10,32 +10,34 @@ h2 {margin:0 0 10px 0;color:#000000; font-weight:bold;}
 h3{margin:0 0 10px 0;color:#0d47a1; font-weight:bold;}
 section{margin:20px auto;padding:20px;background:#fff;border-radius:12px;box-shadow:0 4px 12px rgba(0,0,0,0.1);max-width:950px;}
 nav {
-  position: sticky;           /* tetap terapung */
-  top: 10px;                  /* terapung sedikit dari atas */
+  position: sticky;           /* terapung */
+  top: 10px;                  
   z-index: 100;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 15px 20px;
-  background: linear-gradient(90deg, #4fc3f7, #0288d1); /* Biru gradient */
+  background: linear-gradient(90deg, #bbdefb, #64b5f6); /* Biru lembut ke biru sedang */
   color: #fff;                /* Tulisan jelas */
-  border: 2px solid #0288d1;  /* Border biru gelap */
+  border: 1px solid rgba(0,0,0,0.1);  /* Border sangat nipis, hampir tak nampak */
   border-radius: 12px;
-  box-shadow: 0 6px 15px rgba(0,0,0,0.25); /* Bayang timbul */
-  backdrop-filter: blur(5px); /* Kesan floating soft */
+  box-shadow: 0 8px 20px rgba(0,0,0,0.35); /* Bayang lebih jelas */
+  backdrop-filter: blur(5px); /* Floating effect */
 }
 
 nav h2 {
   margin: 0;
   font-weight: bold;
   color: #fff; /* Tulisan lebih jelas */
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.5); /* Sedikit shadow untuk keterbacaan */
 }
 
 nav div {
   font-size: 14px;
-  color: #e0f7fa; /* Tulisan lembut biru muda */
+  color: #e3f2fd; /* Subtext biru lembut tapi jelas */
   font-weight: 500;
   margin-top: 4px;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.3); /* Bagi subtext juga menonjol */
 }
 table{width:100%;border-collapse:separate;border-spacing:0 8px;}
 th,td{text-align:center;padding:10px;}
