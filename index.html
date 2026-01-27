@@ -384,8 +384,24 @@ function checkPassword(){
   }
 }
 function tambahPair(){ let n=prompt("Nama pasukan"); if(n){pairs.push(n); db.ref("pairs").set(pairs); db.ref("games").remove();}}
-function buangPair(){ let n=prompt("Nama pasukan"); pairs=pairs.filter(p=>p!==n); db.ref("pairs").set(pairs); db.ref("games").remove();}
-function resetData(){ games.forEach(g=>g.sa=g.sb=""); db.ref("games").set(games); }
+function buangPair(){
+  if(!isAdmin) return;
+
+  let nama = prompt("Nama Pasukan untuk buang:");
+  if(!nama) return;
+
+  let idx = pairs.findIndex(
+    p => p.trim().toLowerCase() === nama.trim().toLowerCase()
+  );
+
+  if(idx > -1){
+    pairs.splice(idx,1);
+    db.ref("pairs").set(pairs);
+    db.ref("games").remove(); // jana semula perlawanan
+  } else {
+    alert("❌ Pasukan tidak dijumpai!");
+  }
+}
 </script>
 
 </body>
