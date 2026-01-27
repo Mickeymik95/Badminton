@@ -46,7 +46,6 @@ button:hover{background:#1e88e5;box-shadow:0 0 15px rgba(66,165,245,1);}
 
 <section>
 <h3>🏆 Jadual Kedudukan</h3>
-<button onclick="window.print()">🖨️ Cetak</button>
 <table id="markahTable">
 <thead>
 <tr><th>Rank</th><th>Pasukan</th><th>Main</th><th>Menang</th><th>Kalah</th><th>Jumlah Mata</th></tr>
@@ -64,12 +63,20 @@ button:hover{background:#1e88e5;box-shadow:0 0 15px rgba(66,165,245,1);}
 <tbody id="gameList"></tbody>
 </table>
 
-<div style="text-align:center">
-<p id="infoText"></p>
-<button onclick="showAdminModal()">🔐 Admin Login</button>
-<button onclick="tambahPair()" id="addBtn" style="display:none">➕ Tambah</button>
-<button onclick="buangPair()" id="delBtn" style="display:none">➖ Buang</button>
-<button onclick="resetData()" id="resetBtn" style="display:none">♻️ Reset</button>
+<div style="text-align:center; display:flex; justify-content:center; align-items:center; gap:10px; margin-top:10px; flex-wrap:wrap;">
+<p id="infoText" style="margin:0;"></p>
+
+<button onclick="showAdminModal()" title="Login sebagai Admin">🔐 Admin Login</button>
+
+<a href="https://wa.me/60149236577" target="_blank" style="text-decoration:none;" title="Hubungi Admin WhatsApp">
+<button style="background:#25D366; box-shadow:0 0 10px rgba(37,211,102,0.8);">
+<img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" style="height:16px; vertical-align:middle; margin-right:5px;">
+Admin WA
+</button></a>
+
+<button onclick="tambahPair()" id="addBtn" style="display:none" title="Tambah Pasukan">➕ Tambah</button>
+<button onclick="buangPair()" id="delBtn" style="display:none" title="Buang Pasukan">➖ Buang</button>
+<button onclick="resetData()" id="resetBtn" style="display:none" title="Reset Semua Perlawanan">♻️ Reset</button>
 </div>
 </section>
 
@@ -92,12 +99,14 @@ databaseURL:"https://liga-badminton-default-rtdb.asia-southeast1.firebasedatabas
 const db=firebase.database();
 
 let pairs=[],games=[],isAdmin=false;
+
 db.ref("pairs").on("value",snap=>{
-  pairs=[...new Set(snap.val()||["Pasukan 1","Pasukan 2","Pasukan 3","Pasukan 4"])];
+pairs=[...new Set(snap.val()||["Pasukan 1","Pasukan 2","Pasukan 3","Pasukan 4"])];
 });
 db.ref("games").on("value",snap=>{
-  if(snap.exists()){games=snap.val();}else{buatPerlawananRoundRobin();return;}
-  paparkanPerlawanan();kiraMarkah();
+if(snap.exists()){games=snap.val();}else{buatPerlawananRoundRobin();return;}
+paparkanPerlawanan();
+kiraMarkah();
 });
 
 function buatPerlawananRoundRobin(){
@@ -106,7 +115,8 @@ let r=t.length-1,h=t.length/2,a=t.slice(1),g=[];
 for(let i=0;i<r;i++){
 for(let j=0;j<h;j++){
 let x=j?a[j-1]:t[0],y=a[a.length-j-1];
-if(x!=="BYE"&&y!=="BYE"&&x!==y&&!g.some(p=> (p.a===x&&p.b===y)||(p.a===y&&p.b===x) )) g.push({a:x,b:y,sa:"",sb:""});
+if(x!=="BYE"&&y!=="BYE"&&x!==y&&!g.some(p=> (p.a===x&&p.b===y)||(p.a===y&&p.b===x) ))
+g.push({a:x,b:y,sa:"",sb:""});
 }a.unshift(a.pop());
 }
 db.ref("games").set(g);
