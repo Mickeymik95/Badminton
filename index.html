@@ -147,22 +147,24 @@ s.forEach((e,i)=>{
 }
 
 function paparkanPerlawanan(){
-let g=document.getElementById("gameList");
-g.innerHTML="";
-games.forEach((x,i)=>{
-let saClass=x.sa===""?"zero":(+x.sa>+x.sb?"positive":(+x.sa<+x.sb?"negative":"zero"));
-let sbClass=x.sb===""?"zero":(+x.sb>+x.sa?"positive":(+x.sb<+x.sa?"negative":"zero"));
+  let g = document.getElementById("gameList");
+  g.innerHTML = "";
+  
+  games.forEach((x,i)=>{
+    // Tentukan kelas warna input
+    let saClass = x.sa === "" ? "zero" : (+x.sa > +x.sb ? "positive" : (+x.sa < +x.sb ? "negative" : "zero"));
+    let sbClass = x.sb === "" ? "zero" : (+x.sb > +x.sa ? "positive" : (+x.sb < +x.sa ? "negative" : "zero"));
 
-g.innerHTML+=`<tr>
-<td>${x.a}</td>
-<td style="display:flex; justify-content:center; align-items:center; gap:6px;">
-  <input ${!isAdmin?"disabled":""} class="${saClass}" value="${x.sa}" onchange="update(${i},'sa',this.value)" style="width:40px;">
-  <span style="font-weight:bold;">🆚</span>
-  <input ${!isAdmin?"disabled":""} class="${sbClass}" value="${x.sb}" onchange="update(${i},'sb',this.value)" style="width:40px;">
-</td>
-<td>${x.b}</td>
-</tr>`;
-});
+    g.innerHTML += `<tr>
+      <td style="text-align:left;">${i+1}. ${x.a}</td>
+      <td style="display:flex; justify-content:center; align-items:center; gap:6px;">
+        <input ${!isAdmin?"disabled":""} class="${saClass}" value="${x.sa}" onchange="update(${i},'sa',this.value)" style="width:40px;">
+        <span style="font-weight:bold;">🆚</span>
+        <input ${!isAdmin?"disabled":""} class="${sbClass}" value="${x.sb}" onchange="update(${i},'sb',this.value)" style="width:40px;">
+      </td>
+      <td>${x.b}</td>
+    </tr>`;
+  });
 }
 
 function update(i,f,v){if(isAdmin){games[i][f]=v;db.ref("games").set(games);kiraMarkah();paparkanPerlawanan();}}
