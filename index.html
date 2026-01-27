@@ -13,77 +13,228 @@ body{
   color:#333;
 }
 
-/* ===== NAV ===== */
-nav{
-  position:sticky;
-  top:10px;
-  margin:10px;
-  padding:12px 25px;
-  text-align:center;
-  background:linear-gradient(135deg,#C0C0C0,#808080,#FFFFFF);
-  border-radius:15px;
-  box-shadow:0 6px 20px rgba(0,0,0,.25);
+/* ==============================
+   NAVBAR HIDUP, SLIM & CENTERED
+   ============================== */
+nav {
+  position: sticky;
+  top: 10px;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 25px;
+  background: linear-gradient(135deg, #C0C0C0, #808080, #FFFFFF);
+  border-radius: 15px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+  text-align: center;
+  transition: all 0.3s ease;
 }
-.gradient-text{
-  background:linear-gradient(135deg,#8e24aa,#f44336,#ffeb3b,#ff9800);
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
-  font-weight:900;
-  font-size:26px;
+nav:hover {
+  box-shadow: 0 8px 30px rgba(0,0,0,0.35);
+  transform: translateY(-2px);
 }
 
-/* ===== SECTION ===== */
+nav h2 {
+  margin: 0;
+  font-weight: 900;
+  font-size: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.gradient-text {
+  background: linear-gradient(
+    135deg,
+    #8e24aa,
+    #f44336,
+    #ffeb3b,
+    #ff9800,
+    #8e24aa
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+  margin: 0 8px;
+  letter-spacing: 1px;
+  font-weight: 900;
+  transition: all 0.3s ease;
+}
+
+nav h2:hover .gradient-text {
+  text-shadow: 0 4px 8px rgba(0,0,0,0.5);
+  transform: scale(1.05);
+}
+
+nav h2 span.emoji {
+  margin: 0 5px;
+  display: inline-flex;
+  align-items: center;
+}
+
+/* SUBTEXT */
+nav div {
+  margin-top: 5px;
+  font-size: 15px;
+  font-weight: 600;
+  color: #fff;
+  line-height: 1.2;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.25);
+  transition: all 0.3s ease;
+}
+
+nav:hover div {
+  text-shadow: 0 3px 6px rgba(0,0,0,0.5);
+  transform: scale(1.02);
+}
+
+/* SECTION */
 section{
   margin:20px auto;
   padding:20px;
-  background:#fff;
+  background:#ffffff;
   border-radius:12px;
-  box-shadow:0 4px 12px rgba(0,0,0,.1);
+  box-shadow:0 4px 12px rgba(0,0,0,0.1);
   max-width:950px;
+  color:#333;
 }
 
-/* ===== TABLE ===== */
-table{width:100%;border-collapse:separate;border-spacing:0 8px;}
-th,td{text-align:center;padding:10px;}
-th{background:#42a5f580;border-radius:8px;}
-td{background:#f0f0f0;border-radius:8px;}
+/* TABLE */
+table{
+  width:100%;
+  border-collapse:separate;
+  border-spacing:0 8px;
+}
 
+th,td{
+  text-align:center;
+  padding:10px;
+}
+
+th{
+  background:#42a5f580;
+  color:#000;
+  border:none;
+  border-radius:8px;
+  text-shadow: 0 0 3px #fff;
+}
+
+td{
+  background:#f0f0f0;
+  border:none;
+  border-radius:8px;
+  color:#333;
+}
+
+/* INPUT */
 input{
   width:60px;
-  padding:5px;
+  padding:6px;
+  border-radius:6px;
+  border:1px solid #aaa;
   text-align:center;
+  background:#fff;
+  color:#333;
 }
-input:disabled{background:#eee;}
 
+input:disabled{
+  background:#eee;
+  color:#999;
+}
+
+input.positive{color:#00aa00;font-weight:bold;}
+input.negative{color:#ff4444;font-weight:bold;}
+input.zero{color:#333;}
+
+/* BUTTON */
 button{
   padding:6px 12px;
-  margin:3px;
-  border:none;
+  margin:2px;
   border-radius:6px;
+  border:none;
   background:#42a5f5;
-  color:#fff;
+  color:white;
   cursor:pointer;
+  box-shadow: 0 0 10px rgba(66,165,245,0.8);
 }
-button:hover{background:#1e88e5;}
-#resetBtn{background:#ef5350;}
 
-.firstPlace td{background:#FFF8DC;font-weight:bold;}
-.secondPlace td{background:#E0E0E0;font-weight:bold;}
+button:hover{
+  background:#1e88e5;
+  box-shadow: 0 0 15px rgba(66,165,245,1);
+}
 
-/* ===== MODAL ===== */
+#resetBtn{
+  background:#ef5350;
+  box-shadow:0 0 10px rgba(239,83,80,0.8);
+}
+
+/* ADMIN */
+#adminSection{
+  text-align:center;
+  margin-top:10px;
+}
+
 #passwordModal{
   display:none;
   position:fixed;
   inset:0;
-  background:rgba(0,0,0,.4);
+  background:rgba(0,0,0,0.4);
   justify-content:center;
   align-items:center;
 }
+
 #passwordModal div{
   background:#fff;
   padding:20px;
   border-radius:8px;
   text-align:center;
+  color:#333;
+  box-shadow:0 0 15px rgba(0,0,0,0.2);
+}
+
+/* RANK COLOR */
+.firstPlace td{background:#FFF8DC;font-weight:bold;}
+.secondPlace td{background:#E0E0E0;font-weight:bold;}
+
+/* RESPONSIVE */
+@media(max-width:600px){
+  th,td,input,button{
+    font-size:12px;
+    padding:5px;
+  }
+}
+
+/* PRINT */
+@media print {
+  nav {
+    background: linear-gradient(
+      135deg,
+      #8e24aa,
+      #f44336,
+      #ffeb3b,
+      #ff9800,
+      #42a5f5
+    ) !important;
+    color:#fff;
+    box-shadow:none;
+    -webkit-print-color-adjust: exact;
+  }
+
+  .gradient-text{
+    background: linear-gradient(
+      135deg,
+      #8e24aa,
+      #f44336,
+      #ffeb3b,
+      #ff9800,
+      #42a5f5
+    );
+    -webkit-background-clip:text !important;
+    -webkit-text-fill-color:transparent !important;
+    text-shadow:0 0 1px rgba(0,0,0,0.1) !important;
+  }
 }
 </style>
 </head>
@@ -91,18 +242,18 @@ button:hover{background:#1e88e5;}
 <body>
 
 <nav>
-  <div>🏸 <span class="gradient-text">Liga JJM BC</span> 🏸</div>
-  <div>by Admin – Mik 😎</div>
+  <h2>🏸 <span class="gradient-text">Liga JJM BC</span> 🏸</h2>
+  <div>by Admin - Mik 😎😂</div>
 </nav>
 
 <section>
-<h3>🏆 Kedudukan Liga</h3>
+<h3>🏆 Jadual Kedudukan</h3>
 <button onclick="window.print()">🖨️ Cetak</button>
 <table id="markahTable">
 <thead>
 <tr>
 <th>Rank</th><th>Pasukan</th><th>Main</th>
-<th>Menang</th><th>Kalah</th><th>Point Diff</th>
+<th>Menang</th><th>Kalah</th><th>Jumlah Mata</th>
 </tr>
 </thead>
 <tbody></tbody>
@@ -120,20 +271,18 @@ button:hover{background:#1e88e5;}
 
 <div style="text-align:center">
 <p id="infoText"></p>
-<button onclick="showAdmin()">🔐 Admin Login</button>
-<button id="addBtn" onclick="tambahPair()" style="display:none">➕ Tambah</button>
-<button id="delBtn" onclick="buangPair()" style="display:none">➖ Buang</button>
-<button id="resetBtn" onclick="resetData()" style="display:none">♻️ Reset</button>
+<button onclick="showAdminModal()">🔐 Admin Login</button>
+<button onclick="tambahPair()" id="addBtn" style="display:none">➕ Tambah</button>
+<button onclick="buangPair()" id="delBtn" style="display:none">➖ Buang</button>
+<button onclick="resetData()" id="resetBtn" style="display:none">♻️ Reset</button>
 </div>
 </section>
 
-<!-- MODAL -->
 <div id="passwordModal">
   <div>
-    <p>Password Admin</p>
-    <input type="password" id="pw">
-    <br><br>
-    <button onclick="login()">Login</button>
+    <p>Password admin:</p>
+    <input type="password" id="adminPwInput">
+    <button onclick="checkPassword()">Login</button>
   </div>
 </div>
 
@@ -145,138 +294,95 @@ firebase.initializeApp({
   apiKey:"AIzaSyBRLCSzb3QahfPhLQu9WLIvBO9jovYm2y8",
   databaseURL:"https://liga-badminton-default-rtdb.asia-southeast1.firebasedatabase.app"
 });
-const db = firebase.database();
+const db=firebase.database();
 
-let pairs=[], games=[], isAdmin=false;
+let pairs=[],games=[],isAdmin=false;
 
-/* LOAD PASUKAN */
-db.ref("pairs").on("value", snap=>{
-  pairs = [...new Set(snap.val() || [
-    "Pasukan 1","Pasukan 2","Pasukan 3","Pasukan 4"
-  ])];
+/* LOAD PAIRS */
+db.ref("pairs").on("value",snap=>{
+  pairs = [...new Set(snap.val() || ["Pasukan 1","Pasukan 2","Pasukan 3","Pasukan 4"])];
 });
 
-/* LOAD GAME */
-db.ref("games").on("value", snap=>{
+/* LOAD GAMES */
+db.ref("games").on("value",snap=>{
   if(snap.exists()){
-    games = snap.val();
+    games=snap.val();
   }else{
-    janaRoundRobin();
+    buatPerlawananRoundRobin();
     return;
   }
-  paparGame();
+  paparkanPerlawanan();
   kiraMarkah();
 });
 
-/* ROUND ROBIN (ANTI LAWAN SENDIRI) */
-function janaRoundRobin(){
+/* ROUND ROBIN FIX LAWAN SENDIRI */
+function buatPerlawananRoundRobin(){
   let t=[...pairs];
   if(t.length<2) return;
   if(t.length%2) t.push("BYE");
 
-  let rounds=t.length-1;
-  let half=t.length/2;
-  let list=t.slice(1);
-  let g=[];
+  let r=t.length-1,h=t.length/2;
+  let a=t.slice(1),g=[];
 
-  for(let i=0;i<rounds;i++){
-    for(let j=0;j<half;j++){
-      let a = j===0 ? t[0] : list[j-1];
-      let b = list[list.length-j-1];
-      if(a!=="BYE" && b!=="BYE" && a!==b){
-        g.push({a,b,sa:"",sb:""});
-      }
+  for(let i=0;i<r;i++){
+    for(let j=0;j<h;j++){
+      let x=j? a[j-1]:t[0];
+      let y=a[a.length-j-1];
+      if(x!=="BYE" && y!=="BYE" && x!==y) g.push({a:x,b:y,sa:"",sb:""});
     }
-    list.unshift(list.pop());
+    a.unshift(a.pop());
   }
   db.ref("games").set(g);
 }
 
-/* PAPAR PERLAWANAN */
-function paparGame(){
-  gameList.innerHTML = games.map((x,i)=>`
-    <tr>
-      <td>${x.a}</td>
-      <td><input ${!isAdmin?"disabled":""} value="${x.sa}"
-        onchange="update(${i},'sa',this.value)"></td>
-      <td><input ${!isAdmin?"disabled":""} value="${x.sb}"
-        onchange="update(${i},'sb',this.value)"></td>
-      <td>${x.b}</td>
-    </tr>
-  `).join("");
-}
-
-/* KIRA MARKAH */
 function kiraMarkah(){
   let d={};
   pairs.forEach(p=>d[p]={main:0,menang:0,kalah:0,jumlah:0});
-
   games.forEach(g=>{
     if(g.sa===""||g.sb==="") return;
-    let sa=+g.sa, sb=+g.sb;
+    let sa=+g.sa,sb=+g.sb;
     d[g.a].main++; d[g.b].main++;
-    d[g.a].jumlah += sa-sb;
-    d[g.b].jumlah += sb-sa;
-    sa>sb ? (d[g.a].menang++, d[g.b].kalah++)
-          : (d[g.b].menang++, d[g.a].kalah++);
+    d[g.a].jumlah+=sa-sb;
+    d[g.b].jumlah+=sb-sa;
+    sa>sb?(d[g.a].menang++,d[g.b].kalah++):(d[g.b].menang++,d[g.a].kalah++);
   });
-
-  let s = Object.entries(d).sort(
-    (a,b)=>b[1].menang-a[1].menang || b[1].jumlah-a[1].jumlah
-  );
-
-  markahTable.querySelector("tbody").innerHTML =
-    s.map((e,i)=>`
-      <tr class="${i==0?"firstPlace":i==1?"secondPlace":""}">
-        <td>${i+1}</td><td>${e[0]}</td><td>${e[1].main}</td>
-        <td>${e[1].menang}</td><td>${e[1].kalah}</td>
-        <td>${e[1].jumlah}</td>
-      </tr>
-    `).join("");
+  let s=Object.entries(d).sort((a,b)=>b[1].menang-a[1].menang||b[1].jumlah-a[1].jumlah);
+  let tb=document.querySelector("#markahTable tbody");
+  tb.innerHTML="";
+  s.forEach((e,i)=>{
+    tb.innerHTML+=`<tr class="${i==0?"firstPlace":i==1?"secondPlace":""}">
+    <td>${i+1}</td><td>${e[0]}</td><td>${e[1].main}</td>
+    <td>${e[1].menang}</td><td>${e[1].kalah}</td><td>${e[1].jumlah}</td></tr>`;
+  });
 }
 
-/* ADMIN */
-function showAdmin(){ passwordModal.style.display="flex"; }
-function login(){
-  if(pw.value==="260895"){
-    isAdmin=true;
+function paparkanPerlawanan(){
+  let g=document.getElementById("gameList"); g.innerHTML="";
+  games.forEach((x,i)=>{
+    g.innerHTML+=`<tr>
+    <td>${x.a}</td>
+    <td><input ${!isAdmin?"disabled":""} value="${x.sa}" onchange="update(${i},'sa',this.value)"></td>
+    <td><input ${!isAdmin?"disabled":""} value="${x.sb}" onchange="update(${i},'sb',this.value)"></td>
+    <td>${x.b}</td></tr>`;
+  });
+}
+
+function update(i,f,v){ if(isAdmin){games[i][f]=v; db.ref("games").set(games);} }
+
+function showAdminModal(){ passwordModal.style.display="flex"; }
+function checkPassword(){
+  if(adminPwInput.value==="260895"){
     passwordModal.style.display="none";
-    infoText.innerText="Admin Aktif";
-    addBtn.style.display = delBtn.style.display =
-    resetBtn.style.display = "inline-block";
-    paparGame();
+    isAdmin=true;
+    infoText.innerText="Admin aktif";
+    addBtn.style.display=delBtn.style.display=resetBtn.style.display="inline-block";
+    paparkanPerlawanan();
   }
 }
 
-function update(i,f,v){
-  if(isAdmin){
-    games[i][f]=v;
-    db.ref("games").set(games);
-  }
-}
-
-function tambahPair(){
-  let n=prompt("Nama Pasukan");
-  if(n){
-    pairs.push(n);
-    db.ref("pairs").set(pairs);
-    db.ref("games").remove();
-  }
-}
-
-function buangPair(){
-  let n=prompt("Nama Pasukan untuk buang");
-  if(!n) return;
-  pairs=pairs.filter(p=>p.toLowerCase()!==n.toLowerCase());
-  db.ref("pairs").set(pairs);
-  db.ref("games").remove();
-}
-
-function resetData(){
-  if(confirm("Reset semua perlawanan?")){
-    db.ref("games").remove();
-  }
-}
+function tambahPair(){ let n=prompt("Nama pasukan"); if(n){pairs.push(n); db.ref("pairs").set(pairs); db.ref("games").remove();}}
+function buangPair(){ let n=prompt("Nama Pasukan untuk buang:"); if(!n) return; let idx=pairs.findIndex(p=>p.trim().toLowerCase()===n.trim().toLowerCase()); if(idx>-1){pairs.splice(idx,1); db.ref("pairs").set(pairs); db.ref("games").remove();}else{alert("❌ Pasukan tidak dijumpai!");}}
+function resetData(){ if(confirm("Reset semua perlawanan?")) db.ref("games").remove(); }
 </script>
 
 </body>
