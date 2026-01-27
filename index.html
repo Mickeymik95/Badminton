@@ -4,7 +4,6 @@
 <meta charset="UTF-8">
 <title>Liga Badminton – Ultimate LIVE</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <style>
 body{margin:0;font-family:'Segoe UI',sans-serif;background:#f5f5f5;color:#333;}
 nav{position:sticky;top:10px;z-index:100;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:12px 25px;background:linear-gradient(135deg,#C0C0C0,#808080,#FFFFFF);border-radius:15px;box-shadow:0 6px 20px rgba(0,0,0,0.25);text-align:center;transition:all 0.3s ease;}
@@ -58,7 +57,7 @@ button:hover{background:#1e88e5;box-shadow:0 0 15px rgba(66,165,245,1);}
 <h3>🔥 Senarai Perlawanan</h3>
 <table>
 <thead>
-<tr><th>Pasukan</th><th>Skor</th><th>Pasukan</th></tr>
+<tr><th>No.</th><th>Pasukan</th><th>Skor</th><th>Pasukan</th></tr>
 </thead>
 <tbody id="gameList"></tbody>
 </table>
@@ -134,47 +133,37 @@ sa>sb?(d[g.a].menang++,d[g.b].kalah++):(d[g.b].menang++,d[g.a].kalah++);
 let s=Object.entries(d).sort((a,b)=>b[1].menang-a[1].menang||b[1].jumlah-a[1].jumlah);
 let tb=document.querySelector("#markahTable tbody");tb.innerHTML="";
 s.forEach((e,i)=>{
-  let rankDisplay = i === 0 ? "🥇" : i === 1 ? "🥈" : i + 1;
-  tb.innerHTML += `<tr class="${i==0?"firstPlace":i==1?"secondPlace":""}">
-    <td>${rankDisplay}</td>
-    <td>${e[0]}</td>
-    <td>${e[1].main}</td>
-    <td>${e[1].menang}</td>
-    <td>${e[1].kalah}</td>
-    <td>${e[1].jumlah}</td>
+  let rankDisplay = i===0?"🥇":i===1?"🥈":i+1;
+  tb.innerHTML+=`<tr class="${i==0?"firstPlace":i==1?"secondPlace":""}">
+  <td>${rankDisplay}</td><td>${e[0]}</td><td>${e[1].main}</td><td>${e[1].menang}</td><td>${e[1].kalah}</td><td>${e[1].jumlah}</td>
   </tr>`;
 });
 }
 
 function paparkanPerlawanan(){
-  let g = document.getElementById("gameList");
-  g.innerHTML = "";
-  
+  let g=document.getElementById("gameList");
+  g.innerHTML="";
   games.forEach((x,i)=>{
-    // Tentukan kelas warna input
-    let saClass = x.sa === "" ? "zero" : (+x.sa > +x.sb ? "positive" : (+x.sa < +x.sb ? "negative" : "zero"));
-    let sbClass = x.sb === "" ? "zero" : (+x.sb > +x.sa ? "positive" : (+x.sb < +x.sa ? "negative" : "zero"));
-
-    g.innerHTML += `<tr>
-      <td>${i+1}</td>
-      <td>${x.a}</td>
+    let saClass=x.sa===""?"zero":(+x.sa>+x.sb?"positive":(+x.sa<+x.sb?"negative":"zero"));
+    let sbClass=x.sb===""?"zero":(+x.sb>+x.sa?"positive":(+x.sb<+x.sa?"negative":"zero"));
+    g.innerHTML+=`<tr>
+      <td style="text-align:center;">${i+1}</td>
+      <td style="text-align:center;">${x.a}</td>
       <td style="display:flex; justify-content:center; align-items:center; gap:6px;">
         <input ${!isAdmin?"disabled":""} class="${saClass}" value="${x.sa}" onchange="update(${i},'sa',this.value)" style="width:40px;">
         <span style="font-weight:bold;">🆚</span>
         <input ${!isAdmin?"disabled":""} class="${sbClass}" value="${x.sb}" onchange="update(${i},'sb',this.value)" style="width:40px;">
       </td>
-      <td>${x.b}</td>
+      <td style="text-align:center;">${x.b}</td>
     </tr>`;
   });
 }
 
 function update(i,f,v){if(isAdmin){games[i][f]=v;db.ref("games").set(games);kiraMarkah();paparkanPerlawanan();}}
-function showAdminModal() {
-  passwordModal.style.display = "flex";
-  adminPwInput.value = "";
+function showAdminModal(){
+  passwordModal.style.display="flex";
+  adminPwInput.value="";
   adminPwInput.focus();
-
-  // Tambah state baru supaya back button boleh tutup modal
   window.history.pushState({modalOpen:true}, null, window.location.href);
 }
 function checkPassword(){
@@ -194,15 +183,13 @@ function tambahPair(){let n=prompt("Nama pasukan");if(n){pairs.push(n);db.ref("p
 function buangPair(){let n=prompt("Nama Pasukan untuk buang:");if(!n)return;let idx=pairs.findIndex(p=>p.trim().toLowerCase()===n.trim().toLowerCase());if(idx>-1){pairs.splice(idx,1);db.ref("pairs").set(pairs);db.ref("games").remove();}else{alert("❌ Pasukan tidak dijumpai!");}}
 function resetData(){if(confirm("Reset semua perlawanan?"))db.ref("games").remove();}
 
-window.addEventListener("popstate", function (event) {
-  if(passwordModal.style.display === "flex") {
-    // Modal sedang aktif → tutup modal sahaja
-    passwordModal.style.display = "none";
-    infoText.innerText = ""; // reset mesej admin
-    adminPwInput.value = "";
+window.addEventListener("popstate",function(event){
+  if(passwordModal.style.display==="flex"){
+    passwordModal.style.display="none";
+    infoText.innerText="";
+    adminPwInput.value="";
   }
 });
 </script>
-
 </body>
 </html>
