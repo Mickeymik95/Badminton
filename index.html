@@ -8,7 +8,7 @@
 body{
   margin:0;
   font-family:'Segoe UI',sans-serif;
-  background:#f5f5f5; /* Latar cerah */
+  background:#f5f5f5;
   color:#333;
 }
 
@@ -20,18 +20,16 @@ nav {
   top: 10px;
   z-index: 100;
   display: flex;
-  flex-direction: column;   /* susun h2 + div menegak */
-  align-items: center;      /* center horizontal */
-  justify-content: center;  /* center vertical */
-  padding: 12px 25px;       /* navbar lebih slim */
-  background: linear-gradient(135deg, #c0c0c0, #42a5f5); /* gradient cerah */
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 25px;
+  background: linear-gradient(135deg, #8e24aa, #f44336, #ffeb3b, #ff9800, #42a5f5);
   border-radius: 15px;
-  box-shadow: 0 6px 20px rgba(0,0,0,0.25); /* shadow lebih jelas */
+  box-shadow: 0 6px 20px rgba(0,0,0,0.25);
   text-align: center;
   transition: all 0.3s ease;
 }
-
-/* Hover effect supaya navbar lebih hidup */
 nav:hover {
   box-shadow: 0 8px 30px rgba(0,0,0,0.35);
   transform: translateY(-2px);
@@ -41,65 +39,13 @@ nav:hover {
 nav h2 {
   margin: 0;
   font-weight: 900;
-  font-size: 28px;                  /* saiz teks lebih kemas */
+  font-size: 28px;
   display: flex;
-  align-items: center;               /* emoji + teks sejajar tengah */
+  align-items: center;
   justify-content: center;
 }
-
-/* Gradient teks “Liga JJM BC” */
-<!DOCTYPE html>
-<html lang="ms">
-<head>
-<meta charset="UTF-8">
-<title>Liga Badminton – Ultimate LIVE</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<style>
-body{
-  margin:0;
-  font-family:'Segoe UI',sans-serif;
-  background:#f5f5f5; /* Latar cerah */
-  color:#333;
-}
-
-/* ==============================
-   NAVBAR HIDUP, SLIM & CENTERED
-   ============================== */
-nav {
-  position: sticky;
-  top: 10px;
-  z-index: 100;
-  display: flex;
-  flex-direction: column;   /* susun h2 + div menegak */
-  align-items: center;      /* center horizontal */
-  justify-content: center;  /* center vertical */
-  padding: 12px 25px;       /* navbar lebih slim */
-  background: linear-gradient(135deg, #c0c0c0, #42a5f5); /* gradient cerah */
-  border-radius: 15px;
-  box-shadow: 0 6px 20px rgba(0,0,0,0.25); /* shadow lebih jelas */
-  text-align: center;
-  transition: all 0.3s ease;
-}
-
-/* Hover effect supaya navbar lebih hidup */
-nav:hover {
-  box-shadow: 0 8px 30px rgba(0,0,0,0.35);
-  transform: translateY(-2px);
-}
-
-/* TEKS UTAMA: Liga JJM BC */
-nav h2 {
-  margin: 0;
-  font-weight: 900;
-  font-size: 28px;                  /* saiz teks lebih kemas */
-  display: flex;
-  align-items: center;               /* emoji + teks sejajar tengah */
-  justify-content: center;
-}
-
-/* Gradient teks “Liga JJM BC” */
 .gradient-text {
-  background: linear-gradient(135deg, #8e24aa, #42a5f5, #00bcd4, #ffeb3b, #f44336);
+  background: linear-gradient(135deg, #8e24aa, #f44336, #ffeb3b, #ff9800, #42a5f5);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   text-shadow: 0 2px 4px rgba(0,0,0,0.3);
@@ -108,14 +54,10 @@ nav h2 {
   font-weight: 900;
   transition: all 0.3s ease;
 }
-
-/* Hover effect pada teks gradient */
 nav h2:hover .gradient-text {
   text-shadow: 0 4px 8px rgba(0,0,0,0.5);
   transform: scale(1.05);
 }
-
-/* Emoji tetap sejajar tengah */
 nav h2 span.emoji {
   margin: 0 5px;
   display: inline-flex;
@@ -128,12 +70,10 @@ nav div {
   font-size: 15px;
   font-weight: 600;
   color: #fff;
-  line-height: 1.2;                  /* jarak lebih selesa */
+  line-height: 1.2;
   text-shadow: 0 2px 4px rgba(0,0,0,0.25);
   transition: all 0.3s ease;
 }
-
-/* Hover effect ikut navbar */
 nav:hover div {
   text-shadow: 0 3px 6px rgba(0,0,0,0.5);
   transform: scale(1.02);
@@ -143,7 +83,7 @@ nav:hover div {
 section{
   margin:20px auto;
   padding:20px;
-  background:#ffffff; /* Section cerah */
+  background:#ffffff;
   border-radius:12px;
   box-shadow:0 4px 12px rgba(0,0,0,0.1);
   max-width:950px;
@@ -160,7 +100,7 @@ th,td{
   padding:10px;
 }
 th{
-  background:#42a5f580; /* header table cerah */
+  background:#42a5f580;
   color:#000;
   border:none;
   border-radius:8px;
@@ -239,29 +179,22 @@ input.zero{color:#333;}
 @media(max-width:600px){th,td,input,button{font-size:12px;padding:5px;}}
 
 @media print {
-  /* Navbar gradient tetap */
   nav {
-    background: linear-gradient(135deg, #696969, #708090) !important;
+    background: linear-gradient(135deg, #8e24aa, #f44336, #ffeb3b, #ff9800, #42a5f5) !important;
     color: #fff;
-    box-shadow: none; /* buang shadow supaya PDF lebih bersih */
-    -webkit-print-color-adjust: exact; /* pastikan warna dicetak */
-    backdrop-filter: none;
+    box-shadow: none;
+    -webkit-print-color-adjust: exact;
   }
-
-  /* Gradient teks tetap muncul */
   .gradient-text {
-    background: linear-gradient(90deg, #ffeb3b, #f44336);
+    background: linear-gradient(135deg, #8e24aa, #f44336, #ffeb3b, #ff9800, #42a5f5);
     -webkit-background-clip: text !important;
     -webkit-text-fill-color: transparent !important;
-    text-shadow: none !important;
+    text-shadow: 0 0 1px rgba(0,0,0,0.1) !important;
   }
-
-  /* Pastikan shadow atau background lain tidak ganggu */
   nav h2, nav div {
     text-shadow: 0 0 1px rgba(0,0,0,0.1) !important;
   }
 }
-
 </style>
 </head>
 <body>
@@ -349,58 +282,46 @@ const db = firebase.database();
 
 let pairs=[], games=[], isAdmin=false;
 
-// --- Load pairs dari Firebase ---
 db.ref('pairs').on('value', snap=>{
     pairs = snap.val() || ["Pasukan 1","Pasukan 2","Pasukan 3","Pasukan 4"];
-    buatPerlawananRoundRobin();  // <-- automatik round-robin
+    buatPerlawananRoundRobin();
     paparkanPerlawanan();
     kiraMarkah();
 });
 
-// --- Load games dari Firebase ---
 db.ref('games').on('value', snap=>{
     games = snap.val() || [];
     paparkanPerlawanan();
     kiraMarkah();
 });
 
-// --- Round-robin function ---
 function buatPerlawananRoundRobin() {
   let n = pairs.length;
   let roundGames = [];
 
   let teams = [...pairs];
-  let hasBye = false;
-  if(n % 2 !== 0) {
-    teams.push("BYE");
-    n++;
-    hasBye = true;
-  }
+  if(n % 2 !== 0) teams.push("BYE"), n++;
 
-  let rounds = n - 1;
-  let half = n / 2;
+  let rounds = n-1;
+  let half = n/2;
   let teamArr = teams.slice(1);
 
-  for(let r = 0; r < rounds; r++) {
-    for(let i = 0; i < half; i++) {
-      let t1 = (i === 0) ? teams[0] : teamArr[i - 1];
-      let t2 = teamArr[teamArr.length - i - 1];
-      if(t1 !== "BYE" && t2 !== "BYE") {
-        let existing = games.find(g => 
-          (g.a === t1 && g.b === t2) || (g.a === t2 && g.b === t1)
-        );
+  for(let r=0; r<rounds; r++){
+    for(let i=0;i<half;i++){
+      let t1=(i===0)?teams[0]:teamArr[i-1];
+      let t2=teamArr[teamArr.length-i-1];
+      if(t1!=="BYE" && t2!=="BYE"){
+        let existing = games.find(g => (g.a===t1 && g.b===t2) || (g.a===t2 && g.b===t1));
         if(existing) roundGames.push(existing);
-        else roundGames.push({a: t1, b: t2, sa:"", sb:""});
+        else roundGames.push({a:t1,b:t2,sa:"",sb:""});
       }
     }
     teamArr.unshift(teamArr.pop());
   }
-
   games = roundGames;
   db.ref('games').set(games);
 }
 
-// --- Kiraan markah ---
 function kiraMarkah(){
   let data={};
   pairs.forEach(p=>data[p]={main:0,menang:0,kalah:0,jumlahMata:0});
@@ -437,7 +358,6 @@ function kiraMarkah(){
   });
 }
 
-// --- Papar perlawanan ---
 function paparkanPerlawanan(){
   let list=document.getElementById("gameList"); list.innerHTML="";
   games.forEach((g,i)=>{
@@ -450,499 +370,17 @@ function paparkanPerlawanan(){
   });
 }
 
-function focusInput(el){
-  if(!isAdmin) return;
-  el.removeAttribute('readonly');
-  el.focus({preventScroll:false});
-}
+function focusInput(el){ if(!isAdmin) return; el.removeAttribute('readonly'); el.focus({preventScroll:false}); }
+function getClass(val){ if(val==="") return "zero"; let n=parseInt(val); if(n>0) return "positive"; if(n<0) return "negative"; return "zero"; }
+function update(i,type,val){ if(!isAdmin) return; if(type==="a") games[i].sa=val; else games[i].sb=val; db.ref('games').set(games); paparkanPerlawanan(); }
 
-function getClass(val){
-  if(val==="") return "zero";
-  let n = parseInt(val);
-  if(n>0) return "positive";
-  if(n<0) return "negative";
-  return "zero";
-}
+function tambahPair(){ if(!isAdmin) return; let nama=prompt("Nama Pasukan baru:"); if(nama){ pairs.push(nama); buatPerlawananRoundRobin(); } }
+function buangPair(){ if(!isAdmin) return; let nama=prompt("Nama Pasukan untuk buang:"); if(nama){ let idx=pairs.findIndex(p=>p.toLowerCase()===nama.toLowerCase()); if(idx>-1){ pairs.splice(idx,1); buatPerlawananRoundRobin(); } else alert("Pasukan tidak dijumpai!"); } }
 
-function update(i,type,val){
-  if(!isAdmin) return;
-  if(type==="a") games[i].sa = val; else games[i].sb = val;
-  db.ref('games').set(games);
-  paparkanPerlawanan();
-}
+function resetData(){ if(!isAdmin) return; if(!confirm("⚠️ Pasti nak reset semua skor?")) return; games.forEach(g=>{g.sa=""; g.sb="";}); db.ref('games').set(games); kiraMarkah(); alert("✅ Semua skor telah di-reset!"); }
 
-// --- Tambah / buang pasukan ---
-function tambahPair(){
-  if(!isAdmin) return;
-  let nama = prompt("Nama Pasukan baru:");
-  if(nama){
-    pairs.push(nama);
-    buatPerlawananRoundRobin(); // <-- guna round-robin
-  }
-}
-
-function buangPair(){
-  if(!isAdmin) return;
-  let nama = prompt("Nama Pasukan untuk buang:");
-  if(nama){
-    let idx = pairs.findIndex(p => p.toLowerCase() === nama.toLowerCase());
-    if(idx>-1){
-      pairs.splice(idx,1);
-      buatPerlawananRoundRobin(); // <-- guna round-robin
-    } else alert("Pasukan tidak dijumpai!");
-  }
-}
-
-// --- Reset / Admin / Cetak ---
-function resetData(){
-  if(!isAdmin) return;
-  if(!confirm("⚠️ Pasti nak reset semua skor?")) return;
-  games.forEach(g=>{g.sa=""; g.sb="";});
-  db.ref('games').set(games);
-  kiraMarkah();
-  alert("✅ Semua skor telah di-reset!");
-}
-
-function showAdminModal(){
-  const modal = document.getElementById("passwordModal");
-  modal.style.display="flex";
-  const pwInput = document.getElementById("adminPwInput");
-  pwInput.value="";
-  setTimeout(()=>pwInput.focus(), 100);
-}
-
-function checkPassword(){
-  const pw = document.getElementById("adminPwInput").value;
-  if(pw==="260895"){
-    document.getElementById("passwordModal").style.display="none";
-    isAdmin=true;
-    document.getElementById("infoText").innerText="Admin aktif. Boleh edit.";
-    document.getElementById("addBtn").style.display="inline-block";
-    document.getElementById("delBtn").style.display="inline-block";
-    document.getElementById("resetBtn").style.display="inline-block";
-    paparkanPerlawanan();
-  } else alert("Password salah!");
-}
-
-function cetak(){window.print();}
-</script>
-</body>
-</html>
-
-/* Hover effect pada teks gradient */
-nav h2:hover .gradient-text {
-  text-shadow: 0 4px 8px rgba(0,0,0,0.5);
-  transform: scale(1.05);
-}
-
-/* Emoji tetap sejajar tengah */
-nav h2 span.emoji {
-  margin: 0 5px;
-  display: inline-flex;
-  align-items: center;
-}
-
-/* TEKS SUBTEXT: by Admin - Mik */
-nav div {
-  margin-top: 5px;
-  font-size: 15px;
-  font-weight: 600;
-  color: #fff;
-  line-height: 1.2;                  /* jarak lebih selesa */
-  text-shadow: 0 2px 4px rgba(0,0,0,0.25);
-  transition: all 0.3s ease;
-}
-
-/* Hover effect ikut navbar */
-nav:hover div {
-  text-shadow: 0 3px 6px rgba(0,0,0,0.5);
-  transform: scale(1.02);
-}
-
-/* SECTION & TABLES */
-section{
-  margin:20px auto;
-  padding:20px;
-  background:#ffffff; /* Section cerah */
-  border-radius:12px;
-  box-shadow:0 4px 12px rgba(0,0,0,0.1);
-  max-width:950px;
-  color:#333;
-}
-
-table{
-  width:100%;
-  border-collapse:separate;
-  border-spacing:0 8px;
-}
-th,td{
-  text-align:center;
-  padding:10px;
-}
-th{
-  background:#42a5f580; /* header table cerah */
-  color:#000;
-  border:none;
-  border-radius:8px;
-  text-shadow: 0 0 3px #fff;
-}
-td{
-  background:#f0f0f0;
-  border:none;
-  border-radius:8px;
-  color:#333;
-}
-input{
-  width:60px;
-  padding:6px;
-  border-radius:6px;
-  border:1px solid #aaa;
-  text-align:center;
-  background:#fff;
-  color:#333;
-}
-input:disabled{
-  background:#eee;
-  color:#999;
-}
-button{
-  padding:6px 12px;
-  margin:2px;
-  border-radius:6px;
-  border:none;
-  background:#42a5f5;
-  color:white;
-  cursor:pointer;
-  box-shadow: 0 0 10px rgba(66,165,245,0.8);
-}
-button:hover{
-  background:#1e88e5;
-  box-shadow: 0 0 15px rgba(66,165,245,1);
-}
-#resetBtn{
-  background:#ef5350;
-  box-shadow:0 0 10px rgba(239,83,80,0.8);
-}
-#adminSection{
-  text-align:center;
-  margin-top:10px;
-}
-#passwordModal{
-  display:none;
-  position:fixed;
-  top:0;
-  left:0;
-  width:100%;
-  height:100%;
-  background:rgba(0,0,0,0.4);
-  justify-content:center;
-  align-items:center;
-}
-#passwordModal div{
-  background:#fff;
-  padding:20px;
-  border-radius:8px;
-  text-align:center;
-  color:#333;
-  box-shadow:0 0 15px rgba(0,0,0,0.2);
-}
-
-/* WARNA TOP 2 */
-.firstPlace td{background:#FFF8DC;font-weight:bold;}
-.secondPlace td{background:#F0F0F0;font-weight:bold;}
-
-/* WARNA INPUT SKOR BERDASARKAN NILAI */
-input.positive{color:#00aa00;font-weight:bold;}
-input.negative{color:#ff4444;font-weight:bold;}
-input.zero{color:#333;}
-
-@media(max-width:600px){th,td,input,button{font-size:12px;padding:5px;}}
-
-@media print {
-  /* Navbar gradient tetap */
-  nav {
-    background: linear-gradient(135deg, #696969, #708090) !important;
-    color: #fff;
-    box-shadow: none; /* buang shadow supaya PDF lebih bersih */
-    -webkit-print-color-adjust: exact; /* pastikan warna dicetak */
-    backdrop-filter: none;
-  }
-
-  /* Gradient teks tetap muncul */
-  .gradient-text {
-    background: linear-gradient(90deg, #ffeb3b, #f44336);
-    -webkit-background-clip: text !important;
-    -webkit-text-fill-color: transparent !important;
-    text-shadow: none !important;
-  }
-
-  /* Pastikan shadow atau background lain tidak ganggu */
-  nav h2, nav div {
-    text-shadow: 0 0 1px rgba(0,0,0,0.1) !important;
-  }
-}
-
-</style>
-</head>
-<body>
-
-<!-- NAVBAR -->
-<nav>
-  <div>
-    <h2>
-      <span class="emoji">🏸</span>
-      <span class="gradient-text">Liga JJM BC</span>
-      <span class="emoji">🏸</span>
-    </h2>
-    <div>by Admin - Mik 😎😂</div>
-  </div>
-</nav>
-
-<!-- SECTION JADUAL -->
-<section>
-<h3>🏆 Jadual Kedudukan 🥇</h3>
-<button onclick="cetak()">🖨️ Cetak Jadual</button>
-<table id="markahTable">
-<thead>
-<tr>
-<th>Rank</th>
-<th>Pasukan</th>
-<th>Main</th>
-<th>Menang</th>
-<th>Kalah</th>
-<th>Jumlah Mata</th>
-</tr>
-</thead>
-<tbody></tbody>
-</table>
-</section>
-
-<!-- SECTION PERLAWANAN -->
-<section>
-<h3>🔥 Senarai Perlawanan 🆚</h3>
-<table id="gameTable">
-<thead>
-<tr>
-<th>Pasukan</th>
-<th>Skor</th>
-<th>Skor</th>
-<th>Pasukan</th>
-</tr>
-</thead>
-<tbody id="gameList"></tbody>
-</table>
-
-<div id="adminSection">
-<p id="infoText"></p>
-<button onclick="showAdminModal()">🔐 Admin Login</button>
-<button onclick="tambahPair()" id="addBtn" style="display:none;">➕ Tambah Pasukan</button>
-<button onclick="buangPair()" id="delBtn" style="display:none;">➖ Buang Pasukan</button>
-<button onclick="resetData()" id="resetBtn" style="display:none;">♻️ Reset Semua Data</button>
-</div>
-</section>
-
-<!-- MODAL ADMIN -->
-<div id="passwordModal">
-  <div>
-    <p>Masukkan password admin:</p>
-    <input type="password" id="adminPwInput" placeholder="Password">
-    <button onclick="checkPassword()">Login</button>
-  </div>
-</div>
-
-<!-- FIREBASE -->
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
-<script>
-const firebaseConfig = {
-  apiKey: "AIzaSyBRLCSzb3QahfPhLQu9WLIvBO9jovYm2y8",
-  authDomain: "liga-badminton.firebaseapp.com",
-  databaseURL: "https://liga-badminton-default-rtdb.asia-southeast1.firebasedatabase.app",
-  projectId: "liga-badminton",
-  storageBucket: "liga-badminton.firebasestorage.app",
-  messagingSenderId: "647551116865",
-  appId: "1:647551116865:web:f01bda84467dd634ab08c0",
-  measurementId: "G-5CM12B9M42"
-};
-firebase.initializeApp(firebaseConfig);
-const db = firebase.database();
-
-let pairs=[], games=[], isAdmin=false;
-
-// --- Load pairs dari Firebase ---
-db.ref('pairs').on('value', snap=>{
-    pairs = snap.val() || ["Pasukan 1","Pasukan 2","Pasukan 3","Pasukan 4"];
-    buatPerlawananRoundRobin();  // <-- automatik round-robin
-    paparkanPerlawanan();
-    kiraMarkah();
-});
-
-// --- Load games dari Firebase ---
-db.ref('games').on('value', snap=>{
-    games = snap.val() || [];
-    paparkanPerlawanan();
-    kiraMarkah();
-});
-
-// --- Round-robin function ---
-function buatPerlawananRoundRobin() {
-  let n = pairs.length;
-  let roundGames = [];
-
-  let teams = [...pairs];
-  let hasBye = false;
-  if(n % 2 !== 0) {
-    teams.push("BYE");
-    n++;
-    hasBye = true;
-  }
-
-  let rounds = n - 1;
-  let half = n / 2;
-  let teamArr = teams.slice(1);
-
-  for(let r = 0; r < rounds; r++) {
-    for(let i = 0; i < half; i++) {
-      let t1 = (i === 0) ? teams[0] : teamArr[i - 1];
-      let t2 = teamArr[teamArr.length - i - 1];
-      if(t1 !== "BYE" && t2 !== "BYE") {
-        let existing = games.find(g => 
-          (g.a === t1 && g.b === t2) || (g.a === t2 && g.b === t1)
-        );
-        if(existing) roundGames.push(existing);
-        else roundGames.push({a: t1, b: t2, sa:"", sb:""});
-      }
-    }
-    teamArr.unshift(teamArr.pop());
-  }
-
-  games = roundGames;
-  db.ref('games').set(games);
-}
-
-// --- Kiraan markah ---
-function kiraMarkah(){
-  let data={};
-  pairs.forEach(p=>data[p]={main:0,menang:0,kalah:0,jumlahMata:0});
-  games.forEach(g=>{
-    if(g.sa===""||g.sb==="") return;
-    let sa=parseInt(g.sa), sb=parseInt(g.sb);
-    data[g.a].main++; data[g.b].main++;
-    let diff = sa - sb;
-    data[g.a].jumlahMata += diff;
-    data[g.b].jumlahMata -= diff;
-    if(sa>sb){data[g.a].menang++; data[g.b].kalah++;}
-    else if(sb>sa){data[g.b].menang++; data[g.a].kalah++;}
-  });
-
-  let sorted = Object.entries(data).sort((a,b)=>{
-    if(b[1].menang!==a[1].menang) return b[1].menang-a[1].menang;
-    return b[1].jumlahMata - a[1].jumlahMata;
-  });
-
-  let tb=document.querySelector("#markahTable tbody"); tb.innerHTML="";
-  sorted.forEach((d,i)=>{
-    let cls="";
-    if(i===0) cls="firstPlace";
-    else if(i===1) cls="secondPlace";
-    let m=d[1];
-    tb.innerHTML+=`<tr class="${cls}">
-<td>${i+1}</td>
-<td>${d[0]}</td>
-<td>${m.main}</td>
-<td>${m.menang}</td>
-<td>${m.kalah}</td>
-<td>${m.jumlahMata}</td>
-</tr>`;
-  });
-}
-
-// --- Papar perlawanan ---
-function paparkanPerlawanan(){
-  let list=document.getElementById("gameList"); list.innerHTML="";
-  games.forEach((g,i)=>{
-    list.innerHTML+=`<tr>
-<td>${g.a}</td>
-<td><input class="${getClass(g.sa)}" value="${g.sa}" ${!isAdmin?"disabled":""} onclick="focusInput(this)" onchange="update(${i},'a',this.value)"></td>
-<td><input class="${getClass(g.sb)}" value="${g.sb}" ${!isAdmin?"disabled":""} onclick="focusInput(this)" onchange="update(${i},'b',this.value)"></td>
-<td>${g.b}</td>
-</tr>`;
-  });
-}
-
-function focusInput(el){
-  if(!isAdmin) return;
-  el.removeAttribute('readonly');
-  el.focus({preventScroll:false});
-}
-
-function getClass(val){
-  if(val==="") return "zero";
-  let n = parseInt(val);
-  if(n>0) return "positive";
-  if(n<0) return "negative";
-  return "zero";
-}
-
-function update(i,type,val){
-  if(!isAdmin) return;
-  if(type==="a") games[i].sa = val; else games[i].sb = val;
-  db.ref('games').set(games);
-  paparkanPerlawanan();
-}
-
-// --- Tambah / buang pasukan ---
-function tambahPair(){
-  if(!isAdmin) return;
-  let nama = prompt("Nama Pasukan baru:");
-  if(nama){
-    pairs.push(nama);
-    buatPerlawananRoundRobin(); // <-- guna round-robin
-  }
-}
-
-function buangPair(){
-  if(!isAdmin) return;
-  let nama = prompt("Nama Pasukan untuk buang:");
-  if(nama){
-    let idx = pairs.findIndex(p => p.toLowerCase() === nama.toLowerCase());
-    if(idx>-1){
-      pairs.splice(idx,1);
-      buatPerlawananRoundRobin(); // <-- guna round-robin
-    } else alert("Pasukan tidak dijumpai!");
-  }
-}
-
-// --- Reset / Admin / Cetak ---
-function resetData(){
-  if(!isAdmin) return;
-  if(!confirm("⚠️ Pasti nak reset semua skor?")) return;
-  games.forEach(g=>{g.sa=""; g.sb="";});
-  db.ref('games').set(games);
-  kiraMarkah();
-  alert("✅ Semua skor telah di-reset!");
-}
-
-function showAdminModal(){
-  const modal = document.getElementById("passwordModal");
-  modal.style.display="flex";
-  const pwInput = document.getElementById("adminPwInput");
-  pwInput.value="";
-  setTimeout(()=>pwInput.focus(), 100);
-}
-
-function checkPassword(){
-  const pw = document.getElementById("adminPwInput").value;
-  if(pw==="260895"){
-    document.getElementById("passwordModal").style.display="none";
-    isAdmin=true;
-    document.getElementById("infoText").innerText="Admin aktif. Boleh edit.";
-    document.getElementById("addBtn").style.display="inline-block";
-    document.getElementById("delBtn").style.display="inline-block";
-    document.getElementById("resetBtn").style.display="inline-block";
-    paparkanPerlawanan();
-  } else alert("Password salah!");
-}
+function showAdminModal(){ const modal=document.getElementById("passwordModal"); modal.style.display="flex"; const pwInput=document.getElementById("adminPwInput"); pwInput.value=""; setTimeout(()=>pwInput.focus(),100); }
+function checkPassword(){ const pw=document.getElementById("adminPwInput").value; if(pw==="260895"){ document.getElementById("passwordModal").style.display="none"; isAdmin=true; document.getElementById("infoText").innerText="Admin aktif. Boleh edit."; document.getElementById("addBtn").style.display="inline-block"; document.getElementById("delBtn").style.display="inline-block"; document.getElementById("resetBtn").style.display="inline-block"; paparkanPerlawanan(); } else alert("Password salah!"); }
 
 function cetak(){window.print();}
 </script>
