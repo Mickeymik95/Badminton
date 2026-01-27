@@ -157,7 +157,19 @@ g.innerHTML+=`<tr>
 
 function update(i,f,v){if(isAdmin){games[i][f]=v;db.ref("games").set(games);kiraMarkah();paparkanPerlawanan();}}
 function showAdminModal(){passwordModal.style.display="flex";}
-function checkPassword(){if(adminPwInput.value==="260895"){passwordModal.style.display="none";isAdmin=true;infoText.innerText="Admin aktif";addBtn.style.display=delBtn.style.display=resetBtn.style.display="inline-block";paparkanPerlawanan();}}
+function checkPassword(){
+  if(adminPwInput.value==="260895"){
+    passwordModal.style.display="none";
+    isAdmin=true;
+    infoText.innerText="Admin aktif";
+    addBtn.style.display=delBtn.style.display=resetBtn.style.display="inline-block";
+    paparkanPerlawanan();
+  } else {
+    alert("❌ Password salah!");  // <-- tambah alert
+    adminPwInput.value="";       // <-- kosongkan input supaya boleh cuba lagi
+    adminPwInput.focus();        // <-- fokus semula ke input
+  }
+}
 function tambahPair(){let n=prompt("Nama pasukan");if(n){pairs.push(n);db.ref("pairs").set(pairs);db.ref("games").remove();}}
 function buangPair(){let n=prompt("Nama Pasukan untuk buang:");if(!n)return;let idx=pairs.findIndex(p=>p.trim().toLowerCase()===n.trim().toLowerCase());if(idx>-1){pairs.splice(idx,1);db.ref("pairs").set(pairs);db.ref("games").remove();}else{alert("❌ Pasukan tidak dijumpai!");}}
 function resetData(){if(confirm("Reset semua perlawanan?"))db.ref("games").remove();}
