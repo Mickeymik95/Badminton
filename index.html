@@ -161,18 +161,26 @@ input.zero{color:#333;}
 @media(max-width:600px){th,td,input,button{font-size:12px;padding:5px;}}
 
 @media print {
+  /* Navbar gradient tetap */
   nav {
-    background: #42a5f5 !important; /* solid color untuk PDF */
-    -webkit-print-color-adjust: exact; /* pastikan warna dicetak */
+    background: linear-gradient(135deg, #696969, #708090) !important;
     color: #fff;
-    box-shadow: none;
+    box-shadow: none; /* buang shadow supaya PDF lebih bersih */
+    -webkit-print-color-adjust: exact; /* pastikan warna dicetak */
     backdrop-filter: none;
   }
 
+  /* Gradient teks tetap muncul */
   .gradient-text {
-    -webkit-background-clip: unset !important;
-    -webkit-text-fill-color: #fff !important;
+    background: linear-gradient(90deg, #ffeb3b, #f44336);
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
     text-shadow: none !important;
+  }
+
+  /* Pastikan shadow atau background lain tidak ganggu */
+  nav h2, nav div {
+    text-shadow: 0 0 1px rgba(0,0,0,0.1) !important;
   }
 }
 
