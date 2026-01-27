@@ -38,14 +38,13 @@ nav h2 {
 }
 
 .gradient-text {
-  background: linear-gradient(90deg, #ffeb3b, #f44336); /* gradient kontras & menyerlah */
+  background: linear-gradient(90deg, #ffeb3b, #f44336);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  text-shadow: 
-    0 0 5px #ffeb3b,
-    0 0 10px #f44336; /* glow lembut */
+  text-shadow: none; /* buang shadow supaya tidak blur */
   margin: 0 8px;
   letter-spacing: 1px;
+  font-weight: 900; /* pastikan tebal */
 }
 
 nav h2 span.emoji {
