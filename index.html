@@ -12,30 +12,42 @@ body{
   color:#333;
 }
 
-/* NAVBAR CERAH + TULISAN MENYERLAH */
-/* NAVBAR HIDUP & MENYERLAH */
+/* ==============================
+   NAVBAR HIDUP, SLIM & CENTERED
+   ============================== */
 nav {
   position: sticky;
   top: 10px;
   z-index: 100;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 12px 25px;
+  flex-direction: column;   /* susun h2 + div menegak */
+  align-items: center;      /* center horizontal */
+  justify-content: center;  /* center vertical */
+  padding: 12px 25px;       /* navbar lebih slim */
   background: linear-gradient(135deg, #6e7ff3, #42a5f5); /* gradient cerah */
   border-radius: 15px;
   box-shadow: 0 6px 20px rgba(0,0,0,0.25); /* shadow lebih jelas */
   text-align: center;
-  transition: all 0.3s ease; /* smooth hover effect */
+  transition: all 0.3s ease;
 }
 
-/* Hover effect supaya lebih “hidup” */
+/* Hover effect supaya navbar lebih hidup */
 nav:hover {
   box-shadow: 0 8px 30px rgba(0,0,0,0.35);
   transform: translateY(-2px);
 }
 
-/* Teks Navbar gradient */
+/* TEKS UTAMA: Liga JJM BC */
+nav h2 {
+  margin: 0;
+  font-weight: 900;
+  font-size: 28px;                  /* saiz teks lebih kemas */
+  display: flex;
+  align-items: center;               /* emoji + teks sejajar tengah */
+  justify-content: center;
+}
+
+/* Gradient teks “Liga JJM BC” */
 .gradient-text {
   background: linear-gradient(90deg, #ffeb3b, #f44336);
   -webkit-background-clip: text;
@@ -44,7 +56,7 @@ nav:hover {
   margin: 0 8px;
   letter-spacing: 1px;
   font-weight: 900;
-  transition: all 0.3s ease; /* smooth hover effect */
+  transition: all 0.3s ease;
 }
 
 /* Hover effect pada teks gradient */
@@ -53,18 +65,22 @@ nav h2:hover .gradient-text {
   transform: scale(1.05);
 }
 
-/* Emoji tetap jelas */
+/* Emoji tetap sejajar tengah */
 nav h2 span.emoji {
   margin: 0 5px;
+  display: inline-flex;
+  align-items: center;
 }
 
+/* TEKS SUBTEXT: by Admin - Mik */
 nav div {
-  font-size: 15px;
-  color: #fff;
-  font-weight: 600;
   margin-top: 5px;
-  text-shadow: 0 2px 4px rgba(0,0,0,0.3); /* shadow lebih nyata */
-  transition: all 0.3s ease; /* smooth effect bila hover */
+  font-size: 15px;
+  font-weight: 600;
+  color: #fff;
+  line-height: 1.2;                  /* jarak lebih selesa */
+  text-shadow: 0 2px 4px rgba(0,0,0,0.25);
+  transition: all 0.3s ease;
 }
 
 /* Hover effect ikut navbar */
