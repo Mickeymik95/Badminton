@@ -299,24 +299,26 @@ const db = firebase.database();
 
 let pairs=[], games=[], isAdmin=false;
 
+// --- Load pairs dari Firebase ---
 db.ref('pairs').on('value', snap=>{
     pairs = snap.val() || ["Pasukan 1","Pasukan 2","Pasukan 3","Pasukan 4"];
+    buatPerlawananRoundRobin();  // <-- automatik round-robin
     paparkanPerlawanan();
     kiraMarkah();
 });
 
+// --- Load games dari Firebase ---
 db.ref('games').on('value', snap=>{
     games = snap.val() || [];
     paparkanPerlawanan();
     kiraMarkah();
 });
 
-// Buat perlawanan round-robin ikut sequence
+// --- Round-robin function ---
 function buatPerlawananRoundRobin() {
   let n = pairs.length;
   let roundGames = [];
 
-  // Jika jumlah pasukan ganjil, tambah "BYE" sementara
   let teams = [...pairs];
   let hasBye = false;
   if(n % 2 !== 0) {
@@ -325,17 +327,15 @@ function buatPerlawananRoundRobin() {
     hasBye = true;
   }
 
-  let rounds = n - 1; // jumlah round
+  let rounds = n - 1;
   let half = n / 2;
+  let teamArr = teams.slice(1);
 
-  // Generate rounds
-  let teamArr = teams.slice(1); // fixed first team
   for(let r = 0; r < rounds; r++) {
     for(let i = 0; i < half; i++) {
       let t1 = (i === 0) ? teams[0] : teamArr[i - 1];
       let t2 = teamArr[teamArr.length - i - 1];
       if(t1 !== "BYE" && t2 !== "BYE") {
-        // check if sudah wujud dalam games
         let existing = games.find(g => 
           (g.a === t1 && g.b === t2) || (g.a === t2 && g.b === t1)
         );
@@ -343,7 +343,6 @@ function buatPerlawananRoundRobin() {
         else roundGames.push({a: t1, b: t2, sa:"", sb:""});
       }
     }
-    // rotate teamArr untuk round seterusnya
     teamArr.unshift(teamArr.pop());
   }
 
@@ -351,6 +350,7 @@ function buatPerlawananRoundRobin() {
   db.ref('games').set(games);
 }
 
+// --- Kiraan markah ---
 function kiraMarkah(){
   let data={};
   pairs.forEach(p=>data[p]={main:0,menang:0,kalah:0,jumlahMata:0});
@@ -387,6 +387,7 @@ function kiraMarkah(){
   });
 }
 
+// --- Papar perlawanan ---
 function paparkanPerlawanan(){
   let list=document.getElementById("gameList"); list.innerHTML="";
   games.forEach((g,i)=>{
@@ -420,12 +421,13 @@ function update(i,type,val){
   paparkanPerlawanan();
 }
 
+// --- Tambah / buang pasukan ---
 function tambahPair(){
   if(!isAdmin) return;
   let nama = prompt("Nama Pasukan baru:");
   if(nama){
     pairs.push(nama);
-    buatPerlawanan();
+    buatPerlawananRoundRobin(); // <-- guna round-robin
   }
 }
 
@@ -436,11 +438,12 @@ function buangPair(){
     let idx = pairs.findIndex(p => p.toLowerCase() === nama.toLowerCase());
     if(idx>-1){
       pairs.splice(idx,1);
-      buatPerlawanan();
+      buatPerlawananRoundRobin(); // <-- guna round-robin
     } else alert("Pasukan tidak dijumpai!");
   }
 }
 
+// --- Reset / Admin / Cetak ---
 function resetData(){
   if(!isAdmin) return;
   if(!confirm("⚠️ Pasti nak reset semua skor?")) return;
