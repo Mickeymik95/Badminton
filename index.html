@@ -58,7 +58,7 @@ button:hover{background:#1e88e5;box-shadow:0 0 15px rgba(66,165,245,1);}
 <h3>🔥 Senarai Perlawanan</h3>
 <table>
 <thead>
-<tr><th>Pasukan</th><th>Skor</th><th>Skor</th><th>Pasukan</th></tr>
+<tr><th>Pasukan</th><th>Skor</th><th>Pasukan</th></tr>
 </thead>
 <tbody id="gameList"></tbody>
 </table>
@@ -139,19 +139,21 @@ tb.innerHTML+=`<tr class="${i==0?"firstPlace":i==1?"secondPlace":""}"><td>${i+1}
 }
 
 function paparkanPerlawanan(){
-let g=document.getElementById("gameList");g.innerHTML="";
+let g=document.getElementById("gameList");
+g.innerHTML="";
 games.forEach((x,i)=>{
 let saClass=x.sa===""?"zero":(+x.sa>+x.sb?"positive":(+x.sa<+x.sb?"negative":"zero"));
 let sbClass=x.sb===""?"zero":(+x.sb>+x.sa?"positive":(+x.sb<+x.sa?"negative":"zero"));
-g.innerHTML+=`<tr>  
-<td>${x.a}</td>  
-<td><input ${!isAdmin?"disabled":""} class="${saClass}" value="${x.sa}" onchange="update(${i},'sa',this.value)"></td>  
+
+g.innerHTML+=`<tr>
+<td>${x.a}</td>
 <td style="display:flex; justify-content:center; align-items:center; gap:6px;">
   <input ${!isAdmin?"disabled":""} class="${saClass}" value="${x.sa}" onchange="update(${i},'sa',this.value)" style="width:40px;">
   <span style="font-weight:bold;">🆚</span>
   <input ${!isAdmin?"disabled":""} class="${sbClass}" value="${x.sb}" onchange="update(${i},'sb',this.value)" style="width:40px;">
-</td>  
-<td>${x.b}</td></tr>`;
+</td>
+<td>${x.b}</td>
+</tr>`;
 });
 }
 
@@ -165,9 +167,9 @@ function checkPassword(){
     addBtn.style.display=delBtn.style.display=resetBtn.style.display="inline-block";
     paparkanPerlawanan();
   } else {
-    alert("❌ Password salah!");  // <-- tambah alert
-    adminPwInput.value="";       // <-- kosongkan input supaya boleh cuba lagi
-    adminPwInput.focus();        // <-- fokus semula ke input
+    alert("❌ Password salah!");
+    adminPwInput.value="";
+    adminPwInput.focus();
   }
 }
 function tambahPair(){let n=prompt("Nama pasukan");if(n){pairs.push(n);db.ref("pairs").set(pairs);db.ref("games").remove();}}
