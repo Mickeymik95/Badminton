@@ -4,7 +4,6 @@
 <meta charset="UTF-8">
 <title>Liga Badminton – Ultimate LIVE</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <style>
 /* =========================
    BODY
@@ -23,7 +22,7 @@ body{
 #banner {
   width: 100%;
   aspect-ratio: 16 / 9; /* nisbah 16:9 responsive */
-  background-image: url("banner.jpg"); /* tukar nama gambar awak */
+  background-image: url("banner.jpg");
   background-size: cover;
   background-position: center;
   position: relative;
@@ -69,23 +68,23 @@ body{
 }
 
 /* =========================
-   NAV RESPONSIVE BAWAH BANNER
+   NAV DI BAWAH BANNER
    ========================= */
 nav{
-  position: sticky;       /* stick bila scroll */
-  top: 10px;              /* jarak dari atas bila scroll */
+  position: -webkit-sticky;  /* masih sticky bila scroll */
+  position: sticky;
+  top:0;                      /* mula stick bila scroll dari atas */
   z-index: 10;
   width: 90%;
   max-width: 950px;
   padding: 12px 25px;
-  margin: 15px auto 30px; /* margin biasa, bawah banner, tidak tutup banner */
+  margin: 0 auto 30px;       /* tiada top margin, di bawah banner naturally */
   background: linear-gradient(135deg,#C0C0C0,#808080,#FFFFFF);
   border-radius: 15px;
   text-align: center;
   transition: all 0.3s ease;
 }
 
-/* nav hover effect */
 nav:hover{
   transform:translateY(-2px);
   box-shadow:0 10px 40px rgba(0,0,0,0.45);
@@ -130,17 +129,18 @@ section{
   color:#333;
 }
 
-/* jadual responsive */
+/* responsive table */
 section table{
   width:100%;
   border-collapse:separate;
   border-spacing:0 8px;
-  display:block;        /* scroll bila sempit */
-  overflow-x:auto;
+  display:block;
+  overflow-x:auto;   /* scroll bila sempit */
   max-width:100%;
 }
 
-th,td{
+/* table content */
+th, td{
   text-align:center;
   padding:10px;
 }
@@ -205,7 +205,7 @@ button:hover{
   #banner{min-height:180px;}
   nav{
     width:95%;
-    margin:10px auto 20px; /* margin mobile bawah banner */
+    margin:10px auto 20px;
     padding:10px 12px;
   }
   nav h2{font-size:20px;}
