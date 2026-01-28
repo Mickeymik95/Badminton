@@ -55,42 +55,52 @@ body{
   100%{left:100%;}
 }
 
-/* ===== NAV ===== */
+/* ===== NAVBAR ===== */
 nav{
   width:90%;
   max-width:950px;
   margin:20px auto;
-  padding:16px 20px;
+  padding:14px 20px;
   background:linear-gradient(135deg,#C0C0C0,#808080,#fff);
   border-radius:16px;
   text-align:center;
   transition:.3s;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
 }
+
 nav.sticky{
   position:sticky;
   top:10px;
   z-index:100;
 }
+
 nav h2{
   margin:0;
-  font-size:clamp(20px,2.5vw,28px);  /* responsive & readable */
+  font-size: clamp(20px, 4vw, 36px); /* auto-fit ikut skrin */
   font-weight:900;
   display:flex;
   align-items:center;
   justify-content:center;
+  flex-wrap:nowrap; /* satu baris */
 }
+
 .gradient-text{
-  background:linear-gradient(135deg,#8e24aa,#f44336,#ffeb3b,#ff9800,#8e24aa);
+  background: linear-gradient(135deg,#8e24aa,#f44336,#ffeb3b,#ff9800,#8e24aa);
   -webkit-background-clip:text;
   -webkit-text-fill-color:transparent;
   text-shadow:0 2px 4px rgba(0,0,0,0.3);
   margin:0 8px;
   letter-spacing:1px;
   font-weight:900;
+  font-size: clamp(20px, 4vw, 36px); /* ikut h2 */
 }
+
 nav div{
   margin-top:5px;
-  font-size:clamp(12px,1.5vw,16px); /* lebih besar untuk mobile */
+  font-size: clamp(12px, 2vw, 18px); /* auto-fit juga */
   font-weight:600;
   color:#0000ff;
 }
