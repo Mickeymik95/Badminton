@@ -20,17 +20,16 @@ body{
 /* =========================
    BANNER PRESTIJ + PARALLAX + SHIMMER
    ========================= */
-#banner{
-  width:100%;
-  height:auto;
-  min-height:35vh;
-  max-height:600px;
-  background-image:url("banner.jpg");
-  background-size:cover;
-  background-position:center;
-  position:relative;
-  display:block;
-  overflow:hidden;
+#banner {
+  width: 100%;
+  /* tinggi ikut nisbah 16:9 (boleh tukar ikut gambar) */
+  aspect-ratio: 16 / 9;
+  background-image: url("banner.jpg"); /* tukar nama gambar awak */
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  display: block;
+  overflow: hidden;
 }
 
 /* overlay gelap */
