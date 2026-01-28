@@ -106,20 +106,20 @@ section{
   color:#333;
 }
 
-/* ===== TABLE FIX UNTUK SELARAS ===== */
+/* ===== TABLE FIX UNTUK JADUAL KEDUDUKAN ===== */
 section table{
-  width:100%;              
+  width:100%;
   border-collapse: separate;
   border-spacing:0 8px;
-  table-layout: auto;      
+  table-layout: fixed;    /* pastikan semua kolum ikut width yang ditetapkan */
 }
 
-/* Tetapkan lebar kolum jadual kedudukan sahaja */
+/* Tetapkan lebar kolum dengan tepat supaya selari */
 #markahTable th:nth-child(1){width: 10%;}   /* Rank */
 #markahTable th:nth-child(2){width: 30%;}   /* Pasukan */
-#markahTable th:nth-child(3),
-#markahTable th:nth-child(4),
-#markahTable th:nth-child(5){width: 15%;}   /* Main, Menang, Kalah */
+#markahTable th:nth-child(3){width: 15%;}   /* Main */
+#markahTable th:nth-child(4){width: 15%;}   /* Menang */
+#markahTable th:nth-child(5){width: 15%;}   /* Kalah */
 #markahTable th:nth-child(6){width: 15%;}   /* Jumlah Mata */
 
 /* TH & TD styling baru */
