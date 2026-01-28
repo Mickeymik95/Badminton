@@ -5,9 +5,7 @@
 <title>Liga Badminton – Ultimate LIVE</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
-/* =========================
-   BODY
-   ========================= */
+/* ===== BODY ===== */
 body{
   margin:0;
   font-family:'Segoe UI',sans-serif;
@@ -16,23 +14,18 @@ body{
   overflow-x:hidden;
 }
 
-/* =========================
-   BANNER PRESTIJ + PARALLAX + SHIMMER
-   ========================= */
-#banner {
-  width: 100%;
-  aspect-ratio: 16 / 9; /* nisbah 16:9 responsive */
-  background-image: url("banner.jpg");
-  background-size: cover;
-  background-position: center;
-  position: relative;
-  display: block;
-  overflow: hidden;
-  min-height: 200px;
-  max-height: 400px;
+/* ===== BANNER ===== */
+#banner{
+  width:100%;
+  aspect-ratio:16/9;
+  background-image:url("banner.jpg");
+  background-size:cover;
+  background-position:center;
+  position:relative;
+  overflow:hidden;
+  min-height:200px;
+  max-height:400px;
 }
-
-/* overlay gelap */
 #banner::before{
   content:"";
   position:absolute;
@@ -40,8 +33,6 @@ body{
   background:linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.7));
   z-index:1;
 }
-
-/* overlay cahaya stadium */
 #banner::after{
   content:"";
   position:absolute;
@@ -49,56 +40,45 @@ body{
   background:radial-gradient(circle at center, rgba(255,255,255,0.08), transparent 60%);
   z-index:2;
 }
-
-/* shimmer effect */
 #banner .shimmer{
   position:absolute;
   top:0;
   left:-100%;
   width:50%;
   height:100%;
-  background:linear-gradient(120deg, rgba(255,255,255,0.0) 0%, rgba(255,255,255,0.2) 50%, rgba(255,255,255,0.0) 100%);
-  animation: shimmer 3s infinite;
+  background:linear-gradient(120deg, rgba(255,255,255,0), rgba(255,255,255,0.2), rgba(255,255,255,0));
+  animation:shimmer 3s infinite;
   z-index:3;
 }
-
 @keyframes shimmer{
   0%{left:-50%;}
   100%{left:100%;}
 }
 
-/* =========================
-   NAV DI BAWAH BANNER
-   ========================= */
+/* ===== NAV ===== */
 nav{
-  position: -webkit-sticky;  /* masih sticky bila scroll */
-  position: sticky;
-  top:0;                      /* mula stick bila scroll dari atas */
-  z-index: 10;
-  width: 90%;
-  max-width: 950px;
-  padding: 12px 25px;
-  margin: 0 auto 30px;       /* tiada top margin, di bawah banner naturally */
-  background: linear-gradient(135deg,#C0C0C0,#808080,#FFFFFF);
-  border-radius: 15px;
-  text-align: center;
-  transition: all 0.3s ease;
+  width:90%;
+  max-width:950px;
+  margin:20px auto;
+  padding:14px 20px;
+  background:linear-gradient(135deg,#C0C0C0,#808080,#fff);
+  border-radius:16px;
+  text-align:center;
+  transition:.3s;
 }
-
-nav:hover{
-  transform:translateY(-2px);
-  box-shadow:0 10px 40px rgba(0,0,0,0.45);
+nav.sticky{
+  position:sticky;
+  top:10px;
+  z-index:100;
 }
-
 nav h2{
   margin:0;
-  font-weight:900;
   font-size:28px;
+  font-weight:900;
   display:flex;
   align-items:center;
   justify-content:center;
 }
-
 .gradient-text{
   background:linear-gradient(135deg,#8e24aa,#f44336,#ffeb3b,#ff9800,#8e24aa);
   -webkit-background-clip:text;
@@ -108,7 +88,6 @@ nav h2{
   letter-spacing:1px;
   font-weight:900;
 }
-
 nav div{
   margin-top:5px;
   font-size:15px;
@@ -116,35 +95,31 @@ nav div{
   color:#0000ff;
 }
 
-/* =========================
-   SECTIONS & TABLE
-   ========================= */
+/* ===== SECTION ===== */
 section{
+  max-width:950px;
   margin:20px auto;
   padding:20px;
   background:#fff;
   border-radius:12px;
   box-shadow:0 4px 12px rgba(0,0,0,0.1);
-  max-width:950px;
   color:#333;
 }
 
-/* responsive table */
+/* ===== TABLE RESPONSIVE ===== */
 section table{
   width:100%;
   border-collapse:separate;
   border-spacing:0 8px;
   display:block;
-  overflow-x:auto;   /* scroll bila sempit */
+  overflow-x:auto;
   max-width:100%;
 }
-
-/* table content */
 th, td{
   text-align:center;
   padding:10px;
+  word-break:break-word;
 }
-
 th{
   background:#42a5f580;
   color:#000;
@@ -152,18 +127,16 @@ th{
   border-radius:8px;
   text-shadow:0 0 3px #fff;
 }
-
 td{
   background:#f0f0f0;
   border:none;
   border-radius:8px;
   color:#333;
 }
-
 .firstPlace td{background:#FFF8DC;font-weight:bold;}
 .secondPlace td{background:#E0E0E0;font-weight:bold;}
 
-/* INPUT & BUTTON */
+/* ===== INPUT & BUTTON ===== */
 input{
   width:60px;
   padding:6px;
@@ -177,7 +150,6 @@ input:disabled{background:#eee;color:#999;}
 input.positive{color:#00aa00;font-weight:bold;}
 input.negative{color:#ff4444;font-weight:bold;}
 input.zero{color:#333;}
-
 button{
   padding:6px 12px;
   margin:2px;
@@ -194,32 +166,34 @@ button:hover{
 }
 #resetBtn{background:#ef5350;box-shadow:0 0 10px rgba(239,83,80,0.8);}
 
-#adminSection{text-align:center;margin-top:10px;}
-#passwordModal{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.4);justify-content:center;align-items:center;}
-#passwordModal div{background:#fff;padding:20px;border-radius:8px;text-align:center;color:#333;box-shadow:0 0 15px rgba(0,0,0,0.2);}
-
-/* =========================
-   RESPONSIVE MEDIA
-   ========================= */
-@media(max-width:600px){
-  #banner{min-height:180px;}
-  nav{
-    width:95%;
-    margin:10px auto 20px;
-    padding:10px 12px;
-  }
-  nav h2{font-size:20px;}
-  section{
-    margin:15px 10px;
-    padding:15px;
-  }
-  table, th, td, input, button{
-    font-size:12px;
-    padding:6px;
-  }
+/* ===== PASSWORD MODAL ===== */
+#passwordModal{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.4);
+  justify-content:center;
+  align-items:center;
+}
+#passwordModal div{
+  background:#fff;
+  padding:20px;
+  border-radius:8px;
+  text-align:center;
+  color:#333;
+  box-shadow:0 0 15px rgba(0,0,0,0.2);
 }
 
-/* PRINT SAFE */
+/* ===== MEDIA MOBILE ===== */
+@media(max-width:600px){
+  #banner{min-height:180px;}
+  nav{width:95%;margin:10px auto 20px;padding:10px 12px;}
+  nav h2{font-size:20px;}
+  section{margin:15px 10px;padding:15px;}
+  table, th, td, input, button{font-size:12px;padding:6px;}
+}
+
+/* ===== PRINT SAFE ===== */
 @media print{
   #banner{display:none;}
   nav{box-shadow:none;}
@@ -261,18 +235,14 @@ button:hover{
 
 <div style="text-align:center; display:flex; justify-content:center; align-items:center; gap:10px; margin-top:10px; flex-wrap:wrap;">
 <p id="infoText" style="margin:0;"></p>
-
 <button onclick="showAdminModal()" title="Login sebagai Admin">🔐 Admin Login</button>
-
-<a href="https://wa.me/60149236577" target="_blank" style="text-decoration:none;" title="Hubungi Admin WhatsApp">
+<a href="https://wa.me/60149236577" target="_blank" style="text-decoration:none;">
 <button style="background:#25D366; box-shadow:0 0 10px rgba(37,211,102,0.8);">
-<img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" style="height:16px; vertical-align:middle; margin-right:5px;">
-Ws Admin
+<img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" style="height:16px; vertical-align:middle; margin-right:5px;">Ws Admin
 </button></a>
-
-<button onclick="tambahPair()" id="addBtn" style="display:none" title="Tambah Pasukan">➕ Tambah</button>
-<button onclick="buangPair()" id="delBtn" style="display:none" title="Buang Pasukan">➖ Buang</button>
-<button onclick="resetData()" id="resetBtn" style="display:none" title="Reset Semua Perlawanan">♻️ Reset</button>
+<button onclick="tambahPair()" id="addBtn" style="display:none">➕ Tambah</button>
+<button onclick="buangPair()" id="delBtn" style="display:none">➖ Buang</button>
+<button onclick="resetData()" id="resetBtn" style="display:none">♻️ Reset</button>
 </div>
 </section>
 
@@ -290,7 +260,7 @@ Ws Admin
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
 
 <script>
-// ===== FIREBASE CONFIG =====
+// ===== FIREBASE =====
 firebase.initializeApp({
 apiKey:"AIzaSyBRLCSzb3QahfPhLQu9WLIvBO9jovYm2y8",
 databaseURL:"https://liga-badminton-default-rtdb.asia-southeast1.firebasedatabase.app"
@@ -391,12 +361,12 @@ function checkPassword(){
   }
 }
 
-// ===== TAMBAH / BUANG / RESET PASUKAN =====
+// ===== TAMBAH / BUANG / RESET =====
 function tambahPair(){let n=prompt("Nama pasukan");if(n){pairs.push(n); db.ref("pairs").set(pairs); db.ref("games").remove();}}
 function buangPair(){let n=prompt("Nama Pasukan untuk buang:");if(!n)return; let idx=pairs.findIndex(p=>p.trim().toLowerCase()===n.trim().toLowerCase()); if(idx>-1){pairs.splice(idx,1); db.ref("pairs").set(pairs); db.ref("games").remove();}else{alert("❌ Pasukan tidak dijumpai!");}}
 function resetData(){if(confirm("Reset semua perlawanan?"))db.ref("games").remove();}
 
-// ===== POPSTATE CLOSE MODAL =====
+// ===== POPSTATE MODAL =====
 window.addEventListener("popstate",function(event){
   if(passwordModal.style.display==="flex"){
     passwordModal.style.display="none";
@@ -405,20 +375,13 @@ window.addEventListener("popstate",function(event){
   }
 });
 
-// ===== PARALLAX + AUTO NAV =====
-const banner = document.getElementById("banner");
-const nav = document.getElementById("mainNav");
-
-function updateNavMargin(){
-  const bannerHeight = banner.offsetHeight;
-  nav.style.marginTop = `-${bannerHeight/3}px`;
-}
-
-window.addEventListener("resize", updateNavMargin);
-window.addEventListener("load", updateNavMargin);
+// ===== NAV STICKY & BANNER PARALLAX =====
+const nav=document.getElementById("mainNav");
+const banner=document.getElementById("banner");
 window.addEventListener("scroll",()=>{
-  let offset = window.pageYOffset;
-  banner.style.backgroundPositionY = offset*0.5 + "px"; // parallax
+  if(window.scrollY>banner.offsetHeight) nav.classList.add("sticky");
+  else nav.classList.remove("sticky");
+  banner.style.backgroundPositionY=window.scrollY*0.5+"px";
 });
 </script>
 
