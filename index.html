@@ -106,23 +106,29 @@ section{
   color:#333;
 }
 
-/* ===== TABLE RESPONSIVE FIX ===== */
+/* ===== TABLE FIX UNTUK SELARAS ===== */
 section table{
-  display:table;       /* jadual standard */
-  margin:0 auto;       /* center di desktop */
-  border-collapse:separate;
+  width:100%;              
+  border-collapse: separate;
   border-spacing:0 8px;
-  max-width:100%;
-  overflow-x:auto;     /* responsive bila sempit */
-  table-layout: fixed; /* kolum sama rata */
+  table-layout: auto;      
 }
 
+/* Tetapkan lebar kolum jadual kedudukan sahaja */
+#markahTable th:nth-child(1){width: 10%;}   /* Rank */
+#markahTable th:nth-child(2){width: 30%;}   /* Pasukan */
+#markahTable th:nth-child(3),
+#markahTable th:nth-child(4),
+#markahTable th:nth-child(5){width: 15%;}   /* Main, Menang, Kalah */
+#markahTable th:nth-child(6){width: 15%;}   /* Jumlah Mata */
+
+/* TH & TD styling baru */
 th, td{
   text-align:center;
-  padding:10px;
-  white-space: nowrap;       /* jangan pecahkan baris */
-  overflow: hidden;          /* sembunyi overflow */
-  text-overflow: ellipsis;   /* tunjuk ... bila panjang */
+  padding:6px 8px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 th{
