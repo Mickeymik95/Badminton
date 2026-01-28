@@ -108,12 +108,12 @@ section{
 
 /* ===== TABLE RESPONSIVE ===== */
 section table{
-  width:100%;
+  display:table;       /* jadual standard */
+  margin:0 auto;       /* center di desktop */
   border-collapse:separate;
   border-spacing:0 8px;
-  display:block;
-  overflow-x:auto;
   max-width:100%;
+  overflow-x:auto;     /* masih responsive bila sempit */
 }
 th, td{
   text-align:center;
@@ -138,8 +138,8 @@ td{
 
 /* ===== INPUT & BUTTON ===== */
 input{
-  width:60px;
-  padding:6px;
+  width:40px;   /* kurang lebar, muat satu baris */
+  padding:4px;  /* pad sesuai */
   border-radius:6px;
   border:1px solid #aaa;
   text-align:center;
