@@ -34,10 +34,63 @@ button:hover{background:#1e88e5;box-shadow:0 0 15px rgba(66,165,245,1);}
 .secondPlace td{background:#E0E0E0;font-weight:bold;}
 @media(max-width:600px){th,td,input,button{font-size:12px;padding:5px;}}
 @media print{nav{background:linear-gradient(135deg,#8e24aa,#f44336,#ffeb3b,#ff9800,#42a5f5)!important;color:#fff;box-shadow:none;-webkit-print-color-adjust:exact;}.gradient-text{background:linear-gradient(135deg,#8e24aa,#f44336,#ffeb3b,#ff9800,#42a5f5);-webkit-background-clip:text!important;-webkit-text-fill-color:transparent!important;text-shadow:0 0 1px rgba(0,0,0,0.1)!important;}}
+
+<style>
+/* CSS lama sedia ada ... */
+
+/* ==============================
+   PRESTIJ SPORTS BANNER
+   ============================== */
+#banner{
+  position: relative;
+  width: 100%;
+  min-height: 35vh;
+  max-height: 450px;
+  background-image: url("banner.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  overflow: hidden;
+}
+
+#banner::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background: linear-gradient(
+    to bottom,
+    rgba(0,0,0,0.15),
+    rgba(0,0,0,0.7)
+  );
+}
+
+#banner::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background: radial-gradient(circle at center,
+    rgba(255,255,255,0.08),
+    transparent 60%);
+}
+
+nav{
+  position: sticky;
+  top: 20px;
+  z-index: 10;
+  margin: -90px auto 0;
+  width: fit-content;
+  padding: 12px 25px;
+  background: linear-gradient(135deg,#C0C0C0,#808080,#FFFFFF);
+  border-radius:15px;
+  box-shadow:0 8px 30px rgba(0,0,0,0.35);
+  text-align:center;
+}
+</style>
+
 </style>
 </head>
 <body>
-
+<div id="banner"></div>  <!-- Banner prestij -->
 <nav>
 <h2>🏸 <span class="gradient-text">Liga JJM BC</span> 🏸</h2>
 <div>Jarang² Main Badminton Club😎😂</div>
