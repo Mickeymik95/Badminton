@@ -104,31 +104,31 @@ section{
   border-radius:12px;
   box-shadow:0 4px 12px rgba(0,0,0,0.1);
   color:#333;
+  overflow-x:auto;
 }
 
-/* ===== TABLE FIX UNTUK JADUAL KEDUDUKAN ===== */
-section table{
+/* ===== TABLE FIX UNTUK SELARAS ===== */
+table{
   width:100%;
   border-collapse: separate;
   border-spacing:0 8px;
-  table-layout: fixed;    /* pastikan semua kolum ikut width yang ditetapkan */
+  table-layout: auto;       /* kolum ikut content */
 }
 
-/* Tetapkan lebar kolum dengan tepat supaya selari */
-#markahTable th:nth-child(1){width: 10%;}   /* Rank */
-#markahTable th:nth-child(2){width: 30%;}   /* Pasukan */
-#markahTable th:nth-child(3){width: 15%;}   /* Main */
-#markahTable th:nth-child(4){width: 15%;}   /* Menang */
-#markahTable th:nth-child(5){width: 15%;}   /* Kalah */
-#markahTable th:nth-child(6){width: 15%;}   /* Jumlah Mata */
+#markahTable th:nth-child(1){width:8%;}    /* Rank */
+#markahTable th:nth-child(2){width:30%;}   /* Pasukan */
+#markahTable th:nth-child(3),
+#markahTable th:nth-child(4),
+#markahTable th:nth-child(5){width:15%;}   /* Main, Menang, Kalah */
+#markahTable th:nth-child(6){width:20%;}   /* Jumlah Mata lebih luas */
 
-/* TH & TD styling baru */
 th, td{
   text-align:center;
-  padding:6px 8px;
+  padding:8px 10px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  font-size:14px;
 }
 
 th{
@@ -151,8 +151,8 @@ td{
 
 /* ===== INPUT SCORE FIX ===== */
 input{
-  width:40px;       /* cukup kecil untuk satu baris */
-  padding:4px;
+  width:60px;      /* lebih besar, mudah klik */
+  padding:6px;
   border-radius:6px;
   border:1px solid #aaa;
   text-align:center;
@@ -166,8 +166,9 @@ input:disabled{background:#eee;color:#999;}
 input.positive{color:#00aa00;font-weight:bold;}
 input.negative{color:red;font-weight:bold;}
 input.zero{color:#333;}
+
 button{
-  padding:6px 12px;
+  padding:8px 14px;
   margin:2px;
   border-radius:6px;
   border:none;
@@ -208,12 +209,6 @@ button:hover{
   section{margin:15px 10px;padding:15px;}
   table, th, td, input, button{font-size:12px;padding:6px;}
 }
-
-/* ===== PRINT SAFE ===== */
-@media print{
-  #banner{display:none;}
-  nav{box-shadow:none;}
-}
 </style>
 </head>
 <body>
@@ -234,7 +229,14 @@ button:hover{
 <h3>🏆 Jadual Kedudukan</h3>
 <table id="markahTable">
 <thead>
-<tr><th>Rank</th><th>Pasukan</th><th>Main</th><th>Menang</th><th>Kalah</th><th>Jumlah Mata</th></tr>
+<tr>
+  <th>Rank</th>
+  <th>Pasukan</th>
+  <th>Main</th>
+  <th>Menang</th>
+  <th>Kalah</th>
+  <th>Jumlah Mata</th>
+</tr>
 </thead>
 <tbody></tbody>
 </table>
@@ -244,7 +246,12 @@ button:hover{
 <h3>🔥 Senarai Perlawanan</h3>
 <table>
 <thead>
-<tr><th>No.</th><th>Pasukan</th><th>Skor</th><th>Pasukan</th></tr>
+<tr>
+  <th>No.</th>
+  <th>Pasukan</th>
+  <th>Skor</th>
+  <th>Pasukan</th>
+</tr>
 </thead>
 <tbody id="gameList"></tbody>
 </table>
