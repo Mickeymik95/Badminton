@@ -22,14 +22,15 @@ body{
    ========================= */
 #banner {
   width: 100%;
-  /* tinggi ikut nisbah 16:9 (boleh tukar ikut gambar) */
-  aspect-ratio: 16 / 9;
+  aspect-ratio: 16 / 9; /* nisbah 16:9 responsive */
   background-image: url("banner.jpg"); /* tukar nama gambar awak */
   background-size: cover;
   background-position: center;
   position: relative;
   display: block;
   overflow: hidden;
+  min-height: 200px;
+  max-height: 400px;
 }
 
 /* overlay gelap */
@@ -68,19 +69,19 @@ body{
 }
 
 /* =========================
-   NAV TERAPUNG
+   NAV RESPONSIVE
    ========================= */
 nav{
-  position:sticky;
-  top:20px;
-  z-index:10;
-  width:fit-content;
-  padding:12px 25px;
-  background:linear-gradient(135deg,#C0C0C0,#808080,#FFFFFF);
-  border-radius:15px;
-  box-shadow:0 8px 30px rgba(0,0,0,0.35);
-  text-align:center;
-  margin:auto;
+  position: sticky;
+  top: 10px;
+  z-index: 10;
+  width: 90%;
+  max-width: 950px;
+  padding: 12px 25px;
+  margin: -80px auto 20px;
+  background: linear-gradient(135deg,#C0C0C0,#808080,#FFFFFF);
+  border-radius: 15px;
+  text-align: center;
   transition: all 0.3s ease;
 }
 
@@ -193,10 +194,25 @@ button:hover{
 #passwordModal{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.4);justify-content:center;align-items:center;}
 #passwordModal div{background:#fff;padding:20px;border-radius:8px;text-align:center;color:#333;box-shadow:0 0 15px rgba(0,0,0,0.2);}
 
-/* RESPONSIVE */
+/* =========================
+   RESPONSIVE MEDIA
+   ========================= */
 @media(max-width:600px){
-  #banner{min-height:28vh;}
-  nav h2{font-size:22px;}
+  #banner{min-height:180px;}
+  nav{
+    width:95%;
+    margin:-60px auto 15px;
+    padding:10px 12px;
+  }
+  nav h2{font-size:20px;}
+  section{
+    margin:15px 10px;
+    padding:15px;
+  }
+  table, th, td, input, button{
+    font-size:12px;
+    padding:6px;
+  }
 }
 
 /* PRINT SAFE */
@@ -388,10 +404,12 @@ window.addEventListener("popstate",function(event){
 // ===== PARALLAX + AUTO NAV =====
 const banner = document.getElementById("banner");
 const nav = document.getElementById("mainNav");
+
 function updateNavMargin(){
   const bannerHeight = banner.offsetHeight;
   nav.style.marginTop = `-${bannerHeight/3}px`;
 }
+
 window.addEventListener("resize", updateNavMargin);
 window.addEventListener("load", updateNavMargin);
 window.addEventListener("scroll",()=>{
