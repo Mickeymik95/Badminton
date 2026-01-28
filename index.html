@@ -106,20 +106,25 @@ section{
   color:#333;
 }
 
-/* ===== TABLE RESPONSIVE ===== */
+/* ===== TABLE RESPONSIVE FIX ===== */
 section table{
   display:table;       /* jadual standard */
   margin:0 auto;       /* center di desktop */
   border-collapse:separate;
   border-spacing:0 8px;
   max-width:100%;
-  overflow-x:auto;     /* masih responsive bila sempit */
+  overflow-x:auto;     /* responsive bila sempit */
+  table-layout: fixed; /* kolum sama rata */
 }
+
 th, td{
   text-align:center;
   padding:10px;
-  word-break:break-word;
+  white-space: nowrap;       /* jangan pecahkan baris */
+  overflow: hidden;          /* sembunyi overflow */
+  text-overflow: ellipsis;   /* tunjuk ... bila panjang */
 }
+
 th{
   background:#42a5f580;
   color:#000;
@@ -127,28 +132,33 @@ th{
   border-radius:8px;
   text-shadow:0 0 3px #fff;
 }
+
 td{
   background:#f0f0f0;
   border:none;
   border-radius:8px;
   color:#333;
 }
+
 .firstPlace td{background:#FFF8DC;font-weight:bold;}
 .secondPlace td{background:#E0E0E0;font-weight:bold;}
 
-/* ===== INPUT & BUTTON ===== */
+/* ===== INPUT SCORE FIX ===== */
 input{
-  width:40px;   /* kurang lebar, muat satu baris */
-  padding:4px;  /* pad sesuai */
+  width:40px;       /* cukup kecil untuk satu baris */
+  padding:4px;
   border-radius:6px;
   border:1px solid #aaa;
   text-align:center;
   background:#fff;
   color:#333;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 input:disabled{background:#eee;color:#999;}
 input.positive{color:#00aa00;font-weight:bold;}
-input.negative{color:#ff4444;font-weight:bold;}
+input.negative{color:red;font-weight:bold;}
 input.zero{color:#333;}
 button{
   padding:6px 12px;
