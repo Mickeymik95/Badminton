@@ -6,16 +6,17 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
 /* ===== BODY ===== */
-body{
+body {
   margin:0;
   font-family:'Segoe UI',sans-serif;
   background:#f5f5f5;
   color:#333;
   overflow-x:hidden;
+  font-size:clamp(12px,1.5vw,18px); /* auto scale teks ikut screen */
 }
 
 /* ===== BANNER ===== */
-#banner{
+#banner {
   width:100%;
   aspect-ratio:16/9;
   background-image:url("banner.jpg");
@@ -26,21 +27,21 @@ body{
   min-height:200px;
   max-height:400px;
 }
-#banner::before{
+#banner::before {
   content:"";
   position:absolute;
   inset:0;
   background:linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.7));
   z-index:1;
 }
-#banner::after{
+#banner::after {
   content:"";
   position:absolute;
   inset:0;
   background:radial-gradient(circle at center, rgba(255,255,255,0.08), transparent 60%);
   z-index:2;
 }
-#banner .shimmer{
+#banner .shimmer {
   position:absolute;
   top:0;
   left:-100%;
@@ -50,125 +51,125 @@ body{
   animation:shimmer 3s infinite;
   z-index:3;
 }
-@keyframes shimmer{
+@keyframes shimmer {
   0%{left:-50%;}
   100%{left:100%;}
 }
 
 /* ===== NAV ===== */
-nav{
+nav {
   width:90%;
   max-width:950px;
   margin:20px auto;
-  padding:14px 20px;
+  padding:1em;
   background:linear-gradient(135deg,#C0C0C0,#808080,#fff);
   border-radius:16px;
   text-align:center;
   transition:.3s;
 }
-nav.sticky{
+nav.sticky {
   position:sticky;
   top:10px;
   z-index:100;
 }
-nav h2{
+nav h2 {
   margin:0;
-  font-size:28px;
+  font-size:clamp(16px,2vw,28px);
   font-weight:900;
   display:flex;
   align-items:center;
   justify-content:center;
 }
-.gradient-text{
+.gradient-text {
   background:linear-gradient(135deg,#8e24aa,#f44336,#ffeb3b,#ff9800,#8e24aa);
   -webkit-background-clip:text;
   -webkit-text-fill-color:transparent;
   text-shadow:0 2px 4px rgba(0,0,0,0.3);
-  margin:0 8px;
+  margin:0 4px;
   letter-spacing:1px;
   font-weight:900;
 }
-nav div{
+nav div {
   margin-top:5px;
-  font-size:15px;
+  font-size:clamp(10px,1.5vw,15px);
   font-weight:600;
   color:#0000ff;
 }
 
 /* ===== SECTION ===== */
-section{
+section {
+  width:95%;
   max-width:950px;
   margin:20px auto;
-  padding:20px;
+  padding:1em;
   background:#fff;
   border-radius:12px;
   box-shadow:0 4px 12px rgba(0,0,0,0.1);
   color:#333;
-  overflow-x: auto; /* penting supaya table scroll bila mobile */
+  overflow-x:auto;
 }
 
-/* ===== TABLE RESPONSIVE FIX ===== */
-section table {
-  width: 100%;
-  border-collapse: separate;
-  border-spacing: 0 8px;
-  table-layout: auto;
+/* ===== TABLE RESPONSIVE & AUTO TEXT ===== */
+table {
+  width:100%;
+  border-collapse:separate;
+  border-spacing:0 8px;
+  table-layout:auto;
+  font-size:clamp(10px,1.5vw,16px);
 }
-
-/* Tetapkan lebar kolum jadual kedudukan */
-#markahTable th:nth-child(1){width: 10%;}   /* Rank */
-#markahTable th:nth-child(2){width: 30%;}   /* Pasukan */
-#markahTable th:nth-child(3),
-#markahTable th:nth-child(4),
-#markahTable th:nth-child(5){width: 15%;}   /* Main, Menang, Kalah */
-#markahTable th:nth-child(6){width: 15%;}   /* Jumlah Mata */
-
 th, td {
   text-align:center;
   padding:6px 8px;
-  white-space: normal;
-  word-break: break-word;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  white-space:nowrap; /* semua satu baris */
+  overflow:hidden;
+  text-overflow:ellipsis;
 }
 
-th {
+/* Kolum spesifik jadual kedudukan */
+#markahTable th:nth-child(1){width:10%;}  /* Rank */
+#markahTable th:nth-child(2){width:25%;}  /* Pasukan */
+#markahTable th:nth-child(3),
+#markahTable th:nth-child(4),
+#markahTable th:nth-child(5){width:15%;}  /* Main, Menang, Kalah */
+#markahTable th:nth-child(6){width:20%;}  /* Jumlah Mata */
+
+/* TH & TD Styling */
+th{
   background:#42a5f580;
   color:#000;
   border:none;
   border-radius:8px;
   text-shadow:0 0 3px #fff;
-  font-size:13px;
 }
-
-td {
+td{
   background:#f0f0f0;
   border:none;
   border-radius:8px;
   color:#333;
-  font-size:13px;
 }
-
 .firstPlace td{background:#FFF8DC;font-weight:bold;}
 .secondPlace td{background:#E0E0E0;font-weight:bold;}
 
 /* ===== INPUT SCORE ===== */
-input{
-  min-width:32px;
-  max-width:45px;
+input {
+  width:auto;
+  min-width:30px;
+  max-width:60px;
   padding:4px;
   border-radius:6px;
   border:1px solid #aaa;
   text-align:center;
-  box-sizing:border-box;
+  font-size:clamp(10px,1.2vw,14px);
+  white-space:nowrap;
 }
-
 input:disabled{background:#eee;color:#999;}
 input.positive{color:#00aa00;font-weight:bold;}
 input.negative{color:red;font-weight:bold;}
 input.zero{color:#333;}
-button{
-  padding:6px 12px;
+
+/* ===== BUTTONS ===== */
+button {
+  padding:0.5em 1em;
   margin:2px;
   border-radius:6px;
   border:none;
@@ -176,6 +177,7 @@ button{
   color:white;
   cursor:pointer;
   box-shadow:0 0 10px rgba(66,165,245,0.8);
+  font-size:clamp(10px,1.5vw,14px);
 }
 button:hover{
   background:#1e88e5;
@@ -194,24 +196,23 @@ button:hover{
 }
 #passwordModal div{
   background:#fff;
-  padding:20px;
+  padding:1em;
   border-radius:8px;
   text-align:center;
   color:#333;
   box-shadow:0 0 15px rgba(0,0,0,0.2);
 }
 
-/* ===== MEDIA MOBILE ===== */
+/* ===== MOBILE RESPONSIVE ===== */
 @media(max-width:600px){
-  section{margin:10px; padding:10px; overflow-x:auto;}
-  table, th, td, input, button{font-size:12px; padding:4px;}
-  input{min-width:36px;}
-}
-
-/* ===== PRINT SAFE ===== */
-@media print{
-  #banner{display:none;}
-  nav{box-shadow:none;}
+  section{padding:0.5em;}
+  nav{width:95%;margin:10px auto 15px;padding:0.5em;}
+  nav h2{font-size:clamp(14px,4vw,20px);}
+  table, th, td, input, button{
+    font-size:clamp(10px,3vw,14px);
+    padding:4px 6px;
+  }
+  table {table-layout:fixed;}
 }
 </style>
 
