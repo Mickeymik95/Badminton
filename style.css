@@ -1,0 +1,238 @@
+/* ===== BODY ===== */
+body{
+  margin:0;
+  font-family:'Segoe UI',sans-serif;
+  background:#f5f5f5;
+  color:#333;
+  overflow-x:hidden;
+}
+
+/* ===== BANNER ===== */
+#banner{
+  width:100%;
+  aspect-ratio:16/9;
+  background-image:url("banner.jpg");
+  background-size:cover;
+  background-position:center 15%;
+  position:relative;
+  overflow:hidden;
+  min-height:200px;
+  max-height:400px;
+}
+#banner::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.7));
+  z-index:1;
+}
+#banner::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:radial-gradient(circle at center, rgba(255,255,255,0.08), transparent 60%);
+  z-index:2;
+}
+#banner .shimmer{
+  position:absolute;
+  top:0;
+  left:-100%;
+  width:50%;
+  height:100%;
+  background:linear-gradient(120deg, rgba(255,255,255,0), rgba(255,255,255,0.2), rgba(255,255,255,0));
+  animation:shimmer 3s infinite;
+  z-index:3;
+}
+@keyframes shimmer{
+  0%{left:-50%;}
+  100%{left:100%;}
+}
+
+/* ===== NAVBAR ===== */
+nav{
+  width:90%;
+  max-width:950px;
+  margin:20px auto;
+  padding:14px 20px;
+  background:linear-gradient(135deg,#C0C0C0,#C0C0C0);
+  border-radius:16px;
+  text-align:center;
+  transition:.3s;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+}
+
+nav.sticky{
+  position:sticky;
+  top:10px;
+  z-index:100;
+}
+
+nav h2{
+  margin:0;
+  font-size: clamp(20px, 4vw, 36px); /* auto-fit ikut skrin */
+  font-weight:900;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-wrap:nowrap; /* satu baris */
+}
+
+.gradient-text{
+  background: linear-gradient(135deg,#8e24aa,#f44336,#ff9800,#8e24aa);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  text-shadow:0 2px 4px rgba(0,0,0,0.3);
+  margin:0 8px;
+  letter-spacing:1px;
+  font-weight:900;
+  font-size: clamp(20px, 4vw, 36px); /* ikut h2 */
+}
+
+nav div{
+  margin-top:5px;
+  font-size: clamp(12px, 2vw, 18px); /* auto-fit juga */
+  font-weight:600;
+  color:#0000ff;
+}
+
+/* ===== SECTION ===== */
+section{
+  max-width:950px;
+  margin:20px auto;
+  padding:20px;
+  background:#fff;
+  border-radius:12px;
+  box-shadow:0 4px 12px rgba(0,0,0,0.1);
+  color:#333;
+}
+
+/* ===== TABLE RESPONSIVE CONTAINER ===== */
+.table-container{
+  width:100%;
+  overflow-x:auto;  /* scroll horizontal jika perlu */
+}
+
+/* ===== TABLE RESPONSIVE & AUTO TEXT ===== */
+table {
+  width:100%;
+  border-collapse:separate;
+  border-spacing:0 8px;
+  table-layout:auto;
+  font-size:clamp(10px,1.5vw,16px); /* teks auto ikut skrin */
+}
+
+th, td {
+  text-align:center;
+  padding:6px 8px;
+  white-space:nowrap; /* satu baris */
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+
+/* Kolum spesifik jadual kedudukan */
+#markahTable th:nth-child(1){width:10%;}  /* Rank */
+#markahTable th:nth-child(2){width:25%;}  /* Pasukan */
+#markahTable th:nth-child(3),
+#markahTable th:nth-child(4),
+#markahTable th:nth-child(5){width:15%;}  /* Main, Menang, Kalah */
+#markahTable th:nth-child(6){width:20%;}  /* Jumlah Mata */
+
+/* TH & TD Styling */
+th{
+  background:#42a5f580;
+  color:#000;
+  border:none;
+  border-radius:8px;
+  text-shadow:0 0 3px #fff;
+}
+td{
+  background:#f0f0f0;
+  border:none;
+  border-radius:8px;
+  color:#333;
+}
+.firstPlace td{background:#FFF8DC;font-weight:bold;}
+.secondPlace td{background:#E0E0E0;font-weight:bold;}
+
+/* ===== INPUT SCORE ===== */
+input {
+  width:auto;
+  min-width:30px;
+  max-width:60px;
+  padding:4px;
+  border-radius:6px;
+  border:1px solid #aaa;
+  text-align:center;
+  font-size:clamp(10px,1.2vw,14px); /* auto ikut skrin */
+  white-space:nowrap;
+}
+
+/* ===== WARNA NOMBOR SAHAJA (TANPA BG) ===== */
+input.positive{
+  background:transparent;
+  color:#2E7D32;   /* HIJAU */
+  font-weight:900;
+}
+
+input.negative{
+  background:transparent;
+  color:#C62828;   /* MERAH */
+  font-weight:900;
+}
+
+input.zero{
+  background:transparent;
+  color:#333;
+}
+/* ===== BUTTON ===== */
+button{
+  padding:6px 12px;
+  margin:2px;
+  border-radius:6px;
+  border:none;
+  background:#42a5f5;
+  color:white;
+  cursor:pointer;
+  box-shadow:0 0 10px rgba(66,165,245,0.8);
+  font-size:clamp(10px,1.2vw,14px);
+}
+button:hover{
+  background:#1e88e5;
+  box-shadow:0 0 15px rgba(66,165,245,1);
+}
+#resetBtn{background:#ef5350;box-shadow:0 0 10px rgba(239,83,80,0.8);}
+
+/* ===== PASSWORD MODAL ===== */
+#passwordModal{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.4);
+  justify-content:center;
+  align-items:center;
+}
+#passwordModal div{
+  background:#fff;
+  padding:20px;
+  border-radius:8px;
+  text-align:center;
+  color:#333;
+  box-shadow:0 0 15px rgba(0,0,0,0.2);
+}
+
+/* ===== MEDIA MOBILE ===== */
+@media(max-width:600px){
+  #banner{min-height:180px;}
+  nav{width:95%;margin:10px auto 20px;padding:10px 12px;}
+  section{margin:15px 10px;padding:15px;}
+  table, th, td, input, button{font-size:clamp(10px,2vw,14px);padding:4px;}
+}
+
+/* ===== PRINT SAFE ===== */
+@media print{
+  #banner{display:none;}
+  nav{box-shadow:none;}
+}
