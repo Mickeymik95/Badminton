@@ -17,7 +17,7 @@ body{
   position:relative;
   overflow:hidden;
   min-height:200px;
-  max-height:400px;
+  max-height:800px;
 }
 #banner::before{
   content:"";
