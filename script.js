@@ -78,13 +78,13 @@ function kiraMarkah() {
   });
 }
 
-// ===== PAPARKAN PERLAWANAN (FORMAT BARIS RESPONSIF) =====
+// ===== PAPARKAN PERLAWANAN (STRUKTUR SEBARIS BARU) =====
 function paparkanPerlawanan() {
   let g = document.getElementById("gameList");
   g.innerHTML = "";
   
   if (games.length === 0) {
-    g.innerHTML = `<div style="text-align:center; color:#999; padding:20px; width:100%;">Tiada perlawanan. Sila login & tambah pasukan.</div>`;
+    g.innerHTML = `<div style="text-align:center; color:#999; padding:20px; width:100%;">Tiada perlawanan setakat ini.</div>`;
     return;
   }
   
@@ -114,25 +114,28 @@ function paparkanPerlawanan() {
     let pairB = pairs.find(p => p.name === x.b) || { avatar: defaultAvatar };
     
     g.innerHTML += `
-      <div class="match-row">
-        <div class="match-no">${i + 1}</div>
-        
-        <div class="team-side left-side">
-          <span class="match-team-name">${x.a}</span>
-          ${diffA}
-          <img src="${pairA.avatar}" class="team-avatar">
-        </div>
-        
-        <div class="score-center">
-          <input type="number" ${!isAdmin ? "disabled" : ""} class="${saClass}" value="${x.sa}" onchange="update(${i},'sa',this.value)">
-          <span class="vs-text">VS</span>
-          <input type="number" ${!isAdmin ? "disabled" : ""} class="${sbClass}" value="${x.sb}" onchange="update(${i},'sb',this.value)">
-        </div>
-        
-        <div class="team-side right-side">
-          <img src="${pairB.avatar}" class="team-avatar">
-          ${diffB}
-          <span class="match-team-name">${x.b}</span>
+      <div class="match-card">
+        <div class="match-header">Perlawanan ${i + 1}</div>
+        <div class="match-body-flex">
+          
+          <div class="match-team left-team">
+            ${diffA}
+            <span class="team-name-text">${x.a}</span>
+            <img src="${pairA.avatar}" class="team-avatar">
+          </div>
+          
+          <div class="match-score-block">
+            <input type="number" ${!isAdmin ? "disabled" : ""} class="${saClass}" value="${x.sa}" onchange="update(${i},'sa',this.value)">
+            <span class="vs-style">VS</span>
+            <input type="number" ${!isAdmin ? "disabled" : ""} class="${sbClass}" value="${x.sb}" onchange="update(${i},'sb',this.value)">
+          </div>
+          
+          <div class="match-team right-team">
+            <img src="${pairB.avatar}" class="team-avatar">
+            <span class="team-name-text">${x.b}</span>
+            ${diffB}
+          </div>
+          
         </div>
       </div>
     `;
