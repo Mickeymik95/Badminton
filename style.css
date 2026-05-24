@@ -241,8 +241,6 @@ button:hover{
   border-radius: 50%;
   object-fit: cover;
   border: 1px solid #ccc;
-  display: inline-block;
-  vertical-align: middle;
 }
 
 /* Container Susunan Nama & Avatar */
