@@ -127,9 +127,6 @@ table {
 th, td {
   text-align:center;
   padding:6px 8px;
-  white-space:nowrap; /* satu baris */
-  overflow:hidden;
-  text-overflow:ellipsis;
 }
 
 /* Kolum spesifik jadual kedudukan */
@@ -235,4 +232,42 @@ button:hover{
 @media print{
   #banner{display:none;}
   nav{box-shadow:none;}
+}
+
+/* Styling Avatar Pasukan */
+.team-avatar {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid #ccc;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+/* Container Susunan Nama & Avatar */
+.team-container {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  vertical-align: middle;
+}
+
+.row-reverse {
+  flex-direction: row-reverse;
+}
+
+/* Style Indikator Skor Berwarna */
+.score-diff {
+  font-weight: bold;
+  font-size: 0.85em;
+}
+.score-diff.pos { color: #2E7D32; margin: 0 4px; }
+.score-diff.neg { color: #C62828; margin: 0 4px; }
+.score-diff.zero { color: #333; margin: 0 4px; }
+
+/* Menghilangkan sekat sebaris supaya responsive di phone */
+th, td {
+  text-align: center;
+  padding: 6px 8px;
 }
