@@ -1,74 +1,80 @@
-<meta charset="UTF-8">
-<title>Liga Badminton JJM BC</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="style.css">
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+  <meta charset="UTF-8">
+  <title>Liga Badminton JJM BC</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
 
-<!-- BANNER -->
 <div id="banner">
   <div class="shimmer"></div>
 </div>
 
-<!-- NAV -->
 <nav id="mainNav">
-<h2>🏸 <span class="gradient-text">Liga JM BC</span> 🏸</h2>
-<div>🔥Jarang main BC😂 · 💪Semangat Sukan🔥</div>
+  <h2>🏸 <span class="gradient-text">Liga JJM BC</span> 🏸</h2>
+  <div>🔥Jarang² main BC😂 · 😎Semangat Sukan🔥</div>
 </nav>
 
-<!-- JADUAL -->
 <section>
-<h3>🏆 Jadual Kedudukan</h3>
-<table id="markahTable">
-<thead>
-<tr>
-  <th>Rank</th>
-  <th>Pasukan</th>
-  <th>Main</th>
-  <th>Menang</th>
-  <th>Kalah</th>
-  <th>Jumlah Mata</th>
-</tr>
-</thead>
-<tbody></tbody>
-</table>
+  <h3>🏆 Jadual Kedudukan</h3>
+  <div class="table-container">
+    <table id="markahTable">
+      <thead>
+        <tr>
+          <th>Rank</th>
+          <th>Pasukan</th>
+          <th>Main</th>
+          <th>Menang</th>
+          <th>Kalah</th>
+          <th>Mata</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
 </section>
 
 <section>
-<h3>🔥 Senarai Perlawanan</h3>
-<table>
-<thead>
-<tr>
-  <th>No.</th>
-  <th>Pasukan</th>
-  <th>Skor</th>
-  <th>Pasukan</th>
-</tr>
-</thead>
-<tbody id="gameList"></tbody>
-</table>
+  <h3>🔥 Senarai Perlawanan</h3>
+  <div class="table-container">
+    <table style="table-layout: fixed;">
+      <thead>
+        <tr>
+          <th style="width: 12%;">No.</th>
+          <th style="width: 37%;">Pasukan</th>
+          <th style="width: 14%;">Skor</th>
+          <th style="width: 37%;">Pasukan</th>
+        </tr>
+      </thead>
+      <tbody id="gameList"></tbody>
+    </table>
+  </div>
 
-<div style="text-align:center; display:flex; justify-content:center; align-items:center; gap:10px; margin-top:10px; flex-wrap:wrap;">
-<p id="infoText" style="margin:0;"></p>
-<button onclick="showAdminModal()" title="Login sebagai Admin">🔐 Admin Login</button>
-<a href="https://wa.me/60149236577" target="_blank" style="text-decoration:none;">
-<button style="background:#25D366; box-shadow:0 0 10px rgba(37,211,102,0.8);">
-<img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" style="height:16px; vertical-align:middle; margin-right:5px;">Ws Admin
-</button></a>
-<button onclick="tambahPair()" id="addBtn" style="display:none">➕ Tambah</button>
-<button onclick="buangPair()" id="delBtn" style="display:none">➖ Buang</button>
-<button onclick="resetData()" id="resetBtn" style="display:none">♻️ Reset</button>
-</div>
+  <div style="text-align:center; display:flex; justify-content:center; align-items:center; gap:10px; margin-top:15px; flex-wrap:wrap;">
+    <p id="infoText" style="margin:0; width:100%; font-weight:bold; color:#2E7D32;"></p>
+    <button onclick="showAdminModal()" title="Login sebagai Admin">🔐 Admin Login</button>
+    <a href="https://wa.me/60149236577" target="_blank" style="text-decoration:none;">
+      <button style="background:#25D366; box-shadow:0 0 10px rgba(37,211,102,0.8); display:flex; align-items:center; gap:5px;">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" style="height:16px;">Ws Admin
+      </button>
+    </a>
+    <button onclick="tambahPair()" id="addBtn" style="display:none">➕ Tambah</button>
+    <button onclick="buangPair()" id="delBtn" style="display:none">➖ Buang</button>
+    <button onclick="resetData()" id="resetBtn" style="display:none">♻️ Reset</button>
+  </div>
 </section>
 
-<!-- PASSWORD MODAL -->
 <div id="passwordModal">
-<div>
-<p>Password admin:</p>
-<input type="password" id="adminPwInput">
-<button onclick="checkPassword()">Login</button>
-</div>
+  <div>
+    <p>Password admin:</p>
+    <input type="password" id="adminPwInput" style="max-width:150px; margin-bottom:10px;">
+    <br>
+    <button onclick="checkPassword()">Login</button>
+  </div>
 </div>
 
-<!-- FIREBASE -->
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
 <script src="script.js"></script>

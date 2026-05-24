@@ -5,30 +5,22 @@ firebase.initializeApp({
 });
 const db = firebase.database();
 
-// ===== DATA & ADMIN =====
 let pairs = [], games = [], isAdmin = false;
-
-// Gambar default jika admin tidak masukkan link url semasa menambah pasukan
 const defaultAvatar = "https://cdn-icons-png.flaticon.com/512/3135/3135715.png";
 
 // ===== LOAD PAIRS =====
 db.ref("pairs").on("value", snap => {
   let data = snap.val();
   if (data) {
-    // Memastikan data lama (string) ditukar secara automatik kepada format Objek baharu
     pairs = data.map(p => typeof p === 'string' ? { name: p, avatar: defaultAvatar } : p);
   } else {
-    pairs = []; // Kosong sepenuhnya jika tiada data di Firebase
+    pairs = []; // Tiada apa-apa jika kosong / reset
   }
 });
 
 // ===== LOAD GAMES =====
 db.ref("games").on("value", snap => {
-  if (snap.exists()) { 
-    games = snap.val(); 
-  } else { 
-    games = []; // Kosong sepenuhnya jika tiada perlawanan
-  }
+  games = snap.exists() ? snap.val() : [];
   paparkanPerlawanan();
   kiraMarkah();
 });
@@ -50,12 +42,11 @@ function buatPerlawananRoundRobin() {
   db.ref("games").set(g);
 }
 
-// ===== KIRA MARKAH (JADUAL KEDUDUKAN SELARI) =====
+// ===== KIRA MARKAH =====
 function kiraMarkah() {
   let tb = document.querySelector("#markahTable tbody"); 
   tb.innerHTML = "";
-  
-  if (pairs.length === 0) return; // Jangan kira apa-apa jika tiada pasukan
+  if (pairs.length === 0) return;
 
   let d = {}; 
   pairs.forEach(p => d[p.name] = { avatar: p.avatar || defaultAvatar, main: 0, menang: 0, kalah: 0, jumlah: 0 });
@@ -87,13 +78,13 @@ function kiraMarkah() {
   });
 }
 
-// ===== PAPARKAN PERLAWANAN W/ AVATAR & INDIKATOR MATA =====
+// ===== PAPARKAN PERLAWANAN =====
 function paparkanPerlawanan() {
   let g = document.getElementById("gameList");
   g.innerHTML = "";
   
   if (games.length === 0) {
-    g.innerHTML = `<tr><td colspan="4" style="text-align:center; color:#999; padding:20px;">Tiada perlawanan setakat ini. Pasukan perlu ditambah dahulu.</td></tr>`;
+    g.innerHTML = `<tr><td colspan="4" style="text-align:center; color:#999; padding:20px;">Tiada perlawanan. Sila login & tambah pasukan.</td></tr>`;
     return;
   }
   
@@ -132,9 +123,9 @@ function paparkanPerlawanan() {
           <span class="team-name">${x.a}</span> ${diffA}
         </span>
       </td>
-      <td style="display:flex; justify-content:center; align-items:center; gap:6px;">
+      <td style="display:flex; justify-content:center; align-items:center; gap:3px;">
         <input ${!isAdmin ? "disabled" : ""} class="${saClass}" value="${x.sa}" onchange="update(${i},'sa',this.value)">
-        <span style="font-weight:bold;">🆚</span>
+        <span style="font-weight:bold; font-size:10px;">🆚</span>
         <input ${!isAdmin ? "disabled" : ""} class="${sbClass}" value="${x.sb}" onchange="update(${i},'sb',this.value)">
       </td>
       <td style="text-align:left;">
@@ -147,16 +138,15 @@ function paparkanPerlawanan() {
   });
 }
 
-// ===== UPDATE SCORE =====
 function update(i, f, v) { if (isAdmin) { games[i][f] = v; db.ref("games").set(games); kiraMarkah(); paparkanPerlawanan(); } }
 
-// ===== ADMIN MODAL =====
 function showAdminModal() {
   passwordModal.style.display = "flex";
   adminPwInput.value = "";
   adminPwInput.focus();
   window.history.pushState({ modalOpen: true }, null, window.location.href);
 }
+
 function checkPassword() {
   if (adminPwInput.value === "260895") {
     passwordModal.style.display = "none";
@@ -171,7 +161,6 @@ function checkPassword() {
   }
 }
 
-// ===== TAMBAH PASUKAN DENGAN AVATAR LINK =====
 function tambahPair() {
   let name = prompt("Masukkan Nama Pasukan:");
   if (!name) return;
@@ -180,10 +169,9 @@ function tambahPair() {
   
   pairs.push({ name: name, avatar: avatar });
   db.ref("pairs").set(pairs);
-  buatPerlawananRoundRobin(); // Terus buat jadual baru sebaik sahaja ada pasukan ditambah
+  buatPerlawananRoundRobin();
 }
 
-// ===== BUANG PASUKAN =====
 function buangPair() {
   let n = prompt("Nama Pasukan untuk buang:");
   if (!n) return;
@@ -191,29 +179,21 @@ function buangPair() {
   if (idx > -1) {
     pairs.splice(idx, 1);
     db.ref("pairs").set(pairs);
-    if(pairs.length < 2) {
-      db.ref("games").remove();
-    } else {
-      buatPerlawananRoundRobin();
-    }
+    if(pairs.length < 2) db.ref("games").remove(); else buatPerlawananRoundRobin();
   } else {
     alert("❌ Pasukan tidak dijumpai!");
   }
 }
 
-// ===== RESET DATA (PADAM SEMUA SEKALI) =====
 function resetData() { 
-  if (confirm("Adakah anda pasti untuk RESET SEMUA DATA (Pasukan & Skor akan dipadam)?")) {
+  if (confirm("Adakah anda pasti untuk RESET SEMUA DATA? (Pasukan & Skor dipadam)")) {
     db.ref("pairs").remove();
     db.ref("games").remove();
-    pairs = [];
-    games = [];
-    paparkanPerlawanan();
-    kiraMarkah();
+    pairs = []; games = [];
+    paparkanPerlawanan(); kiraMarkah();
   } 
 }
 
-// ===== POPSTATE MODAL =====
 window.addEventListener("popstate", function (event) {
   if (passwordModal.style.display === "flex") {
     passwordModal.style.display = "none";
@@ -222,7 +202,6 @@ window.addEventListener("popstate", function (event) {
   }
 });
 
-// ===== NAV STICKY & BANNER PARALLAX =====
 const nav = document.getElementById("mainNav");
 const banner = document.getElementById("banner");
 window.addEventListener("scroll", () => {
