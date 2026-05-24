@@ -14,7 +14,7 @@ db.ref("pairs").on("value", snap => {
   if (data) {
     pairs = data.map(p => typeof p === 'string' ? { name: p, avatar: defaultAvatar } : p);
   } else {
-    pairs = []; // Tiada apa-apa jika kosong / reset
+    pairs = [];
   }
 });
 
@@ -78,13 +78,13 @@ function kiraMarkah() {
   });
 }
 
-// ===== PAPARKAN PERLAWANAN =====
+// ===== PAPARKAN PERLAWANAN (FORMAT BARIS RESPONSIF) =====
 function paparkanPerlawanan() {
   let g = document.getElementById("gameList");
   g.innerHTML = "";
   
   if (games.length === 0) {
-    g.innerHTML = `<tr><td colspan="4" style="text-align:center; color:#999; padding:20px;">Tiada perlawanan. Sila login & tambah pasukan.</td></tr>`;
+    g.innerHTML = `<div style="text-align:center; color:#999; padding:20px; width:100%;">Tiada perlawanan. Sila login & tambah pasukan.</div>`;
     return;
   }
   
@@ -94,11 +94,9 @@ function paparkanPerlawanan() {
     let sbClass = x.sb === "" ? "zero" : (+x.sb > +x.sa ? "positive" : (+x.sb < +x.sa ? "negative" : "zero"));
     
     let diffA = "", diffB = "";
-    
     if (x.sa !== "" && x.sb !== "") {
       let scoreA = +x.sa; let scoreB = +x.sb;
       let diff = scoreA - scoreB;
-      
       if (diff > 0) {
         diffA = `<span class="score-diff pos">(+${diff})</span>`;
         diffB = `<span class="score-diff neg">(-${diff})</span>`;
@@ -115,26 +113,29 @@ function paparkanPerlawanan() {
     let pairA = pairs.find(p => p.name === x.a) || { avatar: defaultAvatar };
     let pairB = pairs.find(p => p.name === x.b) || { avatar: defaultAvatar };
     
-    g.innerHTML += `<tr>
-      <td>${i + 1}</td>
-      <td style="text-align:right;">
-        <span class="team-container row-reverse">
+    g.innerHTML += `
+      <div class="match-row">
+        <div class="match-no">${i + 1}</div>
+        
+        <div class="team-side left-side">
+          <span class="match-team-name">${x.a}</span>
+          ${diffA}
           <img src="${pairA.avatar}" class="team-avatar">
-          <span class="team-name">${x.a}</span> ${diffA}
-        </span>
-      </td>
-      <td style="display:flex; justify-content:center; align-items:center; gap:3px;">
-        <input ${!isAdmin ? "disabled" : ""} class="${saClass}" value="${x.sa}" onchange="update(${i},'sa',this.value)">
-        <span style="font-weight:bold; font-size:10px;">🆚</span>
-        <input ${!isAdmin ? "disabled" : ""} class="${sbClass}" value="${x.sb}" onchange="update(${i},'sb',this.value)">
-      </td>
-      <td style="text-align:left;">
-        <span class="team-container">
+        </div>
+        
+        <div class="score-center">
+          <input type="number" ${!isAdmin ? "disabled" : ""} class="${saClass}" value="${x.sa}" onchange="update(${i},'sa',this.value)">
+          <span class="vs-text">VS</span>
+          <input type="number" ${!isAdmin ? "disabled" : ""} class="${sbClass}" value="${x.sb}" onchange="update(${i},'sb',this.value)">
+        </div>
+        
+        <div class="team-side right-side">
           <img src="${pairB.avatar}" class="team-avatar">
-          <span class="team-name">${x.b}</span> ${diffB}
-        </span>
-      </td>
-    </tr>`;
+          ${diffB}
+          <span class="match-team-name">${x.b}</span>
+        </div>
+      </div>
+    `;
   });
 }
 

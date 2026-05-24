@@ -1,4 +1,4 @@
-/* ===== BODY ===== */
+/* ===== BODY & KESELURUHAN ===== */
 body {
   margin: 0;
   font-family: 'Segoe UI', sans-serif;
@@ -26,248 +26,175 @@ body {
   background: linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.7));
   z-index: 1;
 }
-#banner::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(circle at center, rgba(255,255,255,0.08), transparent 60%);
-  z-index: 2;
-}
 #banner .shimmer {
   position: absolute;
-  top: 0;
-  left: -100%;
-  width: 50%;
-  height: 100%;
-  background: linear-gradient(120deg, rgba(255,255,255,0), rgba(255,255,255,0.2), rgba(255,255,255,0));
+  top: 0; left: -100%; width: 50%; height: 100%;
+  background: linear-gradient(120deg, rgba(255,255,255,0), rgba(255,255,255,0.15), rgba(255,255,255,0));
   animation: shimmer 3s infinite;
   z-index: 3;
 }
-@keyframes shimmer {
-  0% { left: -50%; }
-  100% { left: 100%; }
-}
+@keyframes shimmer { 0% { left: -50%; } 100% { left: 100%; } }
 
 /* ===== NAVBAR ===== */
 nav {
-  width: 90%;
-  max-width: 950px;
-  margin: 20px auto;
-  padding: 14px 20px;
+  width: 90%; max-width: 950px;
+  margin: 20px auto; padding: 14px 20px;
   background: linear-gradient(135deg,#C0C0C0,#C0C0C0);
-  border-radius: 16px;
-  text-align: center;
-  transition: .3s;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  border-radius: 16px; text-align: center;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
 }
-nav.sticky {
-  position: sticky;
-  top: 10px;
-  z-index: 100;
-}
-nav h2 {
-  margin: 0;
-  font-size: clamp(18px, 4vw, 36px);
-  font-weight: 900;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
+nav.sticky { position: sticky; top: 10px; z-index: 100; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
+nav h2 { margin: 0; font-size: clamp(18px, 4vw, 32px); font-weight: 900; display: flex; align-items: center; }
 .gradient-text {
   background: linear-gradient(135deg,#8e24aa,#f44336,#ff9800,#8e24aa);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  text-shadow: 0 2px 4px rgba(0,0,0,0.3);
-  margin: 0 5px;
-  letter-spacing: 1px;
-  font-weight: 900;
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.2); margin: 0 5px; font-weight: 900;
 }
-nav div {
-  margin-top: 5px;
-  font-size: clamp(11px, 2vw, 18px);
-  font-weight: 600;
-  color: #0000ff;
-}
+nav div { margin-top: 5px; font-size: clamp(11px, 2vw, 16px); font-weight: 600; color: #0000ff; }
 
-/* ===== SECTION ===== */
+/* ===== SECTION CONTAINER ===== */
 section {
-  max-width: 950px;
-  margin: 20px auto;
-  padding: 20px;
-  background: #fff;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-  color: #333;
+  max-width: 950px; margin: 15px auto; padding: 15px;
+  background: #fff; border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
 }
+h3 { margin-top: 0; margin-bottom: 15px; border-left: 4px solid #42a5f5; padding-left: 8px; }
 
-/* ===== BEKAS JADUAL RESPONSIF (MENGELAKKAN TERKELUAR SKRIN) ===== */
-.table-container {
-  width: 100%;
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-}
-
-/* ===== TABLES ===== */
-table {
-  width: 100%;
-  border-collapse: separate;
-  border-spacing: 0 6px;
-}
-th, td {
-  text-align: center;
-  padding: 8px 6px;
-  font-size: 14px;
-}
-
-/* Lebar Kolum Jadual Kedudukan */
-#markahTable th:nth-child(1) { width: 10%; }
-#markahTable th:nth-child(2) { width: 40%; }
-#markahTable th:nth-child(3),
-#markahTable th:nth-child(4),
-#markahTable th:nth-child(5) { width: 13%; }
-#markahTable th:nth-child(6) { width: 11%; }
-
-th {
-  background: #42a5f580;
-  color: #000;
-  border-radius: 6px;
-  text-shadow: 0 0 2px #fff;
-  font-weight: bold;
-}
-td {
-  background: #f0f0f0;
-  border-radius: 6px;
-  color: #333;
-}
+/* ===== 1. FORMAT JADUAL KEDUDUKAN (RESPONSIF) ===== */
+.table-container { width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+table { width: 100%; border-collapse: separate; border-spacing: 0 6px; }
+th, td { text-align: center; padding: 10px 8px; font-size: 14px; }
+th { background: #42a5f533; color: #000; border-radius: 6px; font-weight: bold; }
+td { background: #f9f9f9; border-radius: 6px; }
 .firstPlace td { background: #FFF8DC; font-weight: bold; }
 .secondPlace td { background: #E0E0E0; font-weight: bold; }
+.table-team-flex { display: flex; align-items: center; justify-content: center; gap: 8px; }
 
-/* ===== AVATAR & NAMA SELARI ===== */
-.team-avatar {
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 1px solid #bbb;
-  flex-shrink: 0;
-}
-.table-team-flex {
+/* ===== 2. REKA LETAK MODEN BARIS PERLAWANAN (SANGAT STABIL) ===== */
+.matches-container {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-}
-.team-container {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
+  flex-direction: column;
+  gap: 10px;
   width: 100%;
 }
-.row-reverse {
-  flex-direction: row-reverse;
-  justify-content: flex-start;
+.match-row {
+  display: flex;
+  align-items: center;
+  background: #f9f9f9;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #eee;
+  gap: 8px;
 }
-.team-name {
-  display: inline-block;
+.match-no {
+  font-size: 12px;
+  color: #777;
+  font-weight: bold;
+  width: 25px;
+  text-align: center;
+  flex-shrink: 0;
+}
+.team-side {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1; /* Ambil ruang seimbang kiri-kanan */
+  overflow: hidden;
+}
+.left-side { justify-content: flex-end; text-align: right; }
+.right-side { justify-content: flex-start; text-align: left; }
+
+.match-team-name {
+  font-size: 14px;
+  font-weight: 500;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  vertical-align: middle;
-  max-width: 140px; /* Lebar nama di laptop/PC */
 }
 
-/* ===== HASIL SKOR MATA (+/-) ===== */
-.score-diff {
-  font-weight: bold;
-  font-size: 0.8em;
+/* Kotak input skor tengah */
+.score-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
   flex-shrink: 0;
 }
+.vs-text {
+  font-size: 11px;
+  font-weight: bold;
+  color: #999;
+}
+input[type="number"] {
+  width: 35px;
+  height: 28px;
+  padding: 2px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  text-align: center;
+  font-size: 14px;
+  font-weight: bold;
+  -moz-appearance: textfield;
+}
+input::-webkit-outer-spin-button, input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+
+/* Warna nombor skor mengikut keadaan menang/kalah */
+input.positive { background: #e8f5e9; color: #2E7D32; border-color: #a5d6a7; }
+input.negative { background: #ffebee; color: #C62828; border-color: #ef9a9a; }
+input.zero { background: #ffffff; color: #333; }
+
+/* Bulat gambar avatar */
+.team-avatar {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid #ddd;
+  flex-shrink: 0;
+}
+
+/* Jarak perbezaan mata (+/-) */
+.score-diff { font-weight: bold; font-size: 0.8px; flex-shrink: 0; font-size: 11px; }
 .score-diff.pos { color: #2E7D32; }
 .score-diff.neg { color: #C62828; }
-.score-diff.zero { color: #555; }
+.score-diff.zero { color: #777; }
 
-/* ===== INPUT SCORE ===== */
-input {
-  width: 28px;
-  padding: 3px;
-  border-radius: 4px;
-  border: 1px solid #aaa;
-  text-align: center;
-  font-size: 13px;
-}
-input.positive { background: transparent; color: #2E7D32; font-weight: 900; }
-input.negative { background: transparent; color: #C62828; font-weight: 900; }
-input.zero { background: transparent; color: #333; }
-
-/* ===== BUTTON ===== */
+/* ===== BUTTON STYLE ===== */
 button {
-  padding: 6px 12px;
-  margin: 2px;
-  border-radius: 6px;
-  border: none;
-  background: #42a5f5;
-  color: white;
-  cursor: pointer;
-  box-shadow: 0 0 8px rgba(66,165,245,0.5);
-  font-size: 13px;
+  padding: 8px 14px; margin: 2px; border-radius: 6px; border: none;
+  background: #42a5f5; color: white; cursor: pointer; font-size: 13px; font-weight: 600;
 }
-button:hover {
-  background: #1e88e5;
-}
-#resetBtn { background: #ef5350; box-shadow: 0 0 8px rgba(239,83,80,0.5); }
+button:hover { background: #1e88e5; }
+#resetBtn { background: #ef5350; }
 
-/* ===== PASSWORD MODAL ===== */
+/* ===== MODAL ===== */
 #passwordModal {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.4);
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
+  display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.4);
+  justify-content: center; align-items: center; z-index: 1000;
 }
-#passwordModal div {
-  background: #fff;
-  padding: 20px;
-  border-radius: 8px;
-  text-align: center;
-  box-shadow: 0 0 15px rgba(0,0,0,0.2);
-}
+#passwordModal div { background: #fff; padding: 20px; border-radius: 8px; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
 
-/* ===== AUTO SAIZ UNTUK TELEFON (MEDIA MOBILE) ===== */
-@media(max-width:600px) {
-  #banner { min-height: 130px; }
-  nav { width: 95%; margin: 10px auto; padding: 10px; }
-  section { margin: 10px 6px; padding: 10px; }
+/* ===== AUTO-SIZE KHUSUS UNTUK TELEFON (MEDIA MOBILE) ===== */
+@media(max-width: 600px) {
+  #banner { min-height: 120px; }
+  nav { width: 92%; margin: 10px auto; padding: 10px; }
+  section { margin: 10px 8px; padding: 10px; }
   
-  th, td { 
-    padding: 6px 3px; 
-    font-size: 11px; 
-  }
+  th, td { padding: 8px 4px; font-size: 11px; }
   
-  /* Had lebar nama pasukan di telefon supaya kotak tak terkeluar */
-  .team-name {
-    max-width: 55px; 
+  /* Saiz di skrin telefon */
+  .match-row { padding: 8px 6px; gap: 4px; }
+  .match-no { width: 15px; font-size: 11px; }
+  .match-team-name { font-size: 12px; }
+  .team-avatar { width: 20px; height: 20px; }
+  .score-diff { font-size: 10px; }
+  
+  /* Input skor yang sangat mesra sentuhan jari di telefon */
+  input[type="number"] {
+    width: 28px;
+    height: 26px;
+    font-size: 12px;
   }
-  .team-avatar {
-    width: 18px;
-    height: 18px;
-  }
-  input {
-    width: 20px;
-    padding: 2px;
-    font-size: 11px;
-  }
-  button {
-    font-size: 11px;
-    padding: 5px 10px;
-  }
-}
-
-@media print {
-  #banner { display: none; }
-  nav { box-shadow: none; }
+  .vs-text { font-size: 9px; }
+  button { font-size: 12px; padding: 6px 10px; }
 }
