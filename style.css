@@ -42,28 +42,29 @@ nav h2 { margin: 0; font-size: clamp(18px, 4vw, 32px); font-weight: 900; display
   -webkit-background-clip: text; -webkit-text-fill-color: transparent;
   margin: 0 5px; font-weight: 900;
 }
-/* ===== 1. KEMASKINI BAHAGIAN NAV DIV ===== */
+
+/* KEMASKINI DI SINI: Ditambah animation untuk kelipan */
 nav div { 
   margin-top: 5px; 
   font-size: clamp(11px, 2vw, 16px); 
   font-weight: 600; 
   color: #0000ff; 
-  /* Tambah baris animasi di bawah ini */
   animation: kelipPutih 2s infinite; 
 }
 
-/* ===== 2. TAMBAH ANIMASI KELIP DI BAWAH CSS ANDA ===== */
+/* TAMBAH ANIMASI INI DI BAHAGIAN BAWAH FAIL CSS ANDA */
 @keyframes kelipPutih {
   0%, 100% {
-    color: #0000ff; /* Warna asal: Biru */
+    color: #0000ff; /* Warna asal biru */
     text-shadow: none;
   }
   50% {
-    color: #ffffff; /* Warna semasa berkelip: Putih */
-    /* Tambah sedikit kesan 'glow' neon biru di belakang tulisan putih supaya teks tidak tenggelam */
+    color: #ffffff; /* Kelip jadi putih */
+    /* Kesan sinaran neon biru di belakang tulisan putih supaya teks menonjol */
     text-shadow: 0 0 8px #0000ff, 0 0 15px #0000ff; 
   }
 }
+
 
 
 /* ===== CONTAINER BLOCK ===== */
