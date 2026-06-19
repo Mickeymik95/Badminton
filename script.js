@@ -49,7 +49,7 @@ function kiraMarkah() {
   if (pairs.length === 0) return;
 
   let d = {}; 
-  pairs.forEach(p => d[p.name] = { avatar: p.avatar || defaultAvatar, main: 0, menang: 0, kalah: 0, jumlah: 0, pungutan: 0, hilang: 0 });
+  pairs.forEach(p => d[p.name] = { avatar: p.avatar || defaultAvatar, main: 0, menang: 0, kalah: 0, jumlah: 0, pungutan: 0, hilang: 0, menangScore: 0 });
   
   games.forEach(g => {
     if (!g || g.sa === "" || g.sb === "") return;
@@ -59,16 +59,19 @@ function kiraMarkah() {
     d[g.a].main++; d[g.b].main++;
     d[g.a].pungutan += sa; d[g.b].pungutan += sb;
     if (sa > sb) {
+      d[g.a].menangScore += sa;
       d[g.a].hilang += 0;
-      d[g.b].hilang -= sa;
+      d[g.b].hilang += sb - sa;
     } else if (sb > sa) {
-      d[g.a].hilang -= sb;
+      d[g.b].menangScore += sb;
+      d[g.a].hilang += sa - sb;
       d[g.b].hilang += 0;
     } else {
       d[g.a].hilang += 0;
       d[g.b].hilang += 0;
     }
-    d[g.a].jumlah += sa - sb; d[g.b].jumlah += sb - sa;
+    d[g.a].jumlah = d[g.a].pungutan + d[g.a].hilang;
+    d[g.b].jumlah = d[g.b].pungutan + d[g.b].hilang;
     sa > sb ? (d[g.a].menang++, d[g.b].kalah++) : (d[g.b].menang++, d[g.a].kalah++);
   });
   
@@ -84,7 +87,7 @@ function kiraMarkah() {
           <span>${e[0]}</span>
         </div>
       </td>
-      <td>${e[1].main}</td><td>${e[1].menang}</td><td>${e[1].kalah}</td><td>${e[1].jumlah}</td><td>${e[1].pungutan}</td><td>${e[1].hilang}</td>
+      <td>${e[1].main}</td><td>${e[1].menangScore}</td><td>${e[1].kalah}</td><td>${e[1].jumlah}</td><td>${e[1].pungutan}</td><td>${e[1].hilang}</td>
     </tr>`;
   });
 }
