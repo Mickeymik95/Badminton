@@ -49,7 +49,7 @@ function kiraMarkah() {
   if (pairs.length === 0) return;
 
   let d = {}; 
-  pairs.forEach(p => d[p.name] = { avatar: p.avatar || defaultAvatar, main: 0, menang: 0, kalah: 0, jumlah: 0 });
+  pairs.forEach(p => d[p.name] = { avatar: p.avatar || defaultAvatar, main: 0, menang: 0, kalah: 0, jumlah: 0, pungutan: 0, hilang: 0 });
   
   games.forEach(g => {
     if (!g || g.sa === "" || g.sb === "") return;
@@ -57,6 +57,17 @@ function kiraMarkah() {
     if(!d[g.a] || !d[g.b]) return;
     
     d[g.a].main++; d[g.b].main++;
+    d[g.a].pungutan += sa; d[g.b].pungutan += sb;
+    if (sa > sb) {
+      d[g.a].hilang += 0;
+      d[g.b].hilang -= sa;
+    } else if (sb > sa) {
+      d[g.a].hilang -= sb;
+      d[g.b].hilang += 0;
+    } else {
+      d[g.a].hilang += 0;
+      d[g.b].hilang += 0;
+    }
     d[g.a].jumlah += sa - sb; d[g.b].jumlah += sb - sa;
     sa > sb ? (d[g.a].menang++, d[g.b].kalah++) : (d[g.b].menang++, d[g.a].kalah++);
   });
@@ -73,7 +84,7 @@ function kiraMarkah() {
           <span>${e[0]}</span>
         </div>
       </td>
-      <td>${e[1].main}</td><td>${e[1].menang}</td><td>${e[1].kalah}</td><td>${e[1].jumlah}</td>
+      <td>${e[1].main}</td><td>${e[1].menang}</td><td>${e[1].kalah}</td><td>${e[1].jumlah}</td><td>${e[1].pungutan}</td><td>${e[1].hilang}</td>
     </tr>`;
   });
 }
@@ -213,3 +224,6 @@ window.addEventListener("scroll", () => {
   else nav.classList.remove("sticky");
   banner.style.backgroundPositionY = window.scrollY * 0.5 + "px";
 });
+
+
+
