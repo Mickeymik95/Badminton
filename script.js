@@ -49,7 +49,7 @@ function kiraMarkah() {
   if (pairs.length === 0) return;
 
   let d = {}; 
-  pairs.forEach(p => d[p.name] = { avatar: p.avatar || defaultAvatar, main: 0, menang: 0, kalah: 0, jumlah: 0, pungutan: 0, hilang: 0, menangScore: 0 });
+  pairs.forEach(p => d[p.name] = { avatar: p.avatar || defaultAvatar, main: 0, menang: 0, kalah: 0, jumlah: 0, pungutan: 0, hilang: 0 });
   
   games.forEach(g => {
     if (!g || g.sa === "" || g.sb === "") return;
@@ -59,11 +59,9 @@ function kiraMarkah() {
     d[g.a].main++; d[g.b].main++;
     d[g.a].pungutan += sa; d[g.b].pungutan += sb;
     if (sa > sb) {
-      d[g.a].menangScore += sa;
       d[g.a].hilang += 0;
       d[g.b].hilang += sb - sa;
     } else if (sb > sa) {
-      d[g.b].menangScore += sb;
       d[g.a].hilang += sa - sb;
       d[g.b].hilang += 0;
     } else {
@@ -87,7 +85,7 @@ function kiraMarkah() {
           <span>${e[0]}</span>
         </div>
       </td>
-      <td>${e[1].main}</td><td>${e[1].menangScore}</td><td>${e[1].kalah}</td><td>${e[1].jumlah}</td><td>${e[1].pungutan}</td><td>${e[1].hilang}</td>
+      <td>${e[1].main}</td><td>${e[1].menang}</td><td>${e[1].kalah}</td><td>${e[1].jumlah}</td><td>${e[1].pungutan}</td><td>${e[1].hilang}</td>
     </tr>`;
   });
 }
@@ -170,7 +168,7 @@ function checkPassword() {
     passwordModal.style.display = "none";
     isAdmin = true;
     infoText.innerText = "Admin aktif";
-    addBtn.style.display = delBtn.style.display = resetBtn.style.display = "inline-block";
+    addBtn.style.display = delBtn.style.display = resetBtn.style.display = resetSkorBtn.style.display = "inline-block";
     paparkanPerlawanan();
   } else {
     alert("❌ Password salah!");
@@ -203,13 +201,26 @@ function buangPair() {
   }
 }
 
-function resetData() { 
+function resetData() {
   if (confirm("Adakah anda pasti untuk RESET SEMUA DATA? (Pasukan & Skor dipadam)")) {
     db.ref("pairs").remove();
     db.ref("games").remove();
     pairs = []; games = [];
     paparkanPerlawanan(); kiraMarkah();
-  } 
+  }
+}
+
+function resetSkor() {
+  if (confirm("Adakah anda pasti untuk RESET SKOR SAHAJA? (Pasukan kekal, skor dipadam)")) {
+    games.forEach(g => {
+      if (g) {
+        g.sa = "";
+        g.sb = "";
+      }
+    });
+    db.ref("games").set(games);
+    paparkanPerlawanan(); kiraMarkah();
+  }
 }
 
 window.addEventListener("popstate", function (event) {
@@ -227,6 +238,3 @@ window.addEventListener("scroll", () => {
   else nav.classList.remove("sticky");
   banner.style.backgroundPositionY = window.scrollY * 0.5 + "px";
 });
-
-
-

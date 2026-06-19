@@ -177,13 +177,85 @@ input.zero { background: #ffffff; color: #333; }
 .score-diff.neg { color: #C62828; }
 .score-diff.zero { color: #777; }
 
-/* BUTTONS & MODAL */
+/* ===== 🎨 BUTTONS MODERN GLOW STYLE ===== */
 button {
-  padding: 8px 14px; margin: 2px; border-radius: 6px; border: none;
-  background: #42a5f5; color: white; cursor: pointer; font-size: 13px; font-weight: 600;
+  padding: 10px 16px;
+  margin: 4px;
+  border-radius: 8px;
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  letter-spacing: 0.5px;
+  transition: all 0.2s ease-block;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
-button:hover { background: #1e88e5; }
-#resetBtn { background: #ef5350; }
+
+/* Kesan Apabila Tetikus Lalat (Hover) & Ditekan (Active) */
+button:hover {
+  transform: translateY(-2px); /* Butang naik sedikit */
+  box-shadow: 0 5px 12px rgba(0, 0, 0, 0.15);
+}
+
+button:active {
+  transform: translateY(1px); /* Kesan mampat ke bawah semasa klik */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* 1. Butang Admin Login (Default Biru Gelap + Cahaya Sisi) */
+button[onclick="showAdminModal()"], button[onclick="checkPassword()"] {
+  background: linear-gradient(135deg, #2c3e50, #34495e);
+  border: 1px solid #4a6572;
+}
+button[onclick="showAdminModal()"]:hover, button[onclick="checkPassword()"]:hover {
+  background: linear-gradient(135deg, #34495e, #2c3e50);
+}
+
+/* 2. Butang WhatsApp Admin (Kekal Hijau Khas + Glow Impak) */
+a button {
+  background: linear-gradient(135deg, #1fa251, #25D366) !important;
+}
+a button:hover {
+  background: linear-gradient(135deg, #157a3b, #1fa251) !important;
+  box-shadow: 0 0 15px rgba(37, 211, 102, 0.6) !important;
+}
+
+/* 3. Butang Tambah Pasukan (Hijau Teal Teduh) */
+#addBtn {
+  background: linear-gradient(135deg, #00897b, #00bfa5);
+}
+#addBtn:hover {
+  background: linear-gradient(135deg, #00695c, #00897b);
+}
+
+/* 4. Butang Buang Pasukan (Merah Jambu Gelap / Crimson) */
+#delBtn {
+  background: linear-gradient(135deg, #c2185b, #e91e63);
+}
+#delBtn:hover {
+  background: linear-gradient(135deg, #880e4f, #c2185b);
+}
+
+/* 5. Butang Reset Skor - (Jingga Gelap / Burnt Orange) */
+#resetSkorBtn {
+  background: linear-gradient(135deg, #e65100, #ff6d00);
+}
+#resetSkorBtn:hover {
+  background: linear-gradient(135deg, #b33600, #e65100);
+}
+
+/* 6. Butang Reset Semua Data - (Merah Gelap Pekat / Burgundy - Isyarat Bahaya) */
+#resetBtn {
+  background: linear-gradient(135deg, #b71c1c, #d32f2f);
+}
+#resetBtn:hover {
+  background: linear-gradient(135deg, #7f0000, #b71c1c);
+}
 
 #passwordModal {
   display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.4);
