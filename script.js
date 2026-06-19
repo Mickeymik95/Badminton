@@ -42,13 +42,14 @@ function buatPerlawananRoundRobin() {
   db.ref("games").set(g);
 }
 
-// ===== KIRA MARKAH =====
+// ===== KIRA MARKAH (VERSI MATA LEBIHAN) =====
 function kiraMarkah() {
   let tb = document.querySelector("#markahTable tbody"); 
   tb.innerHTML = "";
   if (pairs.length === 0) return;
 
   let d = {}; 
+  // pungutan = Jumlah Lebihan Mata (M.Menang), hilang = Jumlah Bolos/Kekurangan Mata (M.Kalah)
   pairs.forEach(p => d[p.name] = { avatar: p.avatar || defaultAvatar, main: 0, menang: 0, kalah: 0, jumlah: 0, pungutan: 0, hilang: 0 });
   
   games.forEach(g => {
@@ -57,22 +58,34 @@ function kiraMarkah() {
     if(!d[g.a] || !d[g.b]) return;
     
     d[g.a].main++; d[g.b].main++;
-    d[g.a].pungutan += sa; d[g.b].pungutan += sb;
+    
+    // Kira perbezaan skor perlawanan semasa
     if (sa > sb) {
-      d[g.a].hilang += 0;
-      d[g.b].hilang += sb - sa;
+      // Pasukan A menang: dapat mata lebihan bersih
+      d[g.a].pungutan += (sa - sb); 
+      d[g.b].hilang += (sa - sb); // Pasukan B kalah: catat berapa mata mereka tertinggal
+      
+      d[g.a].menang++; 
+      d[g.b].kalah++;
     } else if (sb > sa) {
-      d[g.a].hilang += sa - sb;
-      d[g.b].hilang += 0;
+      // Pasukan B menang: dapat mata lebihan bersih
+      d[g.b].pungutan += (sb - sa); 
+      d[g.a].hilang += (sb - sa); // Pasukan A kalah: catat berapa mata mereka tertinggal
+      
+      d[g.b].menang++; 
+      d[g.a].kalah++;
     } else {
-      d[g.a].hilang += 0;
-      d[g.b].hilang += 0;
+      // Jika seri (jika ada sistem seri)
+      d[g.a].pungutan += 0;
+      d[g.b].pungutan += 0;
     }
-    d[g.a].jumlah = d[g.a].pungutan + d[g.a].hilang;
-    d[g.b].jumlah = d[g.b].pungutan + d[g.b].hilang;
-    sa > sb ? (d[g.a].menang++, d[g.b].kalah++) : (d[g.b].menang++, d[g.a].kalah++);
+    
+    // Mata keseluruhan di dalam carta kedudukan ditentukan oleh baki bersih (Lebihan - Kekurangan)
+    d[g.a].jumlah = d[g.a].pungutan - d[g.a].hilang;
+    d[g.b].jumlah = d[g.b].pungutan - d[g.b].hilang;
   });
   
+  // Susun ranking: Utamakan bilangan MENANG terbanyak. Jika sama, guna JUMLAH MATA BERSIH terbanyak.
   let s = Object.entries(d).sort((a, b) => b[1].menang - a[1].menang || b[1].jumlah - a[1].jumlah);
   
   s.forEach((e, i) => {
@@ -85,11 +98,12 @@ function kiraMarkah() {
           <span>${e[0]}</span>
         </div>
       </td>
-      <td>${e[1].main}</td><td>${e[1].menang}</td><td>${e[1].kalah}</td><td>${e[1].jumlah}</td><td>${e[1].pungutan}</td><td>${e[1].hilang}</td>
-    </tr>`;
+      <td>${e[1].main}</td>
+      <td>${e[1].menang}</td>
+      <td>${e[1].kalah}</td>
+      <td>${e[1].jumlah}</td> <td>+${e[1].pungutan}</td> <td>-${e[1].hilang}</td>   </tr>`;
   });
 }
-
 // ===== PAPARKAN PERLAWANAN (STRUKTUR SEBARIS BARU) =====
 function paparkanPerlawanan() {
   let g = document.getElementById("gameList");
